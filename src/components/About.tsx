@@ -34,23 +34,18 @@ const About = () => (
 
         <div className="space-y-5 text-navy text-base md:text-lg leading-relaxed">
           <p>
-            Welcome to <strong>Cell Sync Solutions</strong>. We're a family-run business that began in late 2023, and in just two years
-            we've evolved from importing products to working directly with a <strong>US-Based manufacturer</strong> that follows strict
-            cGMP guidelines. Every product in our store is carefully chosen based on <strong>clinical data</strong>, proven{" "}
-            <strong>efficacy</strong>, and <strong>consistency</strong> — ensuring that from packaging to performance, our high standards remain constant.
+            We provide <strong>premium-grade research peptides</strong> engineered for precision, purity, and performance. Our products are
+            synthesized using advanced manufacturing protocols and undergo strict quality control to ensure consistent, high-purity
+            compounds that meet the demands of modern research environments.
           </p>
           <p>
-            We truly invest in our customers. We track every question, issue, and piece of feedback — whether it comes through chat,
-            phone, or email — so you always receive the support you need.
+            Built for laboratories, professionals, and serious researchers, our catalog delivers reliable compounds with{" "}
+            <strong>verified specifications</strong>, batch consistency, and fast, secure fulfillment. Every order is handled with care to
+            preserve product integrity from production to delivery.
           </p>
           <p>
-            <strong>Cell Sync Solutions</strong> isn't just a business; it's a community. We're dedicated to offering the{" "}
-            <strong>highest quality</strong> research use only peptides at fair prices. <strong>Trust</strong> is our foundation,
-            and we'd rather close our doors than compromise on quality or the integrity of our community.
-          </p>
-          <p>
-            We're here to <strong>support</strong> and <strong>empower</strong> research organizations to explore the potential of
-            peptides. Thank you for choosing Cell Sync Solutions, where <strong>quality</strong>, commitment, and research always come first.
+            With a focus on scientific accuracy, operational efficiency, and customer satisfaction, we position ourselves as a{" "}
+            <strong>dependable supplier</strong> for those who require uncompromising standards in peptide sourcing.
           </p>
         </div>
       </div>
