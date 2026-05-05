@@ -10,7 +10,7 @@ const Navbar = () => (
           <img src={logo} alt="Cell Sync Solutions" width={64} height={64} className="h-14 w-14 object-contain drop-shadow-[0_0_8px_hsl(var(--primary)/0.45)]" />
           <span className="font-extrabold text-xl tracking-tight text-primary leading-none">
             CELL SYNC SOLUTIONS<br/>
-            <span className="text-[10px] font-semibold tracking-[0.25em] text-navy-foreground/70">"PEPTIDES TO SOLVE YOUR EVERY NEED"</span>
+            <span className="text-[10px] font-semibold tracking-[0.25em] text-navy-foreground/70">"PEPTIDES MADE FOR YOU"</span>
           </span>
         </a>
         <div className="flex items-center gap-8 text-sm font-bold uppercase tracking-wider">
