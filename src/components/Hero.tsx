@@ -5,7 +5,7 @@ const Hero = () => (
   <section className="relative bg-navy text-navy-foreground overflow-hidden">
     <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_30%,hsl(var(--primary)/0.4),transparent_50%),radial-gradient(circle_at_80%_70%,hsl(var(--primary)/0.25),transparent_50%)]" />
     <div className="container relative z-10 py-24 md:py-32 text-center max-w-4xl">
-      <p className="text-primary font-bold uppercase tracking-[0.3em] text-sm mb-5">Peptides Made Simple</p>
+      <p className="text-primary font-bold uppercase tracking-[0.3em] text-sm mb-5">Peptides Made For You</p>
       <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6">
         Research-Grade Peptides,<br/>
         <span className="text-primary">Made in the USA</span>
