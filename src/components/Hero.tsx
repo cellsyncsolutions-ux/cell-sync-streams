@@ -1,35 +1,24 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShieldCheck, FileCheck2 } from "lucide-react";
-import hero from "@/assets/hero.jpg";
+import { ArrowRight } from "lucide-react";
 
 const Hero = () => (
-  <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
-    <div className="absolute inset-0 opacity-25">
-      <img src={hero} alt="" width={1600} height={1024} className="h-full w-full object-cover" />
-    </div>
-    <div className="container relative z-10 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
-      <div>
-        <p className="text-xs font-semibold tracking-[0.3em] mb-4 opacity-80">SHOP / RESEARCH PEPTIDES</p>
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-5">
-          Research-Grade Peptides
-          <span className="block opacity-90 text-2xl md:text-3xl font-medium mt-3">Trusted by Scientists Worldwide</span>
-        </h1>
-        <p className="text-base md:text-lg opacity-85 max-w-xl mb-8">
-          Browse our catalog of high-purity peptides and research compounds. Every batch
-          is independently tested and shipped with a full Certificate of Analysis.
-        </p>
-        <div className="flex flex-wrap items-center gap-4">
-          <Button variant="secondary" size="lg" className="gap-2 font-semibold">
-            Shop Catalog <ArrowRight className="h-4 w-4" />
-          </Button>
-          <Button variant="glass" size="lg">View Test Results</Button>
-        </div>
-        <div className="flex flex-wrap gap-6 mt-10 text-sm opacity-90">
-          <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" /> ≥99% Purity Verified</span>
-          <span className="flex items-center gap-2"><FileCheck2 className="h-4 w-4" /> Third-Party COAs</span>
-        </div>
+  <section className="relative bg-navy text-navy-foreground overflow-hidden">
+    <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_20%_30%,hsl(var(--primary)/0.4),transparent_50%),radial-gradient(circle_at_80%_70%,hsl(var(--primary)/0.25),transparent_50%)]" />
+    <div className="container relative z-10 py-24 md:py-32 text-center max-w-4xl">
+      <p className="text-primary font-bold uppercase tracking-[0.3em] text-sm mb-5">Peptides Made Simple</p>
+      <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6">
+        Research-Grade Peptides,<br/>
+        <span className="text-primary">Made in the USA</span>
+      </h1>
+      <p className="text-lg md:text-xl text-navy-foreground/80 max-w-2xl mx-auto mb-10">
+        Family-run, cGMP-manufactured, and independently tested. Quality, commitment, and research — always first.
+      </p>
+      <div className="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="hero" size="lg" className="gap-2 font-bold">
+          Shop Catalog <ArrowRight className="h-4 w-4" />
+        </Button>
+        <Button variant="glass" size="lg" className="border-navy-foreground/30 text-navy-foreground">Learn More</Button>
       </div>
-      <div className="hidden md:block" />
     </div>
   </section>
 );
