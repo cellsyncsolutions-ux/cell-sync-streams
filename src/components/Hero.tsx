@@ -10,10 +10,7 @@ const Hero = () => (
         Research-Grade Peptides,<br/>
         <span className="text-primary">Made in the USA</span>
       </h1>
-      <p className="text-lg md:text-xl text-navy-foreground/80 max-w-2xl mx-auto mb-10">
-        Family-run, cGMP-manufactured, and independently tested. Quality, commitment, and research — always first.
-      </p>
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
         <Button variant="hero" size="lg" className="gap-2 font-bold">
           Shop Catalog <ArrowRight className="h-4 w-4" />
         </Button>
