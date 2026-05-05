@@ -2,7 +2,7 @@ const stats = [
   { v: "≥99%", l: "Verified purity" },
   { v: "15+", l: "Peptides in catalog" },
   { v: "5,000+", l: "Labs served" },
-  { v: "24h", l: "Average dispatch" },
+  { v: "24h", l: "Ships in 24H" },
 ];
 
 const Stats = () => (
