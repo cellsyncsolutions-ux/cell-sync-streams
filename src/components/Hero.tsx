@@ -8,7 +8,7 @@ const Hero = () => (
       <p className="text-primary font-bold uppercase tracking-[0.3em] text-sm mb-5">Peptides Made For You</p>
       <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6">
         Research-Grade Peptides,<br/>
-        <span className="text-primary">Made in the USA</span>
+        <span className="text-primary">Based in the USA</span>
       </h1>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
         <Button variant="hero" size="lg" className="gap-2 font-bold">
