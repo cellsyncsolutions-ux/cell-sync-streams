@@ -1,6 +1,6 @@
 const stats = [
   { v: "≥99%", l: "Verified purity" },
-  { v: "15+", l: "Peptides in catalog" },
+  { v: "15+", l: "Peptides in Catalog" },
   { v: "5,000+", l: "Labs served" },
   { v: "24H", l: "Ships in 24 Hours" },
 ];
