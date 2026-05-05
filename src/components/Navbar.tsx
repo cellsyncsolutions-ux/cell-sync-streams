@@ -9,8 +9,8 @@ const Navbar = () => (
         <a href="#" className="flex items-center gap-3">
           <img src={logo} alt="Cell Sync Solutions" width={48} height={48} className="h-12 w-12" />
           <span className="font-extrabold text-xl tracking-tight text-primary leading-none">
-            CELL SYNC<br/>
-            <span className="text-[10px] font-semibold tracking-[0.25em] text-navy-foreground/70">SOLUTIONS · PEPTIDES MADE SIMPLE</span>
+            CELL SYNC SOLUTIONS<br/>
+            <span className="text-[10px] font-semibold tracking-[0.25em] text-navy-foreground/70">"PEPTIDES TO SOLVE YOUR EVERY NEED"</span>
           </span>
         </a>
         <div className="flex items-center gap-8 text-sm font-bold uppercase tracking-wider">
