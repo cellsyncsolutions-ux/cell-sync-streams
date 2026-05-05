@@ -1,10 +1,23 @@
 import logo from "@/assets/logo-mark.png";
 
-const bullets = [
+const bullets: Array<string | JSX.Element> = [
   "Our goal is customer satisfaction and serving our community.",
   "We do what our competitors won't — answering the phone and replying to chats and emails within an hour or two.",
   "All products are for research and testing only. We cannot provide guidance on personal use.",
-  "Visit PubMed to learn more about peptide research.",
+  (
+    <>
+      Visit{" "}
+      <a
+        href="https://pubmed.ncbi.nlm.nih.gov/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary font-semibold hover:underline"
+      >
+        PubMed
+      </a>{" "}
+      to learn more about peptide research.
+    </>
+  ),
 ];
 
 const About = () => (
@@ -43,8 +56,8 @@ const About = () => (
       </div>
 
       <ul className="mt-16 max-w-4xl mx-auto space-y-3 text-navy">
-        {bullets.map((b) => (
-          <li key={b} className="flex gap-3">
+        {bullets.map((b, i) => (
+          <li key={i} className="flex gap-3">
             <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
             <span>{b}</span>
           </li>
