@@ -1,4 +1,4 @@
-import logo from "@/assets/logo-mark.png";
+const logo = "https://lh3.googleusercontent.com/a/ACg8ocJHA1ncNzKTdVCUHpJNwmBkJKeUg9e9bgaxrf7CwA0sh7fd_qU=s360-c-no";
 
 const bullets = [
   "Our goal is customer satisfaction and serving our community.",

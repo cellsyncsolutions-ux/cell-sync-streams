@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import logo from "@/assets/logo-mark.png";
+const logo = "https://lh3.googleusercontent.com/a/ACg8ocJHA1ncNzKTdVCUHpJNwmBkJKeUg9e9bgaxrf7CwA0sh7fd_qU=s360-c-no";
 
 const Navbar = () => (
   <header className="sticky top-0 inset-x-0 z-50">
