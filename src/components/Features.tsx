@@ -1,24 +1,24 @@
-import { Cloud, Lock, Zap, RefreshCw, Smartphone, BarChart3 } from "lucide-react";
+import { Microscope, ShieldCheck, FileCheck2, Thermometer, Atom, Truck } from "lucide-react";
 
 const features = [
-  { icon: RefreshCw, title: "Real-time Sync", desc: "Bi-directional synchronization across iOS, Android, and wearables in milliseconds." },
-  { icon: Lock, title: "Zero-trust Security", desc: "End-to-end encryption with biometric verification and policy enforcement." },
-  { icon: Cloud, title: "Cloud-native", desc: "Globally distributed infrastructure that scales effortlessly with your team." },
-  { icon: Zap, title: "Instant Provisioning", desc: "Roll out new devices in seconds with templated configurations and apps." },
-  { icon: Smartphone, title: "Cross-platform", desc: "One control plane for every operating system, manufacturer, and form factor." },
-  { icon: BarChart3, title: "Live Analytics", desc: "Granular insights into device health, usage, and compliance — all in real time." },
+  { icon: Microscope, title: "≥99% Purity", desc: "Every batch verified by reverse-phase HPLC and mass spectrometry analysis." },
+  { icon: FileCheck2, title: "Third-party COA", desc: "Independent certificates of analysis available for every lot we ship." },
+  { icon: Atom, title: "Research Grade", desc: "Synthesized to strict laboratory standards in ISO-certified facilities." },
+  { icon: Thermometer, title: "Cold-chain Shipping", desc: "Temperature-controlled packaging preserves peptide stability in transit." },
+  { icon: ShieldCheck, title: "Lot Traceability", desc: "Full chain-of-custody documentation from synthesis to delivery." },
+  { icon: Truck, title: "Fast Dispatch", desc: "In-stock peptides ship within 24 hours from our temperature-controlled vault." },
 ];
 
 const Features = () => (
   <section id="features" className="py-24 relative">
     <div className="container">
       <div className="max-w-2xl mx-auto text-center mb-16">
-        <p className="text-sm font-semibold text-primary mb-3 tracking-wide uppercase">Platform</p>
+        <p className="text-sm font-semibold text-primary mb-3 tracking-wide uppercase">Why researchers choose us</p>
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-          Everything you need to <span className="text-gradient-primary">stay in sync</span>
+          Built for <span className="text-gradient-primary">reproducible science</span>
         </h2>
         <p className="text-muted-foreground text-lg">
-          A complete toolkit for managing mobile devices at any scale — built for modern teams.
+          Quality you can verify. Documentation you can trust. Peptides that perform.
         </p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

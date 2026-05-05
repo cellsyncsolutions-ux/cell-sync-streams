@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, FlaskConical } from "lucide-react";
 import hero from "@/assets/hero.jpg";
 
 const Hero = () => (
@@ -12,22 +12,22 @@ const Hero = () => (
 
     <div className="container relative z-10 max-w-5xl text-center">
       <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-card/40 backdrop-blur px-4 py-1.5 text-xs text-muted-foreground mb-8">
-        <ShieldCheck className="h-3.5 w-3.5 text-primary" />
-        Trusted by 12,000+ mobile teams worldwide
+        <FlaskConical className="h-3.5 w-3.5 text-primary" />
+        For Research Use Only · Not for Human Consumption
       </div>
       <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-6">
-        Sync every device.<br />
-        <span className="text-gradient-primary">Secure every byte.</span>
+        Premium research<br />
+        <span className="text-gradient-primary">peptides & reagents.</span>
       </h1>
       <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-        Cell Sync Solutions unifies your fleet of mobile devices with real-time synchronization,
-        zero-trust security, and seamless cross-platform management.
+        Cell Sync Solutions supplies laboratories with high-purity peptides backed by
+        third-party HPLC and mass-spec analysis. Engineered for reproducible science.
       </p>
       <div className="flex flex-wrap items-center justify-center gap-4">
         <Button variant="hero" size="lg">
-          Start free trial <ArrowRight className="h-4 w-4" />
+          Browse catalog <ArrowRight className="h-4 w-4" />
         </Button>
-        <Button variant="glass" size="lg">Book a demo</Button>
+        <Button variant="glass" size="lg">Request COA</Button>
       </div>
     </div>
   </section>

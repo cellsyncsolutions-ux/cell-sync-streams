@@ -1,8 +1,8 @@
 const stats = [
-  { v: "99.99%", l: "Uptime SLA" },
-  { v: "12K+", l: "Active teams" },
-  { v: "4.2M", l: "Devices synced" },
-  { v: "<50ms", l: "Sync latency" },
+  { v: "≥99%", l: "Verified purity" },
+  { v: "200+", l: "Peptides in catalog" },
+  { v: "5,000+", l: "Labs served" },
+  { v: "24h", l: "Average dispatch" },
 ];
 
 const Stats = () => (

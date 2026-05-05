@@ -1,7 +1,7 @@
 const steps = [
-  { n: "01", t: "Connect", d: "Enroll devices in seconds via QR code, MDM, or zero-touch deployment." },
-  { n: "02", t: "Configure", d: "Apply policies, push apps, and customize experiences from one dashboard." },
-  { n: "03", t: "Sync & Scale", d: "Watch your fleet stay synchronized, secure, and always up to date." },
+  { n: "01", t: "Browse", d: "Search our catalog of research peptides with full COAs and spec sheets." },
+  { n: "02", t: "Verify", d: "Review independent purity data and confirm research-use credentials." },
+  { n: "03", t: "Receive", d: "Cold-chain delivery to your lab — typically within 24–72 hours." },
 ];
 
 const HowItWorks = () => (
