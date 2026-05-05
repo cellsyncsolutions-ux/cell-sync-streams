@@ -67,7 +67,7 @@ const About = () => (
       <div className="mt-20 grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
         <div className="bg-secondary rounded-xl p-8 border-l-4 border-primary">
           <h3 className="text-2xl font-extrabold uppercase text-primary mb-3">Our Vision</h3>
-          <p className="text-navy">To be the most trusted source of research peptides — known for transparency, scientific rigor, and a community-first approach.</p>
+          <p className="text-navy">To be the most trusted source for research peptides by upholding uncompromising standards in quality, transparency, and scientific integrity.</p>
         </div>
         <div className="bg-secondary rounded-xl p-8 border-l-4 border-primary">
           <h3 className="text-2xl font-extrabold uppercase text-primary mb-3">Our Mission</h3>
