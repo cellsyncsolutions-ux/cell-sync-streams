@@ -1,4 +1,5 @@
 import { FlaskConical, Twitter, Facebook, Instagram, Send } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/i18n/LanguageContext";
 
 const Footer = () => {
@@ -38,6 +39,14 @@ const Footer = () => {
           <li><a href="#faq">{t("footer_faq")}</a></li>
           <li><a href="#track">{t("footer_track")}</a></li>
           <li><a href="#contact">{t("footer_contact")}</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 className="font-bold uppercase tracking-wider mb-4 text-xs">{t("footer_legal")}</h4>
+        <ul className="space-y-2 opacity-85">
+          <li><Link to="/terms" className="hover:underline">{t("footer_terms")}</Link></li>
+          <li><Link to="/privacy" className="hover:underline">{t("footer_privacy")}</Link></li>
+          <li><Link to="/refund-policy" className="hover:underline">{t("footer_refund")}</Link></li>
         </ul>
       </div>
     </div>
