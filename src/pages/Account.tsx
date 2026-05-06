@@ -41,6 +41,7 @@ type Order = {
   points_redeemed: number;
   discount: number;
   subtotal: number;
+  points_reversed: boolean;
   order_items: OrderItem[];
 };
 
@@ -63,7 +64,7 @@ const Account = () => {
       setProfile(prof as Profile | null);
       const { data: ords } = await supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price)")
         .order("created_at", { ascending: false });
       setOrders((ords as unknown as Order[]) || []);
     })();
@@ -117,7 +118,7 @@ const Account = () => {
     const [{ data: ords }, { data: prof }] = await Promise.all([
       supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price)")
         .order("created_at", { ascending: false }),
       supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle(),
     ]);
@@ -190,7 +191,9 @@ const Account = () => {
                       </div>
                       <div>
                         <p className="text-xs uppercase tracking-wider text-muted-foreground">Points earned</p>
-                        <p className="font-bold text-primary">+{o.points_earned}</p>
+                        <p className={`font-bold ${o.points_reversed ? "text-muted-foreground line-through" : "text-primary"}`}>
+                          +{o.points_earned}
+                        </p>
                       </div>
                       <div>
                         <p className="text-xs uppercase tracking-wider text-muted-foreground">Total</p>
@@ -207,8 +210,28 @@ const Account = () => {
                     </ul>
                     {Number(o.points_redeemed) > 0 && (
                       <div className="mt-3 pt-3 border-t border-border text-sm flex justify-between text-primary">
-                        <span>Redeemed {o.points_redeemed} pts</span>
-                        <span>−${Number(o.discount).toFixed(2)}</span>
+                        <span className={o.points_reversed ? "line-through text-muted-foreground" : ""}>
+                          Redeemed {o.points_redeemed} pts
+                        </span>
+                        <span className={o.points_reversed ? "line-through text-muted-foreground" : ""}>
+                          −${Number(o.discount).toFixed(2)}
+                        </span>
+                      </div>
+                    )}
+                    {o.points_reversed && (
+                      <div className="mt-3 pt-3 border-t border-border text-sm space-y-1">
+                        {Number(o.points_redeemed) > 0 && (
+                          <div className="flex justify-between text-emerald-600 dark:text-emerald-400">
+                            <span>Refunded {o.points_redeemed} pts to balance</span>
+                            <span>+{o.points_redeemed}</span>
+                          </div>
+                        )}
+                        {Number(o.points_earned) > 0 && (
+                          <div className="flex justify-between text-destructive">
+                            <span>Removed {o.points_earned} earned pts from balance</span>
+                            <span>−{o.points_earned}</span>
+                          </div>
+                        )}
                       </div>
                     )}
                     {o.status === "pending" && (
