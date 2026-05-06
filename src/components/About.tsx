@@ -4,9 +4,7 @@ import { useLanguage } from "@/i18n/LanguageContext";
 const About = () => {
   const { t } = useLanguage();
   const bullets: Array<string | JSX.Element> = [
-    t("about_bullet_1"),
     t("about_bullet_2"),
-    t("about_bullet_3"),
     (
       <>
         {t("about_bullet_4_pre")}
