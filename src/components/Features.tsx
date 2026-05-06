@@ -1,25 +1,25 @@
 import { Microscope, ShieldCheck, FileCheck2, Thermometer, Atom, Truck } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
-const features = [
-  { icon: Microscope, title: "≥99% Purity", desc: "Every batch verified by reverse-phase HPLC and mass spectrometry analysis." },
-  { icon: FileCheck2, title: "Third-party COA", desc: "Independent certificates of analysis available for every lot we ship." },
-  { icon: Atom, title: "Research Grade", desc: "Synthesized to strict laboratory standards in ISO-certified facilities." },
-  { icon: Thermometer, title: "Cold-chain Shipping", desc: "Temperature-controlled packaging preserves peptide stability in transit." },
-  { icon: ShieldCheck, title: "Lot Traceability", desc: "Full chain-of-custody documentation from synthesis to delivery." },
-  { icon: Truck, title: "Fast Dispatch", desc: "In-stock peptides ship within 24 hours from our temperature-controlled vault." },
-];
-
-const Features = () => (
+const Features = () => {
+  const { t } = useLanguage();
+  const features = [
+    { icon: Microscope, title: t("feat_purity_t"), desc: t("feat_purity_d") },
+    { icon: FileCheck2, title: t("feat_coa_t"), desc: t("feat_coa_d") },
+    { icon: Atom, title: t("feat_research_t"), desc: t("feat_research_d") },
+    { icon: Thermometer, title: t("feat_cold_t"), desc: t("feat_cold_d") },
+    { icon: ShieldCheck, title: t("feat_lot_t"), desc: t("feat_lot_d") },
+    { icon: Truck, title: t("feat_fast_t"), desc: t("feat_fast_d") },
+  ];
+  return (
   <section id="features" className="py-24 relative">
     <div className="container">
       <div className="max-w-2xl mx-auto text-center mb-16">
-        <p className="text-sm font-semibold text-primary mb-3 tracking-wide uppercase">Why researchers choose us</p>
+        <p className="text-sm font-semibold text-primary mb-3 tracking-wide uppercase">{t("features_kicker")}</p>
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-          Built for <span className="text-gradient-primary">reproducible science</span>
+          {t("features_title_1")}<span className="text-gradient-primary">{t("features_title_2")}</span>
         </h2>
-        <p className="text-muted-foreground text-lg">
-          Quality you can verify. Documentation you can trust. Peptides that perform.
-        </p>
+        <p className="text-muted-foreground text-lg">{t("features_subtitle")}</p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {features.map((f) => (
@@ -34,6 +34,7 @@ const Features = () => (
       </div>
     </div>
   </section>
-);
+  );
+};
 
 export default Features;

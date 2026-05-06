@@ -1,6 +1,9 @@
 import { FlaskConical, Twitter, Facebook, Instagram, Send } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
-const Footer = () => (
+const Footer = () => {
+  const { t } = useLanguage();
+  return (
   <footer className="bg-navy text-navy-foreground mt-0">
     <div className="container py-14 grid md:grid-cols-4 gap-10 text-sm">
       <div className="md:col-span-2">
@@ -10,7 +13,7 @@ const Footer = () => (
           </span>
           <span className="font-extrabold text-lg leading-tight text-primary">CELL SYNC<br/><span className="text-xs font-medium tracking-[0.2em] opacity-70 text-navy-foreground">SOLUTIONS</span></span>
         </div>
-        <p className="opacity-85 max-w-md">Research-Grade Peptides — Trusted by Scientists. Independently tested for purity, identity, and stability.</p>
+        <p className="opacity-85 max-w-md">{t("footer_tagline")}</p>
         <div className="flex gap-3 mt-5">
           {[Twitter, Facebook, Instagram, Send].map((Ic, i) => (
             <a key={i} href="#" className="grid place-items-center h-9 w-9 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 transition-smooth">
@@ -20,32 +23,33 @@ const Footer = () => (
         </div>
       </div>
       <div>
-        <h4 className="font-bold uppercase tracking-wider mb-4 text-xs">Shop</h4>
+        <h4 className="font-bold uppercase tracking-wider mb-4 text-xs">{t("footer_shop")}</h4>
         <ul className="space-y-2 opacity-85">
-          <li><a href="#shop">All Products</a></li>
-          <li><a href="#shop">Peptides</a></li>
-          <li><a href="#shop">Blends</a></li>
-          <li><a href="#shop">Capsules</a></li>
+          <li><a href="#shop">{t("footer_all")}</a></li>
+          <li><a href="#shop">{t("cat_peptides")}</a></li>
+          <li><a href="#shop">{t("cat_blends")}</a></li>
+          <li><a href="#shop">{t("cat_capsules")}</a></li>
         </ul>
       </div>
       <div>
-        <h4 className="font-bold uppercase tracking-wider mb-4 text-xs">Support</h4>
+        <h4 className="font-bold uppercase tracking-wider mb-4 text-xs">{t("footer_support")}</h4>
         <ul className="space-y-2 opacity-85">
-          <li><a href="#coa">COAs & Test Results</a></li>
-          <li><a href="#faq">FAQ</a></li>
-          <li><a href="#track">Track Order</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#coa">{t("footer_coa")}</a></li>
+          <li><a href="#faq">{t("footer_faq")}</a></li>
+          <li><a href="#track">{t("footer_track")}</a></li>
+          <li><a href="#contact">{t("footer_contact")}</a></li>
         </ul>
       </div>
     </div>
     <div className="border-t border-navy-foreground/15">
       <div className="container py-8 text-xs opacity-80 space-y-3">
-        <p><strong>FDA Disclaimer:</strong> The statements made within this website have not been evaluated by the US Food and Drug Administration. The statements and the products of this company are not intended to diagnose, treat, cure or prevent any disease. All products are for laboratory developmental research USE ONLY. Products are not for human consumption.</p>
-        <p>Cell Sync Solutions is a chemical supplier. Cell Sync Solutions is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act.</p>
-        <p className="pt-3 border-t border-navy-foreground/15">© {new Date().getFullYear()} Cell Sync Solutions. All rights reserved.</p>
+        <p>{t("footer_fda")}</p>
+        <p>{t("footer_supplier")}</p>
+        <p className="pt-3 border-t border-navy-foreground/15">© {new Date().getFullYear()} Cell Sync Solutions. {t("footer_rights")}</p>
       </div>
     </div>
   </footer>
-);
+  );
+};
 
 export default Footer;

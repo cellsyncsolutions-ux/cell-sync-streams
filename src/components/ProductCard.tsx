@@ -1,14 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { Product } from "@/data/products";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
-const ProductCard = ({ p }: { p: Product }) => (
+const ProductCard = ({ p }: { p: Product }) => {
+  const { t } = useLanguage();
+  const catLabel =
+    p.category === "Peptides" ? t("cat_peptides") :
+    p.category === "Blends" ? t("cat_blends") :
+    p.category === "Capsules" ? t("cat_capsules") : p.category;
+  return (
   <article className="group rounded-lg border border-border bg-card overflow-hidden shadow-card transition-smooth hover:-translate-y-1 hover:shadow-glow">
     <div className="relative aspect-square bg-secondary overflow-hidden">
       {p.sale && (
         <span className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded">
-          Sale!
+          {t("product_sale")}
         </span>
       )}
       <img
@@ -21,7 +28,7 @@ const ProductCard = ({ p }: { p: Product }) => (
       />
     </div>
     <div className="p-5 text-center">
-      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{p.category}</p>
+      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{catLabel}</p>
       <h3 className="font-semibold text-base mb-2 min-h-[3rem] leading-snug">{p.name}</h3>
       <div className="mb-4">
         {p.priceRange ? (
@@ -38,10 +45,11 @@ const ProductCard = ({ p }: { p: Product }) => (
         )}
       </div>
       <Button variant={p.variants ? "outline" : "hero"} size="sm" className="w-full">
-        {p.variants ? "Select Options" : "Add to Cart"}
+        {p.variants ? t("product_select") : t("product_add")}
       </Button>
     </div>
   </article>
-);
+  );
+};
 
 export default ProductCard;

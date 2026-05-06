@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FlaskConical } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const AgeGate = () => {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!localStorage.getItem("css-age-ok")) setOpen(true);
@@ -17,13 +19,10 @@ const AgeGate = () => {
         <div className="grid place-items-center h-16 w-16 mx-auto mb-5 rounded-full bg-primary-foreground/10">
           <FlaskConical className="h-8 w-8" />
         </div>
-        <h2 className="text-2xl font-bold mb-3">You must be at least 21 to enter</h2>
-        <p className="text-sm opacity-90 mb-6">
-          By entering this site you confirm that you are a research professional
-          and accept our Terms & Conditions. All products are for laboratory research use only.
-        </p>
+        <h2 className="text-2xl font-bold mb-3">{t("age_title")}</h2>
+        <p className="text-sm opacity-90 mb-6">{t("age_body")}</p>
         <div className="flex gap-3 justify-center">
-          <Button variant="secondary" onClick={() => (window.location.href = "https://google.com")}>Decline</Button>
+          <Button variant="secondary" onClick={() => (window.location.href = "https://google.com")}>{t("age_decline")}</Button>
           <Button
             variant="glass"
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
@@ -32,7 +31,7 @@ const AgeGate = () => {
               setOpen(false);
             }}
           >
-            Accept & Enter
+            {t("age_accept")}
           </Button>
         </div>
       </div>
