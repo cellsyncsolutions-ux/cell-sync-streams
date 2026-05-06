@@ -58,8 +58,10 @@ export type Database = {
       orders: {
         Row: {
           created_at: string
+          discount: number
           id: string
           points_earned: number
+          points_redeemed: number
           shipping_address_line1: string | null
           shipping_address_line2: string | null
           shipping_city: string | null
@@ -68,13 +70,16 @@ export type Database = {
           shipping_postal_code: string | null
           shipping_state: string | null
           status: string
+          subtotal: number
           total: number
           user_id: string
         }
         Insert: {
           created_at?: string
+          discount?: number
           id?: string
           points_earned?: number
+          points_redeemed?: number
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
@@ -83,13 +88,16 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           status?: string
+          subtotal?: number
           total?: number
           user_id: string
         }
         Update: {
           created_at?: string
+          discount?: number
           id?: string
           points_earned?: number
+          points_redeemed?: number
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
@@ -98,6 +106,7 @@ export type Database = {
           shipping_postal_code?: string | null
           shipping_state?: string | null
           status?: string
+          subtotal?: number
           total?: number
           user_id?: string
         }
