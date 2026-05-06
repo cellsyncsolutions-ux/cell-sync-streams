@@ -3,10 +3,14 @@ import { products } from "@/data/products";
 import ProductCard from "./ProductCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
-const categories = ["All", "Peptides", "Blends", "Capsules"];
+const categories = ["All", "Peptides", "Blends", "Capsules"] as const;
 
 const Shop = () => {
+  const { t } = useLanguage();
+  const catLabel = (c: string) =>
+    c === "All" ? t("cat_all") : c === "Peptides" ? t("cat_peptides") : c === "Blends" ? t("cat_blends") : t("cat_capsules");
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("default");
@@ -19,26 +23,26 @@ const Shop = () => {
     <section id="shop" className="py-16 bg-secondary/40">
       <div className="container">
         <div className="mb-10">
-          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">Home / Shop</p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Shop</h2>
+          <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">{t("shop_breadcrumb")}</p>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{t("shop_title")}</h2>
         </div>
 
         <div className="grid lg:grid-cols-[260px_1fr] gap-8">
           <aside className="space-y-6">
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-3">Search</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-3">{t("shop_search")}</h3>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                 <Input
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
-                  placeholder="Search products..."
+                  placeholder={t("shop_search_placeholder")}
                   className="pl-9 bg-card"
                 />
               </div>
             </div>
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-3">Categories</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-3">{t("shop_categories")}</h3>
               <ul className="space-y-1.5">
                 {categories.map((c) => (
                   <li key={c}>
@@ -48,32 +52,32 @@ const Shop = () => {
                         cat === c ? "bg-primary text-primary-foreground font-semibold" : "hover:bg-card text-muted-foreground"
                       }`}
                     >
-                      {c} <span className="opacity-60">({c === "All" ? products.length : products.filter((p) => p.category === c).length})</span>
+                      {catLabel(c)} <span className="opacity-60">({c === "All" ? products.length : products.filter((p) => p.category === c).length})</span>
                     </button>
                   </li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-3">Status</h3>
+              <h3 className="text-sm font-bold uppercase tracking-wider mb-3">{t("shop_status")}</h3>
               <ul className="space-y-1.5 text-sm text-muted-foreground">
-                <li className="px-3">● In stock</li>
-                <li className="px-3">○ Out of stock</li>
+                <li className="px-3">{t("shop_in_stock")}</li>
+                <li className="px-3">{t("shop_out_stock")}</li>
               </ul>
             </div>
           </aside>
 
           <div>
             <div className="flex items-center justify-between mb-6 text-sm text-muted-foreground">
-              <span>Showing {list.length} of {products.length} results</span>
+              <span>{t("shop_showing").replace("{n}", String(list.length)).replace("{total}", String(products.length))}</span>
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
                 className="bg-card border border-border rounded px-3 py-1.5 text-sm"
               >
-                <option value="default">Default sorting</option>
-                <option value="low">Price: low to high</option>
-                <option value="high">Price: high to low</option>
+                <option value="default">{t("shop_sort_default")}</option>
+                <option value="low">{t("shop_sort_low")}</option>
+                <option value="high">{t("shop_sort_high")}</option>
               </select>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
