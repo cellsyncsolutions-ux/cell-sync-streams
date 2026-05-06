@@ -8,13 +8,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
-import { Trash2 } from "lucide-react";
+import { Trash2, Award } from "lucide-react";
+
+const POINTS_PER_DOLLAR = 100; // 100 pts = $1
 
 const Checkout = () => {
   const { user, loading } = useAuth();
   const { items, total, updateQty, removeItem, clear } = useCart();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [availablePoints, setAvailablePoints] = useState(0);
+  const [pointsToRedeem, setPointsToRedeem] = useState(0);
   const [shipping, setShipping] = useState({
     name: "",
     address_line1: "",
@@ -33,6 +37,7 @@ const Checkout = () => {
     if (!user) return;
     supabase.from("profiles").select("*").eq("id", user.id).maybeSingle().then(({ data }) => {
       if (data) {
+        setAvailablePoints(data.points || 0);
         setShipping({
           name: data.full_name || "",
           address_line1: data.address_line1 || "",
@@ -46,6 +51,17 @@ const Checkout = () => {
     });
   }, [user]);
 
+  // Cap redemption to balance and to the order subtotal
+  const subtotal = total;
+  const maxRedeemableByCart = Math.floor(subtotal * POINTS_PER_DOLLAR);
+  const maxRedeemable = Math.min(availablePoints, maxRedeemableByCart);
+  const safePoints = Math.max(0, Math.min(pointsToRedeem, maxRedeemable));
+  const discount = safePoints / POINTS_PER_DOLLAR;
+  const finalTotal = Math.max(0, subtotal - discount);
+
+  const applyMax = () => setPointsToRedeem(maxRedeemable);
+  const clearRedeem = () => setPointsToRedeem(0);
+
   const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!user || items.length === 0) return;
@@ -58,7 +74,10 @@ const Checkout = () => {
       .from("orders")
       .insert({
         user_id: user.id,
-        total,
+        subtotal,
+        discount,
+        points_redeemed: safePoints,
+        total: finalTotal,
         status: "pending",
         shipping_name: shipping.name,
         shipping_address_line1: shipping.address_line1,
@@ -91,7 +110,12 @@ const Checkout = () => {
       return;
     }
     clear();
-    toast.success(`Order placed! You earned ${order.points_earned} points`);
+    const earned = order.points_earned ?? 0;
+    toast.success(
+      safePoints > 0
+        ? `Order placed! Redeemed ${safePoints} pts ($${discount.toFixed(2)} off) · Earned ${earned} pts`
+        : `Order placed! You earned ${earned} points`
+    );
     navigate("/account");
   };
 
@@ -176,13 +200,65 @@ const Checkout = () => {
                   </li>
                 ))}
               </ul>
-              <div className="border-t border-border pt-4 space-y-1 mb-4">
-                <div className="flex justify-between font-extrabold text-lg">
-                  <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
+
+              <div className="border-t border-border pt-4 mb-4">
+                <div className="bg-secondary/60 rounded-lg p-3 mb-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Award className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-bold">Redeem points</span>
+                    <span className="ml-auto text-xs text-muted-foreground">
+                      Balance: <span className="font-bold text-foreground">{availablePoints}</span>
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground mb-2">{POINTS_PER_DOLLAR} pts = $1 off</p>
+                  {maxRedeemable > 0 ? (
+                    <>
+                      <Input
+                        type="number"
+                        min={0}
+                        max={maxRedeemable}
+                        step={POINTS_PER_DOLLAR}
+                        value={pointsToRedeem}
+                        onChange={(e) => setPointsToRedeem(Math.max(0, parseInt(e.target.value || "0", 10)))}
+                        className="bg-card"
+                      />
+                      <div className="flex gap-2 mt-2">
+                        <Button type="button" size="sm" variant="outline" className="flex-1 h-8" onClick={applyMax}>
+                          Apply max ({maxRedeemable})
+                        </Button>
+                        {safePoints > 0 && (
+                          <Button type="button" size="sm" variant="ghost" className="h-8" onClick={clearRedeem}>
+                            Clear
+                          </Button>
+                        )}
+                      </div>
+                    </>
+                  ) : (
+                    <p className="text-xs text-muted-foreground">
+                      {availablePoints === 0 ? "No points yet — earn points by placing orders." : "Cart total too low to redeem."}
+                    </p>
+                  )}
                 </div>
-                <p className="text-xs text-primary">You'll earn {Math.floor(total)} points</p>
+
+                <div className="space-y-1.5 text-sm">
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Subtotal</span>
+                    <span>${subtotal.toFixed(2)}</span>
+                  </div>
+                  {safePoints > 0 && (
+                    <div className="flex justify-between text-primary">
+                      <span>Points discount ({safePoints} pts)</span>
+                      <span>−${discount.toFixed(2)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between font-extrabold text-lg pt-2 border-t border-border">
+                    <span>Total</span>
+                    <span>${finalTotal.toFixed(2)}</span>
+                  </div>
+                  <p className="text-xs text-primary pt-1">You'll earn {Math.floor(finalTotal)} points</p>
+                </div>
               </div>
+
               <Button type="submit" variant="hero" className="w-full" disabled={submitting}>
                 {submitting ? "Placing order..." : "Place Order"}
               </Button>
