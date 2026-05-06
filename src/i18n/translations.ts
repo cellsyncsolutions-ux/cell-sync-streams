@@ -109,6 +109,10 @@ export const translations = {
     footer_supplier:
       "Cell Sync Solutions is a chemical supplier. Cell Sync Solutions is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act.",
     footer_rights: "All rights reserved.",
+    footer_legal: "Legal",
+    footer_terms: "Terms of Service",
+    footer_privacy: "Privacy Policy",
+    footer_refund: "Refund & Return Policy",
 
     // Age gate
     age_title: "You must be at least 21 to enter",
@@ -222,6 +226,10 @@ export const translations = {
     footer_supplier:
       "Cell Sync Solutions es un proveedor químico. Cell Sync Solutions no es una farmacia de compuestos ni una instalación de compuestos químicos según se define en la sección 503A de la Ley Federal de Alimentos, Medicamentos y Cosméticos.",
     footer_rights: "Todos los derechos reservados.",
+    footer_legal: "Legal",
+    footer_terms: "Términos del Servicio",
+    footer_privacy: "Política de Privacidad",
+    footer_refund: "Política de Reembolsos y Devoluciones",
 
     age_title: "Debes tener al menos 21 años para entrar",
     age_body:
