@@ -32,6 +32,12 @@ type OrderItem = {
   unit_price: number;
 };
 
+type StatusEntry = {
+  id: string;
+  status: string;
+  created_at: string;
+};
+
 type Order = {
   id: string;
   created_at: string;
@@ -43,6 +49,7 @@ type Order = {
   subtotal: number;
   points_reversed: boolean;
   order_items: OrderItem[];
+  order_status_history: StatusEntry[];
 };
 
 const Account = () => {
@@ -64,7 +71,7 @@ const Account = () => {
       setProfile(prof as Profile | null);
       const { data: ords } = await supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
         .order("created_at", { ascending: false });
       setOrders((ords as unknown as Order[]) || []);
     })();
@@ -118,7 +125,7 @@ const Account = () => {
     const [{ data: ords }, { data: prof }] = await Promise.all([
       supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
         .order("created_at", { ascending: false }),
       supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle(),
     ]);
@@ -244,6 +251,33 @@ const Account = () => {
                         >
                           {cancelingId === o.id ? "Canceling..." : "Cancel order"}
                         </Button>
+                      </div>
+                    )}
+                    {o.order_status_history && o.order_status_history.length > 0 && (
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Status history</p>
+                        <ol className="relative border-l border-border ml-2 space-y-3">
+                          {[...o.order_status_history]
+                            .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+                            .map((h, idx, arr) => {
+                              const isLatest = idx === arr.length - 1;
+                              return (
+                                <li key={h.id} className="ml-4">
+                                  <span
+                                    className={`absolute -left-[5px] w-2.5 h-2.5 rounded-full ${
+                                      isLatest ? "bg-primary" : "bg-muted-foreground/40"
+                                    }`}
+                                  />
+                                  <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
+                                    <span className="font-bold capitalize">{h.status}</span>
+                                    <span className="text-xs text-muted-foreground">
+                                      {new Date(h.created_at).toLocaleString()}
+                                    </span>
+                                  </div>
+                                </li>
+                              );
+                            })}
+                        </ol>
                       </div>
                     )}
                   </div>
