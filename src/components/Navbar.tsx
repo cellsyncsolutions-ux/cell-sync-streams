@@ -1,11 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, User } from "lucide-react";
 import logo from "@/assets/logo-mark.png";
 import { useLanguage } from "@/i18n/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { useCart } from "@/contexts/CartContext";
+import CartSheet from "./CartSheet";
 
 const Navbar = () => {
   const { t } = useLanguage();
+  const { user } = useAuth();
+  const { count } = useCart();
   return (
   <header className="sticky top-0 inset-x-0 z-50">
     <div className="bg-navy text-navy-foreground">
@@ -21,9 +27,22 @@ const Navbar = () => {
           <a href="#about" className="hidden md:block hover:text-primary transition-smooth">{t("nav_about")}</a>
           <a href="#shop" className="hidden md:block hover:text-primary transition-smooth">{t("nav_shop")}</a>
           <a href="#contact" className="hidden md:block hover:text-primary transition-smooth">{t("nav_contact")}</a>
-          <a href="#login" className="hidden md:block hover:text-primary transition-smooth">{t("nav_login")}</a>
+          {user ? (
+            <Link to="/account" className="hidden md:flex items-center gap-1.5 hover:text-primary transition-smooth">
+              <User className="h-4 w-4" /> Account
+            </Link>
+          ) : (
+            <Link to="/auth" className="hidden md:block hover:text-primary transition-smooth">{t("nav_login")}</Link>
+          )}
           <LanguageSwitcher />
-          <Button variant="hero" size="sm" className="gap-2"><ShoppingCart className="h-4 w-4" /> {t("nav_cart")}</Button>
+          <CartSheet>
+            <Button variant="hero" size="sm" className="gap-2 relative">
+              <ShoppingCart className="h-4 w-4" /> {t("nav_cart")}
+              {count > 0 && (
+                <span className="absolute -top-2 -right-2 bg-navy text-navy-foreground text-[10px] font-bold rounded-full h-5 min-w-5 px-1 grid place-items-center">{count}</span>
+              )}
+            </Button>
+          </CartSheet>
         </div>
       </nav>
     </div>
