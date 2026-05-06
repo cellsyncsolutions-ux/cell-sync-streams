@@ -253,6 +253,33 @@ const Account = () => {
                         </Button>
                       </div>
                     )}
+                    {o.order_status_history && o.order_status_history.length > 0 && (
+                      <div className="mt-4 pt-4 border-t border-border">
+                        <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">Status history</p>
+                        <ol className="relative border-l border-border ml-2 space-y-3">
+                          {[...o.order_status_history]
+                            .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+                            .map((h, idx, arr) => {
+                              const isLatest = idx === arr.length - 1;
+                              return (
+                                <li key={h.id} className="ml-4">
+                                  <span
+                                    className={`absolute -left-[5px] w-2.5 h-2.5 rounded-full ${
+                                      isLatest ? "bg-primary" : "bg-muted-foreground/40"
+                                    }`}
+                                  />
+                                  <div className="flex flex-wrap items-baseline justify-between gap-2 text-sm">
+                                    <span className="font-bold capitalize">{h.status}</span>
+                                    <span className="text-xs text-muted-foreground">
+                                      {new Date(h.created_at).toLocaleString()}
+                                    </span>
+                                  </div>
+                                </li>
+                              );
+                            })}
+                        </ol>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
