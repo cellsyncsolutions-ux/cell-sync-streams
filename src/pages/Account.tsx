@@ -50,6 +50,7 @@ const Account = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [saving, setSaving] = useState(false);
+  const [cancelingId, setCancelingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth", { replace: true });
@@ -97,6 +98,32 @@ const Account = () => {
   const handleSignOut = async () => {
     await signOut();
     navigate("/");
+  };
+
+  const handleCancel = async (orderId: string) => {
+    if (!confirm("Cancel this order? Any redeemed points will be returned to your balance.")) return;
+    setCancelingId(orderId);
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: "canceled" })
+      .eq("id", orderId);
+    if (error) {
+      toast.error(error.message);
+      setCancelingId(null);
+      return;
+    }
+    toast.success("Order canceled. Points refunded if applicable.");
+    // Refresh orders + profile
+    const [{ data: ords }, { data: prof }] = await Promise.all([
+      supabase
+        .from("orders")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, order_items(id, product_name, variant, quantity, unit_price)")
+        .order("created_at", { ascending: false }),
+      supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle(),
+    ]);
+    setOrders((ords as unknown as Order[]) || []);
+    if (prof) setProfile(prof as Profile);
+    setCancelingId(null);
   };
 
   if (loading || !user || !profile) {
@@ -182,6 +209,18 @@ const Account = () => {
                       <div className="mt-3 pt-3 border-t border-border text-sm flex justify-between text-primary">
                         <span>Redeemed {o.points_redeemed} pts</span>
                         <span>−${Number(o.discount).toFixed(2)}</span>
+                      </div>
+                    )}
+                    {o.status === "pending" && (
+                      <div className="mt-3 pt-3 border-t border-border flex justify-end">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={cancelingId === o.id}
+                          onClick={() => handleCancel(o.id)}
+                        >
+                          {cancelingId === o.id ? "Canceling..." : "Cancel order"}
+                        </Button>
                       </div>
                     )}
                   </div>
