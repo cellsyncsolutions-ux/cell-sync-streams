@@ -1,15 +1,22 @@
 import { Button } from "@/components/ui/button";
 import { Product } from "@/data/products";
 import { useLanguage } from "@/i18n/LanguageContext";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
 const ProductCard = ({ p }: { p: Product }) => {
   const { t } = useLanguage();
+  const { addItem } = useCart();
   const catLabel =
     p.category === "Peptides" ? t("cat_peptides") :
     p.category === "Blends" ? t("cat_blends") :
     p.category === "Capsules" ? t("cat_capsules") : p.category;
+  const handleAdd = () => {
+    addItem(p);
+    toast.success(`${p.name} added to cart`);
+  };
   return (
   <article className="group rounded-lg border border-border bg-card overflow-hidden shadow-card transition-smooth hover:-translate-y-1 hover:shadow-glow">
     <div className="relative aspect-square bg-secondary overflow-hidden">
@@ -44,7 +51,7 @@ const ProductCard = ({ p }: { p: Product }) => {
           <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
         )}
       </div>
-      <Button variant={p.variants ? "outline" : "hero"} size="sm" className="w-full">
+      <Button onClick={handleAdd} variant={p.variants ? "outline" : "hero"} size="sm" className="w-full">
         {p.variants ? t("product_select") : t("product_add")}
       </Button>
     </div>
