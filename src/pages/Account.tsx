@@ -32,6 +32,12 @@ type OrderItem = {
   unit_price: number;
 };
 
+type StatusEntry = {
+  id: string;
+  status: string;
+  created_at: string;
+};
+
 type Order = {
   id: string;
   created_at: string;
@@ -43,6 +49,7 @@ type Order = {
   subtotal: number;
   points_reversed: boolean;
   order_items: OrderItem[];
+  order_status_history: StatusEntry[];
 };
 
 const Account = () => {
@@ -64,7 +71,7 @@ const Account = () => {
       setProfile(prof as Profile | null);
       const { data: ords } = await supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
         .order("created_at", { ascending: false });
       setOrders((ords as unknown as Order[]) || []);
     })();
@@ -118,7 +125,7 @@ const Account = () => {
     const [{ data: ords }, { data: prof }] = await Promise.all([
       supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
         .order("created_at", { ascending: false }),
       supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle(),
     ]);
