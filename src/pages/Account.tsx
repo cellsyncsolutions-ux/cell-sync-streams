@@ -224,6 +224,19 @@ const Account = () => {
                       <div>
                         <p className="text-xs uppercase tracking-wider text-muted-foreground">Status</p>
                         <span className="inline-block text-xs font-bold uppercase bg-secondary text-secondary-foreground px-2 py-0.5 rounded">{o.status}</span>
+                        {o.refund_status && o.refund_status !== "none" && (
+                          <span
+                            className={`ml-2 inline-block text-xs font-bold uppercase px-2 py-0.5 rounded ${
+                              o.refund_status === "approved" || o.refund_status === "processed"
+                                ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                                : o.refund_status === "denied"
+                                ? "bg-destructive/15 text-destructive"
+                                : "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                            }`}
+                          >
+                            Refund: {o.refund_status}
+                          </span>
+                        )}
                       </div>
                       <div>
                         <p className="text-xs uppercase tracking-wider text-muted-foreground">Points earned</p>
@@ -280,6 +293,41 @@ const Account = () => {
                         >
                           {cancelingId === o.id ? "Canceling..." : "Cancel order"}
                         </Button>
+                      </div>
+                    )}
+                    {["paid", "shipped", "delivered", "completed"].includes(o.status) &&
+                      (!o.refund_status || o.refund_status === "none") && (
+                        <div className="mt-3 pt-3 border-t border-border flex justify-end">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={refundingId === o.id}
+                            onClick={() => handleRequestRefund(o.id)}
+                          >
+                            {refundingId === o.id ? "Submitting..." : "Request refund"}
+                          </Button>
+                        </div>
+                      )}
+                    {o.refund_status && o.refund_status !== "none" && (
+                      <div className="mt-3 pt-3 border-t border-border text-sm space-y-1">
+                        {o.refund_requested_at && (
+                          <div className="flex justify-between text-muted-foreground">
+                            <span>Refund requested</span>
+                            <span>{new Date(o.refund_requested_at).toLocaleString()}</span>
+                          </div>
+                        )}
+                        {o.refund_processed_at && (
+                          <div className="flex justify-between text-muted-foreground">
+                            <span>Refund processed</span>
+                            <span>{new Date(o.refund_processed_at).toLocaleString()}</span>
+                          </div>
+                        )}
+                        {o.refund_reason && (
+                          <div className="text-muted-foreground">
+                            <span className="font-bold">Reason: </span>
+                            <span>{o.refund_reason}</span>
+                          </div>
+                        )}
                       </div>
                     )}
                     {o.order_status_history && o.order_status_history.length > 0 && (
