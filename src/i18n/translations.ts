@@ -1,0 +1,238 @@
+export type Lang = "en" | "es";
+
+export const translations = {
+  en: {
+    // Navbar
+    nav_tagline: '"PEPTIDES MADE FOR YOU"',
+    nav_about: "About",
+    nav_shop: "Shop",
+    nav_contact: "Contact",
+    nav_login: "Login",
+    nav_cart: "Cart",
+    nav_banner: "US Manufactured Research Use Only Peptides",
+
+    // Hero
+    hero_kicker: "Peptides Made For You",
+    hero_title_1: "Research-Grade Peptides,",
+    hero_title_2: "Based in the USA",
+    hero_cta_shop: "Shop Catalog",
+    hero_cta_learn: "Learn More",
+
+    // About
+    about_title: "About Us",
+    about_logo_alt: "Cell Sync Solutions logo",
+    about_p1_pre: "We provide ",
+    about_p1_strong: "premium-grade research peptides",
+    about_p1_post:
+      " engineered for precision, purity, and performance. Our products are synthesized using advanced manufacturing protocols and undergo strict quality control to ensure consistent, high-purity compounds that meet the demands of modern research environments.",
+    about_p2_pre: "Built for laboratories, professionals, and serious researchers, our catalog delivers reliable compounds with ",
+    about_p2_strong: "verified specifications",
+    about_p2_post: ", batch consistency, and fast, secure fulfillment. Every order is handled with care to preserve product integrity from production to delivery.",
+    about_p3_pre: "With a focus on scientific accuracy, operational efficiency, and customer satisfaction, we position ourselves as a ",
+    about_p3_strong: "dependable supplier",
+    about_p3_post: " for those who require uncompromising standards in peptide sourcing.",
+    about_bullet_1: "Our goal is customer satisfaction and serving our community.",
+    about_bullet_2: "We do what our competitors won't — answering the phone and replying to chats and emails within an hour or two.",
+    about_bullet_3: "All products are for research and testing only. We cannot provide guidance on personal use.",
+    about_bullet_4_pre: "Visit ",
+    about_bullet_4_post: " to learn more about peptide research.",
+    about_vision_title: "Our Vision",
+    about_vision_body:
+      "To be the most trusted source for research peptides by upholding uncompromising standards in quality, transparency, and scientific integrity.",
+    about_mission_title: "Our Mission",
+    about_mission_body:
+      "Empower laboratories with cGMP-manufactured, independently tested peptides backed by responsive, human support.",
+
+    // Stats
+    stat_purity: "Verified Purity",
+    stat_catalog: "Peptides in Catalog",
+    stat_labs: "Labs served",
+    stat_ships: "Ships in 24 Hours",
+
+    // Shop
+    shop_breadcrumb: "Home / Shop",
+    shop_title: "Shop",
+    shop_search: "Search",
+    shop_search_placeholder: "Search products...",
+    shop_categories: "Categories",
+    cat_all: "All",
+    cat_peptides: "Peptides",
+    cat_blends: "Blends",
+    cat_capsules: "Capsules",
+    shop_status: "Status",
+    shop_in_stock: "● In stock",
+    shop_out_stock: "○ Out of stock",
+    shop_showing: "Showing {n} of {total} results",
+    shop_sort_default: "Default sorting",
+    shop_sort_low: "Price: low to high",
+    shop_sort_high: "Price: high to low",
+    product_sale: "Sale!",
+    product_select: "Select Options",
+    product_add: "Add to Cart",
+
+    // Features
+    features_kicker: "Why researchers choose us",
+    features_title_1: "Built for ",
+    features_title_2: "reproducible science",
+    features_subtitle: "Quality you can verify. Documentation you can trust. Peptides that perform.",
+    feat_purity_t: "≥99% Purity",
+    feat_purity_d: "Every batch verified by reverse-phase HPLC and mass spectrometry analysis.",
+    feat_coa_t: "Third-party COA",
+    feat_coa_d: "Independent certificates of analysis available for every lot we ship.",
+    feat_research_t: "Research Grade",
+    feat_research_d: "Synthesized to strict laboratory standards in ISO-certified facilities.",
+    feat_cold_t: "Cold-chain Shipping",
+    feat_cold_d: "Temperature-controlled packaging preserves peptide stability in transit.",
+    feat_lot_t: "Lot Traceability",
+    feat_lot_d: "Full chain-of-custody documentation from synthesis to delivery.",
+    feat_fast_t: "Fast Dispatch",
+    feat_fast_d: "In-stock peptides ship within 24 hours from our temperature-controlled vault.",
+
+    // CTA
+    cta_title_1: "Equip your ",
+    cta_title_2: "next experiment",
+    cta_subtitle: "Browse 200+ research-grade peptides with verified purity. Bulk pricing available for institutions.",
+    cta_view: "View catalog",
+    cta_contact: "Contact a specialist",
+
+    // Footer
+    footer_tagline: "Research-Grade Peptides — Trusted by Scientists. Independently tested for purity, identity, and stability.",
+    footer_shop: "Shop",
+    footer_all: "All Products",
+    footer_support: "Support",
+    footer_coa: "COAs & Test Results",
+    footer_faq: "FAQ",
+    footer_track: "Track Order",
+    footer_contact: "Contact",
+    footer_fda:
+      "FDA Disclaimer: The statements made within this website have not been evaluated by the US Food and Drug Administration. The statements and the products of this company are not intended to diagnose, treat, cure or prevent any disease. All products are for laboratory developmental research USE ONLY. Products are not for human consumption.",
+    footer_supplier:
+      "Cell Sync Solutions is a chemical supplier. Cell Sync Solutions is not a compounding pharmacy or chemical compounding facility as defined under 503A of the Federal Food, Drug, and Cosmetic Act.",
+    footer_rights: "All rights reserved.",
+
+    // Age gate
+    age_title: "You must be at least 21 to enter",
+    age_body:
+      "By entering this site you confirm that you are a research professional and accept our Terms & Conditions. All products are for laboratory research use only.",
+    age_decline: "Decline",
+    age_accept: "Accept & Enter",
+
+    // Language switcher
+    lang_label: "Language",
+    lang_en: "English",
+    lang_es: "Español",
+  },
+  es: {
+    nav_tagline: '"PÉPTIDOS HECHOS PARA TI"',
+    nav_about: "Nosotros",
+    nav_shop: "Tienda",
+    nav_contact: "Contacto",
+    nav_login: "Iniciar sesión",
+    nav_cart: "Carrito",
+    nav_banner: "Péptidos fabricados en EE. UU. solo para uso de investigación",
+
+    hero_kicker: "Péptidos hechos para ti",
+    hero_title_1: "Péptidos de grado investigación,",
+    hero_title_2: "Con sede en EE. UU.",
+    hero_cta_shop: "Ver catálogo",
+    hero_cta_learn: "Saber más",
+
+    about_title: "Sobre nosotros",
+    about_logo_alt: "Logotipo de Cell Sync Solutions",
+    about_p1_pre: "Ofrecemos ",
+    about_p1_strong: "péptidos de investigación de grado premium",
+    about_p1_post:
+      " diseñados para precisión, pureza y rendimiento. Nuestros productos se sintetizan utilizando protocolos de fabricación avanzados y se someten a estrictos controles de calidad para garantizar compuestos consistentes y de alta pureza que cumplen con las exigencias de los entornos de investigación modernos.",
+    about_p2_pre: "Pensados para laboratorios, profesionales e investigadores serios, nuestro catálogo ofrece compuestos confiables con ",
+    about_p2_strong: "especificaciones verificadas",
+    about_p2_post: ", consistencia entre lotes y un envío rápido y seguro. Cada pedido se gestiona con cuidado para preservar la integridad del producto desde la producción hasta la entrega.",
+    about_p3_pre: "Con un enfoque en la precisión científica, la eficiencia operativa y la satisfacción del cliente, nos posicionamos como un ",
+    about_p3_strong: "proveedor confiable",
+    about_p3_post: " para quienes exigen los más altos estándares en el suministro de péptidos.",
+    about_bullet_1: "Nuestro objetivo es la satisfacción del cliente y servir a nuestra comunidad.",
+    about_bullet_2: "Hacemos lo que la competencia no hace: contestamos el teléfono y respondemos chats y correos en una o dos horas.",
+    about_bullet_3: "Todos los productos son únicamente para investigación y pruebas. No podemos brindar orientación sobre uso personal.",
+    about_bullet_4_pre: "Visita ",
+    about_bullet_4_post: " para aprender más sobre la investigación de péptidos.",
+    about_vision_title: "Nuestra visión",
+    about_vision_body:
+      "Ser la fuente más confiable de péptidos de investigación, manteniendo estándares inquebrantables de calidad, transparencia e integridad científica.",
+    about_mission_title: "Nuestra misión",
+    about_mission_body:
+      "Empoderar a los laboratorios con péptidos fabricados bajo cGMP, probados de forma independiente y respaldados por un soporte humano y receptivo.",
+
+    stat_purity: "Pureza verificada",
+    stat_catalog: "Péptidos en catálogo",
+    stat_labs: "Laboratorios atendidos",
+    stat_ships: "Envío en 24 horas",
+
+    shop_breadcrumb: "Inicio / Tienda",
+    shop_title: "Tienda",
+    shop_search: "Buscar",
+    shop_search_placeholder: "Buscar productos...",
+    shop_categories: "Categorías",
+    cat_all: "Todos",
+    cat_peptides: "Péptidos",
+    cat_blends: "Mezclas",
+    cat_capsules: "Cápsulas",
+    shop_status: "Estado",
+    shop_in_stock: "● En stock",
+    shop_out_stock: "○ Agotado",
+    shop_showing: "Mostrando {n} de {total} resultados",
+    shop_sort_default: "Orden predeterminado",
+    shop_sort_low: "Precio: menor a mayor",
+    shop_sort_high: "Precio: mayor a menor",
+    product_sale: "¡Oferta!",
+    product_select: "Elegir opciones",
+    product_add: "Agregar al carrito",
+
+    features_kicker: "Por qué los investigadores nos eligen",
+    features_title_1: "Diseñado para ",
+    features_title_2: "ciencia reproducible",
+    features_subtitle: "Calidad que puedes verificar. Documentación en la que confiar. Péptidos que rinden.",
+    feat_purity_t: "Pureza ≥99%",
+    feat_purity_d: "Cada lote verificado mediante HPLC en fase reversa y espectrometría de masas.",
+    feat_coa_t: "COA de terceros",
+    feat_coa_d: "Certificados de análisis independientes disponibles para cada lote que enviamos.",
+    feat_research_t: "Grado investigación",
+    feat_research_d: "Sintetizados según estrictos estándares de laboratorio en instalaciones certificadas ISO.",
+    feat_cold_t: "Envío en cadena de frío",
+    feat_cold_d: "El embalaje con temperatura controlada preserva la estabilidad del péptido durante el tránsito.",
+    feat_lot_t: "Trazabilidad de lote",
+    feat_lot_d: "Documentación completa de cadena de custodia desde la síntesis hasta la entrega.",
+    feat_fast_t: "Envío rápido",
+    feat_fast_d: "Los péptidos en stock se envían en 24 horas desde nuestra bóveda con temperatura controlada.",
+
+    cta_title_1: "Equipa tu ",
+    cta_title_2: "próximo experimento",
+    cta_subtitle: "Explora más de 200 péptidos de grado investigación con pureza verificada. Precios al por mayor para instituciones.",
+    cta_view: "Ver catálogo",
+    cta_contact: "Contactar a un especialista",
+
+    footer_tagline: "Péptidos de grado investigación — De confianza para los científicos. Probados de forma independiente en pureza, identidad y estabilidad.",
+    footer_shop: "Tienda",
+    footer_all: "Todos los productos",
+    footer_support: "Soporte",
+    footer_coa: "COA y resultados de pruebas",
+    footer_faq: "Preguntas frecuentes",
+    footer_track: "Rastrear pedido",
+    footer_contact: "Contacto",
+    footer_fda:
+      "Aviso de la FDA: Las declaraciones realizadas en este sitio web no han sido evaluadas por la Administración de Alimentos y Medicamentos de EE. UU. Las declaraciones y los productos de esta empresa no están destinados a diagnosticar, tratar, curar ni prevenir ninguna enfermedad. Todos los productos son SOLO para investigación de laboratorio. Los productos no son para consumo humano.",
+    footer_supplier:
+      "Cell Sync Solutions es un proveedor químico. Cell Sync Solutions no es una farmacia de compuestos ni una instalación de compuestos químicos según se define en la sección 503A de la Ley Federal de Alimentos, Medicamentos y Cosméticos.",
+    footer_rights: "Todos los derechos reservados.",
+
+    age_title: "Debes tener al menos 21 años para entrar",
+    age_body:
+      "Al entrar a este sitio confirmas que eres un profesional de investigación y aceptas nuestros Términos y Condiciones. Todos los productos son únicamente para uso de investigación de laboratorio.",
+    age_decline: "Rechazar",
+    age_accept: "Aceptar y entrar",
+
+    lang_label: "Idioma",
+    lang_en: "English",
+    lang_es: "Español",
+  },
+} as const;
+
+export type TranslationKey = keyof (typeof translations)["en"];
