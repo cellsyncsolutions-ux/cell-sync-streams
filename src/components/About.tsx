@@ -28,8 +28,8 @@ const About = () => {
       </h2>
 
       <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-        <div className="bg-navy rounded-2xl p-12 md:p-16 grid place-items-center shadow-card">
-          <img src={logo} alt={t("about_logo_alt")} width={1024} height={1024} loading="lazy" className="w-full max-w-xs" />
+        <div className="bg-navy rounded-2xl overflow-hidden shadow-card aspect-square">
+          <img src={logo} alt={t("about_logo_alt")} width={1024} height={1024} loading="lazy" className="w-full h-full object-cover" />
         </div>
 
         <div className="space-y-5 text-navy text-base md:text-lg leading-relaxed">
