@@ -62,6 +62,7 @@ export type Database = {
           id: string
           points_earned: number
           points_redeemed: number
+          points_reversed: boolean
           shipping_address_line1: string | null
           shipping_address_line2: string | null
           shipping_city: string | null
@@ -80,6 +81,7 @@ export type Database = {
           id?: string
           points_earned?: number
           points_redeemed?: number
+          points_reversed?: boolean
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
@@ -98,6 +100,7 @@ export type Database = {
           id?: string
           points_earned?: number
           points_redeemed?: number
+          points_reversed?: boolean
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
