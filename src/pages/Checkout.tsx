@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-const logo = "https://chatgpt.com/backend-api/estuary/content?id=file_00000000122871f7882a25c21fc89cb1&ts=493899&p=fs&cid=1&sig=0be1797a27bda05fde6babfc4e9156f79fd5cf9de2bbf528df647f68aaa3120e&v=0";
+import logo from "@/assets/logo-mark.png";
 import { Trash2, Award } from "lucide-react";
 
 const POINTS_PER_DOLLAR = 100; // 100 pts = $1
