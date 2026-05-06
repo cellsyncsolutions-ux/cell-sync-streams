@@ -38,6 +38,9 @@ type Order = {
   total: number;
   status: string;
   points_earned: number;
+  points_redeemed: number;
+  discount: number;
+  subtotal: number;
   order_items: OrderItem[];
 };
 
@@ -59,7 +62,7 @@ const Account = () => {
       setProfile(prof as Profile | null);
       const { data: ords } = await supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, order_items(id, product_name, variant, quantity, unit_price)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, order_items(id, product_name, variant, quantity, unit_price)")
         .order("created_at", { ascending: false });
       setOrders((ords as unknown as Order[]) || []);
     })();
@@ -175,6 +178,12 @@ const Account = () => {
                         </li>
                       ))}
                     </ul>
+                    {Number(o.points_redeemed) > 0 && (
+                      <div className="mt-3 pt-3 border-t border-border text-sm flex justify-between text-primary">
+                        <span>Redeemed {o.points_redeemed} pts</span>
+                        <span>−${Number(o.discount).toFixed(2)}</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
