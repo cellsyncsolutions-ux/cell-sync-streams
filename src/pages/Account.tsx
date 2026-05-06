@@ -48,6 +48,10 @@ type Order = {
   discount: number;
   subtotal: number;
   points_reversed: boolean;
+  refund_status: string;
+  refund_requested_at: string | null;
+  refund_processed_at: string | null;
+  refund_reason: string | null;
   order_items: OrderItem[];
   order_status_history: StatusEntry[];
 };
@@ -59,6 +63,7 @@ const Account = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [saving, setSaving] = useState(false);
   const [cancelingId, setCancelingId] = useState<string | null>(null);
+  const [refundingId, setRefundingId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!loading && !user) navigate("/auth", { replace: true });
@@ -71,7 +76,7 @@ const Account = () => {
       setProfile(prof as Profile | null);
       const { data: ords } = await supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, refund_status, refund_requested_at, refund_processed_at, refund_reason, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
         .order("created_at", { ascending: false });
       setOrders((ords as unknown as Order[]) || []);
     })();
@@ -125,13 +130,37 @@ const Account = () => {
     const [{ data: ords }, { data: prof }] = await Promise.all([
       supabase
         .from("orders")
-        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
+        .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, refund_status, refund_requested_at, refund_processed_at, refund_reason, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
         .order("created_at", { ascending: false }),
       supabase.from("profiles").select("*").eq("id", user!.id).maybeSingle(),
     ]);
     setOrders((ords as unknown as Order[]) || []);
     if (prof) setProfile(prof as Profile);
     setCancelingId(null);
+  };
+
+  const refreshOrders = async () => {
+    const { data: ords } = await supabase
+      .from("orders")
+      .select("id, created_at, total, status, points_earned, points_redeemed, discount, subtotal, points_reversed, refund_status, refund_requested_at, refund_processed_at, refund_reason, order_items(id, product_name, variant, quantity, unit_price), order_status_history(id, status, created_at)")
+      .order("created_at", { ascending: false });
+    setOrders((ords as unknown as Order[]) || []);
+  };
+
+  const handleRequestRefund = async (orderId: string) => {
+    const reason = prompt("Why are you requesting a refund? (optional)") ?? "";
+    setRefundingId(orderId);
+    const { error } = await supabase
+      .from("orders")
+      .update({ refund_status: "requested", refund_reason: reason.slice(0, 500) || null })
+      .eq("id", orderId);
+    setRefundingId(null);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Refund request submitted. We'll review it shortly.");
+    refreshOrders();
   };
 
   if (loading || !user || !profile) {
