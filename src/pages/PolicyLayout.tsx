@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ReactNode } from "react";
 import { ArrowLeft } from "lucide-react";
-import logo from "@/assets/logo-mark.png";
+const logo = "https://chatgpt.com/backend-api/estuary/content?id=file_00000000122871f7882a25c21fc89cb1&ts=493899&p=fs&cid=1&sig=0be1797a27bda05fde6babfc4e9156f79fd5cf9de2bbf528df647f68aaa3120e&v=0";
 
 type Props = {
   title: string;
