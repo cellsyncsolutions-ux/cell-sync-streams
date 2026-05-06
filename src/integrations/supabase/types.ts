@@ -92,6 +92,10 @@ export type Database = {
           points_earned: number
           points_redeemed: number
           points_reversed: boolean
+          refund_processed_at: string | null
+          refund_reason: string | null
+          refund_requested_at: string | null
+          refund_status: string
           shipping_address_line1: string | null
           shipping_address_line2: string | null
           shipping_city: string | null
@@ -111,6 +115,10 @@ export type Database = {
           points_earned?: number
           points_redeemed?: number
           points_reversed?: boolean
+          refund_processed_at?: string | null
+          refund_reason?: string | null
+          refund_requested_at?: string | null
+          refund_status?: string
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
@@ -130,6 +138,10 @@ export type Database = {
           points_earned?: number
           points_redeemed?: number
           points_reversed?: boolean
+          refund_processed_at?: string | null
+          refund_reason?: string | null
+          refund_requested_at?: string | null
+          refund_status?: string
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
