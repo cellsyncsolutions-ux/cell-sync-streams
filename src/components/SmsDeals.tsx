@@ -43,7 +43,7 @@ const SmsDeals = () => {
             Join our SMS list for exclusive holiday drops and a fresh 10% off code delivered to your phone every 30 days.
           </p>
           <ul className="space-y-3 text-sm">
-            <li className="flex items-center gap-3"><Tag className="h-4 w-4 text-primary" /> Instant <strong>SMS10</strong> code on signup</li>
+            <li className="flex items-center gap-3"><Tag className="h-4 w-4 text-primary" /> Instant code on signup</li>
             <li className="flex items-center gap-3"><Calendar className="h-4 w-4 text-primary" /> Monthly reminder + 10% off</li>
             <li className="flex items-center gap-3"><MessageSquare className="h-4 w-4 text-primary" /> Reply STOP anytime to opt out</li>
           </ul>
