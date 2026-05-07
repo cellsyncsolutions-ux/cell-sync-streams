@@ -52,6 +52,18 @@ Deno.serve(async (req) => {
       );
     if (error) throw error;
 
+    // Load configurable code + welcome template
+    const { data: settings } = await supabase
+      .from("app_settings")
+      .select("key, value")
+      .in("key", ["sms_discount_code", "sms_welcome_message"]);
+    const map = Object.fromEntries((settings ?? []).map((r) => [r.key, r.value]));
+    const code = map["sms_discount_code"] ?? "SMS10";
+    const template =
+      map["sms_welcome_message"] ??
+      "Welcome to Cell Sync Solutions holiday deals! Use code {CODE} for 10% off. Reply STOP to opt out.";
+    const messageBody = template.replaceAll("{CODE}", code);
+
     // Send welcome SMS with code
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     const TWILIO_API_KEY = Deno.env.get("TWILIO_API_KEY");
@@ -60,7 +72,7 @@ Deno.serve(async (req) => {
       const body = new URLSearchParams({
         To: phone,
         From: FROM,
-        Body: "Welcome to Cell Sync Solutions holiday deals! Use code SMS10 for 10% off. Reply STOP to opt out.",
+        Body: messageBody,
       });
       const r = await fetch(`${GATEWAY_URL}/Messages.json`, {
         method: "POST",
