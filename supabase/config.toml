@@ -5,3 +5,9 @@ verify_jwt = false
 
 [functions.sms-monthly-blast]
 verify_jwt = false
+
+[functions.sms-webhook]
+verify_jwt = false
+
+[functions.sms-unsubscribe]
+verify_jwt = false
