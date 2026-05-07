@@ -1,1 +1,7 @@
 project_id = "uohqdfnoptuwtzzswnyj"
+
+[functions.sms-subscribe]
+verify_jwt = false
+
+[functions.sms-monthly-blast]
+verify_jwt = false
