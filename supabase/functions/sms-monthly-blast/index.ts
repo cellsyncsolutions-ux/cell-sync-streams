@@ -18,6 +18,18 @@ Deno.serve(async (req) => {
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
   );
 
+  // Load configurable code + monthly template
+  const { data: settings } = await supabase
+    .from("app_settings")
+    .select("key, value")
+    .in("key", ["sms_discount_code", "sms_monthly_message"]);
+  const map = Object.fromEntries((settings ?? []).map((r) => [r.key, r.value]));
+  const code = map["sms_discount_code"] ?? "SMS10";
+  const template =
+    map["sms_monthly_message"] ??
+    "Cell Sync Solutions: Your monthly holiday deal is here! Use code {CODE} for 10% off. Reply STOP to opt out.";
+  const message = template.replaceAll("{CODE}", code);
+
   // Subscribers due: opted in, and (never sent OR last_sent_at >= 30 days ago)
   const cutoff = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
   const { data: due, error } = await supabase
@@ -32,7 +44,6 @@ Deno.serve(async (req) => {
     });
   }
 
-  const message = "Cell Sync Solutions: Your monthly holiday deal is here! Use code SMS10 for 10% off. Reply STOP to opt out.";
   let sent = 0, failed = 0;
   for (const sub of due ?? []) {
     const body = new URLSearchParams({ To: sub.phone, From: FROM, Body: message });
