@@ -204,6 +204,36 @@ export type Database = {
         }
         Relationships: []
       }
+      sms_subscribers: {
+        Row: {
+          created_at: string
+          id: string
+          last_sent_at: string | null
+          opted_out: boolean
+          phone: string
+          source: string | null
+          subscribed_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_sent_at?: string | null
+          opted_out?: boolean
+          phone: string
+          source?: string | null
+          subscribed_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_sent_at?: string | null
+          opted_out?: boolean
+          phone?: string
+          source?: string | null
+          subscribed_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
