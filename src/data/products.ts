@@ -13,7 +13,7 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 99, priceRange: [99, 285], sale: true, image: vial, variants: true },
+  { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 99, priceRange: [80, 300], sale: true, image: vial, variants: true },
   { id: "glow-70", name: "GLOW 70mg (GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, originalPrice: 125, sale: true, image: vial },
   { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin 5mg/5mg", category: "Blends", price: 85, originalPrice: 89, sale: true, image: vial },
   { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 64], image: vial, variants: true },

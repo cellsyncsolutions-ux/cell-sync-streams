@@ -34,7 +34,7 @@ const SmsDeals = () => {
       <div className="container grid md:grid-cols-2 gap-12 items-center">
         <div>
           <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] text-primary mb-4">
-            Holiday SMS Club
+            Monthly SMS Blast
           </span>
           <h2 className="font-extrabold text-4xl md:text-5xl leading-tight mb-4">
             Text-only deals.<br />10% off, every month.
@@ -43,9 +43,9 @@ const SmsDeals = () => {
             Join our SMS list for exclusive holiday drops and a fresh 10% off code delivered to your phone every 30 days.
           </p>
           <ul className="space-y-3 text-sm">
-            <li className="flex items-center gap-3"><Tag className="h-4 w-4 text-primary" /> Instant code on signup</li>
+            <li className="flex items-center gap-3"><Tag className="h-4 w-4 text-primary" /> Instant SMS code on signup</li>
             <li className="flex items-center gap-3"><Calendar className="h-4 w-4 text-primary" /> Monthly reminder + 10% off</li>
-            <li className="flex items-center gap-3"><MessageSquare className="h-4 w-4 text-primary" /> Reply STOP anytime to opt out</li>
+            <li className="flex items-center gap-3"><MessageSquare className="h-4 w-4 text-primary" /> Text STOP to opt-out anytime.</li>
           </ul>
         </div>
         <div className="bg-navy-foreground/5 border border-navy-foreground/15 rounded-xl p-8">
@@ -57,12 +57,12 @@ const SmsDeals = () => {
           ) : (
             <form onSubmit={onSubmit} className="space-y-4">
               <label className="block text-xs font-bold uppercase tracking-wider opacity-80">
-                Mobile number
+                Phone number
               </label>
               <Input
                 type="tel"
                 inputMode="tel"
-                placeholder="(555) 123-4567"
+                placeholder="your phone number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 maxLength={20}
