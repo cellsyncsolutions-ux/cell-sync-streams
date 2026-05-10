@@ -13,6 +13,7 @@ import Privacy from "./pages/Privacy.tsx";
 import Refund from "./pages/Refund.tsx";
 import Admin from "./pages/Admin.tsx";
 import Unsubscribe from "./pages/Unsubscribe.tsx";
+import Product from "./pages/Product.tsx";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
@@ -30,6 +31,7 @@ const App = () => (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
+                <Route path="/product/:id" element={<Product />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/checkout" element={<Checkout />} />
