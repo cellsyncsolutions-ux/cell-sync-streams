@@ -108,10 +108,18 @@ const Product = () => {
               {t("product_add")}
             </Button>
 
-            <p className="text-xs text-muted-foreground mt-6 leading-relaxed">
-              For laboratory research use only. Not for human consumption. All products are intended
-              exclusively for in vitro testing and laboratory experimentation.
-            </p>
+            <div className="text-xs text-muted-foreground mt-6 leading-relaxed space-y-3">
+              <p>
+                <strong className="text-foreground">Disclaimer:</strong> This compound has not been evaluated by the FDA.
+                It is not intended to diagnose, treat, cure, or prevent any disease. All use must follow institutional
+                and regulatory guidelines.
+              </p>
+              <p>
+                <strong className="text-foreground">Terms of Sale:</strong> By purchasing from Cell Sync Solutions, the
+                buyer affirms they are a qualified researcher or institution. All sales are final. The purchaser assumes
+                full responsibility for handling, use, and regulatory compliance.
+              </p>
+            </div>
           </div>
         </div>
       </div>
