@@ -110,14 +110,24 @@ const Product = () => {
 
             <div className="text-xs text-muted-foreground mt-6 leading-relaxed space-y-3">
               <p>
-                <strong className="text-foreground">Disclaimer:</strong> This compound has not been evaluated by the FDA.
-                It is not intended to diagnose, treat, cure, or prevent any disease. All use must follow institutional
-                and regulatory guidelines.
+                <strong className="text-foreground block mb-1">Intended Use:</strong>
+                This product is supplied strictly for laboratory and in vitro research purposes by trained and
+                qualified professionals. It is not approved for human or animal consumption and may not be used in
+                the production of food, pharmaceuticals, medical devices, or cosmetic products.
               </p>
               <p>
-                <strong className="text-foreground">Terms of Sale:</strong> By purchasing from Cell Sync Solutions, the
-                buyer affirms they are a qualified researcher or institution. All sales are final. The purchaser assumes
-                full responsibility for handling, use, and regulatory compliance.
+                <strong className="text-foreground block mb-1">Disclaimer:</strong>
+                These statements have not been reviewed or approved by the U.S. Food and Drug Administration (FDA).
+                This material is not intended to diagnose, mitigate, treat, cure, or prevent any medical condition or
+                disease. Users are responsible for ensuring all handling and applications comply with applicable
+                institutional, local, and federal regulations.
+              </p>
+              <p>
+                <strong className="text-foreground block mb-1">Terms of Sale:</strong>
+                By placing an order with Cell Sync Solutions, the purchaser confirms they are a qualified researcher,
+                laboratory, or authorized institution. All purchases are considered final. The buyer accepts full
+                responsibility for the safe handling, proper use, and legal compliance associated with the product
+                after delivery.
               </p>
             </div>
           </div>
