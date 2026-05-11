@@ -5,12 +5,12 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-const categories = ["All", "Peptides", "Blends", "Capsules"] as const;
+const categories = ["All", "Peptides", "Blends"] as const;
 
 const Shop = () => {
   const { t } = useLanguage();
   const catLabel = (c: string) =>
-    c === "All" ? t("cat_all") : c === "Peptides" ? t("cat_peptides") : c === "Blends" ? t("cat_blends") : t("cat_capsules");
+    c === "All" ? t("cat_all") : c === "Peptides" ? t("cat_peptides") : t("cat_blends");
   const [cat, setCat] = useState("All");
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("default");
