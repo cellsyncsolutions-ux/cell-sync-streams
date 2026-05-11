@@ -9,20 +9,32 @@ export type Product = {
   priceRange?: [number, number];
   sale?: boolean;
   image: string;
-  variants?: boolean;
+  variants?: { label: string; price: number }[];
 };
 
 export const products: Product[] = [
-  { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 99, priceRange: [80, 300], sale: true, image: vial, variants: true },
-  { id: "glow-70", name: "GLOW 70mg (GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, originalPrice: 125, sale: true, image: vial },
-  { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin 5mg/5mg", category: "Blends", price: 85, originalPrice: 89, sale: true, image: vial },
-  { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 64], image: vial, variants: true },
-  { id: "cjc-nodac", name: "CJC 1295 No DAC 5mg", category: "Peptides", price: 45, image: vial },
-  { id: "cjc-wdac", name: "CJC 1295 W/DAC 5mg", category: "Peptides", price: 66, originalPrice: 80, sale: true, image: vial },
-  { id: "klow", name: "KLOW 80mg (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 117.5, originalPrice: 120, sale: true, image: vial },
-  { id: "enclomiphene", name: "Enclomiphene", category: "Capsules", price: 89, originalPrice: 115, sale: true, image: vial },
-  { id: "hcg", name: "HCG 5000iu", category: "Peptides", price: 75, image: vial },
-  { id: "mk-677", name: "MK-677", category: "Capsules", price: 99, originalPrice: 115, sale: true, image: vial },
-  { id: "rad-140", name: "RAD-140", category: "Capsules", price: 79, originalPrice: 89, sale: true, image: vial, variants: true },
-  { id: "igf-lr3", name: "IGF1-LR3 1mg", category: "Peptides", price: 95, originalPrice: 105, sale: true, image: vial },
+  { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 80, priceRange: [80, 300], sale: true, image: vial,
+    variants: [{ label: "2mg", price: 80 }, { label: "5mg", price: 150 }, { label: "10mg", price: 220 }, { label: "15mg", price: 300 }] },
+  { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, originalPrice: 125, sale: true, image: vial,
+    variants: [{ label: "35mg", price: 65 }, { label: "70mg", price: 115 }] },
+  { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, originalPrice: 89, sale: true, image: vial,
+    variants: [{ label: "5mg/5mg", price: 85 }, { label: "10mg/10mg", price: 160 }] },
+  { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 64], image: vial,
+    variants: [{ label: "5mg", price: 45 }, { label: "10mg", price: 64 }] },
+  { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: vial,
+    variants: [{ label: "2mg", price: 30 }, { label: "5mg", price: 45 }, { label: "10mg", price: 80 }] },
+  { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 66, originalPrice: 80, sale: true, image: vial,
+    variants: [{ label: "2mg", price: 45 }, { label: "5mg", price: 66 }, { label: "10mg", price: 110 }] },
+  { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 117.5, originalPrice: 120, sale: true, image: vial,
+    variants: [{ label: "40mg", price: 70 }, { label: "80mg", price: 117.5 }] },
+  { id: "enclomiphene", name: "Enclomiphene", category: "Capsules", price: 89, originalPrice: 115, sale: true, image: vial,
+    variants: [{ label: "12.5mg", price: 89 }, { label: "25mg", price: 130 }] },
+  { id: "hcg", name: "HCG", category: "Peptides", price: 75, image: vial,
+    variants: [{ label: "5000iu", price: 75 }, { label: "10000iu", price: 140 }] },
+  { id: "mk-677", name: "MK-677", category: "Capsules", price: 99, originalPrice: 115, sale: true, image: vial,
+    variants: [{ label: "10mg", price: 60 }, { label: "25mg", price: 99 }, { label: "50mg", price: 170 }] },
+  { id: "rad-140", name: "RAD-140", category: "Capsules", price: 79, originalPrice: 89, sale: true, image: vial,
+    variants: [{ label: "10mg", price: 50 }, { label: "20mg", price: 79 }, { label: "30mg", price: 110 }] },
+  { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, originalPrice: 105, sale: true, image: vial,
+    variants: [{ label: "1mg", price: 95 }, { label: "2mg", price: 170 }] },
 ];

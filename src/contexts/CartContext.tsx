@@ -11,7 +11,7 @@ export type CartItem = {
 
 type CartCtx = {
   items: CartItem[];
-  addItem: (p: Product) => void;
+  addItem: (p: Product, variant?: { label: string; price: number }) => void;
   removeItem: (id: string) => void;
   updateQty: (id: string, qty: number) => void;
   clear: () => void;
@@ -35,11 +35,14 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem(KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = (p: Product) =>
+  const addItem = (p: Product, variant?: { label: string; price: number }) =>
     setItems((prev) => {
-      const found = prev.find((i) => i.productId === p.id);
-      if (found) return prev.map((i) => (i.productId === p.id ? { ...i, quantity: i.quantity + 1 } : i));
-      return [...prev, { productId: p.id, name: p.name, price: p.price, image: p.image, quantity: 1 }];
+      const id = variant ? `${p.id}::${variant.label}` : p.id;
+      const name = variant ? `${p.name} – ${variant.label}` : p.name;
+      const price = variant ? variant.price : p.price;
+      const found = prev.find((i) => i.productId === id);
+      if (found) return prev.map((i) => (i.productId === id ? { ...i, quantity: i.quantity + 1 } : i));
+      return [...prev, { productId: id, name, price, image: p.image, quantity: 1 }];
     });
 
   const removeItem = (id: string) => setItems((prev) => prev.filter((i) => i.productId !== id));

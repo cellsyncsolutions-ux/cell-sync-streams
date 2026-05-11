@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useLanguage } from "@/i18n/LanguageContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -18,9 +19,14 @@ const Product = () => {
   const { t } = useLanguage();
   const product = products.find((p) => p.id === id);
 
+  const [variantLabel, setVariantLabel] = useState<string | undefined>(
+    product?.variants?.[0]?.label
+  );
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [id]);
+    setVariantLabel(product?.variants?.[0]?.label);
+  }, [id, product]);
 
   if (!product) {
     return (
@@ -42,9 +48,13 @@ const Product = () => {
     product.category === "Capsules" ? t("cat_capsules") : product.category;
 
   const handleAdd = () => {
-    addItem(product);
-    toast.success(`${product.name} added to cart`);
+    const variant = product.variants?.find((v) => v.label === variantLabel);
+    addItem(product, variant);
+    toast.success(`${product.name}${variant ? ` – ${variant.label}` : ""} added to cart`);
   };
+
+  const selectedVariant = product.variants?.find((v) => v.label === variantLabel);
+  const displayPrice = selectedVariant ? selectedVariant.price : product.price;
 
   return (
     <main className="min-h-screen bg-background">
@@ -78,19 +88,33 @@ const Product = () => {
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-5">{product.name}</h1>
 
             <div className="mb-6">
-              {product.priceRange ? (
-                <span className="text-primary font-extrabold text-3xl">
-                  {fmt(product.priceRange[0])} – {fmt(product.priceRange[1])}
-                </span>
-              ) : product.originalPrice ? (
+              {product.originalPrice && !selectedVariant ? (
                 <>
                   <span className="text-muted-foreground line-through mr-3 text-xl">{fmt(product.originalPrice)}</span>
-                  <span className="text-primary font-extrabold text-3xl">{fmt(product.price)}</span>
+                  <span className="text-primary font-extrabold text-3xl">{fmt(displayPrice)}</span>
                 </>
               ) : (
-                <span className="text-primary font-extrabold text-3xl">{fmt(product.price)}</span>
+                <span className="text-primary font-extrabold text-3xl">{fmt(displayPrice)}</span>
               )}
             </div>
+
+            {product.variants && product.variants.length > 0 && (
+              <div className="mb-6">
+                <label className="block text-sm font-medium mb-2">Dosage</label>
+                <Select value={variantLabel} onValueChange={setVariantLabel}>
+                  <SelectTrigger className="w-full md:w-64">
+                    <SelectValue placeholder="Select dosage" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {product.variants.map((v) => (
+                      <SelectItem key={v.label} value={v.label}>
+                        {v.label} — {fmt(v.price)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
 
             <div className="bg-card border border-border rounded-lg p-5 mb-6 space-y-2 text-sm text-muted-foreground">
               <p>

@@ -15,6 +15,7 @@ const ProductCard = ({ p }: { p: Product }) => {
     p.category === "Blends" ? t("cat_blends") :
     p.category === "Capsules" ? t("cat_capsules") : p.category;
   const handleAdd = () => {
+    if (p.variants && p.variants.length > 0) return;
     addItem(p);
     toast.success(`${p.name} added to cart`);
   };
@@ -54,9 +55,15 @@ const ProductCard = ({ p }: { p: Product }) => {
           <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
         )}
       </div>
-      <Button onClick={handleAdd} variant={p.variants ? "outline" : "hero"} size="sm" className="w-full">
-        {p.variants ? t("product_select") : t("product_add")}
-      </Button>
+      {p.variants && p.variants.length > 0 ? (
+        <Button asChild variant="outline" size="sm" className="w-full">
+          <Link to={`/product/${p.id}`}>{t("product_select")}</Link>
+        </Button>
+      ) : (
+        <Button onClick={handleAdd} variant="hero" size="sm" className="w-full">
+          {t("product_add")}
+        </Button>
+      )}
     </div>
   </article>
   );
