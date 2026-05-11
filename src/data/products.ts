@@ -22,7 +22,7 @@ export const products: Product[] = [
   { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 65], image: vial,
     variants: [{ label: "5mg", price: 45 }, { label: "10mg", price: 65 }] },
   { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: vial,
-    variants: [{ label: "2mg", price: 30 }, { label: "5mg", price: 45 }, { label: "10mg", price: 80 }] },
+    variants: [{ label: "5mg", price: 45 }, { label: "10mg", price: 80 }] },
   { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 66, image: vial,
     variants: [{ label: "2mg", price: 45 }, { label: "5mg", price: 66 }, { label: "10mg", price: 110 }] },
   { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 117.5, image: vial,
