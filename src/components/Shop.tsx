@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 
-const categories = ["All", "Peptides", "Blends", "Capsules"] as const;
+const categories = ["All", "Peptides", "Blends"] as const;
 
 const Shop = () => {
   const { t } = useLanguage();
