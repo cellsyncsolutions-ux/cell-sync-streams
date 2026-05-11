@@ -16,7 +16,7 @@ export const products: Product[] = [
   { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 60, priceRange: [60, 295], sale: true, image: vial,
     variants: [{ label: "5mg", price: 60 }, { label: "10mg", price: 100 }, { label: "20mg", price: 175 }, { label: "30mg", price: 200 }, { label: "60mg", price: 295 }] },
   { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, originalPrice: 125, sale: true, image: vial,
-    variants: [{ label: "35mg", price: 65 }, { label: "70mg", price: 115 }] },
+    variants: [{ label: "70mg", price: 115 }] },
   { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, originalPrice: 89, sale: true, image: vial,
     variants: [{ label: "5mg/5mg", price: 85 }, { label: "10mg/10mg", price: 160 }] },
   { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 64], image: vial,
