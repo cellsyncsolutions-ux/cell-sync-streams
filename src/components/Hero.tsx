@@ -14,8 +14,10 @@ const Hero = () => {
         <span className="text-primary">{t("hero_title_2")}</span>
       </h1>
       <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-        <Button variant="hero" size="lg" className="gap-2 font-bold">
-          {t("hero_cta_shop")} <ArrowRight className="h-4 w-4" />
+        <Button asChild variant="hero" size="lg" className="gap-2 font-bold">
+          <a href="#shop">
+            {t("hero_cta_shop")} <ArrowRight className="h-4 w-4" />
+          </a>
         </Button>
         <Button variant="glass" size="lg" className="border-navy-foreground/30 text-navy-foreground">{t("hero_cta_learn")}</Button>
       </div>
