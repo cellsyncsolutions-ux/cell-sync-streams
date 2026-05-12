@@ -19,7 +19,9 @@ const Hero = () => {
             {t("hero_cta_shop")} <ArrowRight className="h-4 w-4" />
           </a>
         </Button>
-        <Button variant="glass" size="lg" className="border-navy-foreground/30 text-navy-foreground">{t("hero_cta_learn")}</Button>
+        <Button asChild variant="glass" size="lg" className="border-navy-foreground/30 text-navy-foreground">
+          <a href="#about">{t("hero_cta_learn")}</a>
+        </Button>
       </div>
     </div>
   </section>
