@@ -15,7 +15,9 @@ const CTA = () => {
           </h2>
           <p className="text-muted-foreground text-lg mb-8">{t("cta_subtitle")}</p>
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <Button variant="hero" size="lg">{t("cta_view")} <ArrowRight className="h-4 w-4" /></Button>
+            <Button asChild variant="hero" size="lg">
+              <a href="#shop">{t("cta_view")} <ArrowRight className="h-4 w-4" /></a>
+            </Button>
             <Button variant="glass" size="lg">{t("cta_contact")}</Button>
           </div>
         </div>
