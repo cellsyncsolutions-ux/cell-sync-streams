@@ -91,7 +91,7 @@ export const translations = {
     // CTA
     cta_title_1: "Equip your ",
     cta_title_2: "next experiment",
-    cta_subtitle: "Browse 200+ research-grade peptides with verified purity. Bulk pricing available for institutions.",
+    cta_subtitle: "Browse 20+ research-grade peptides with verified purity. Bulk pricing available for institutions.",
     cta_view: "View catalog",
     cta_contact: "Contact a specialist",
 
@@ -209,7 +209,7 @@ export const translations = {
 
     cta_title_1: "Equipa tu ",
     cta_title_2: "próximo experimento",
-    cta_subtitle: "Explora más de 200 péptidos de grado investigación con pureza verificada. Precios al por mayor para instituciones.",
+    cta_subtitle: "Explora más de 20 péptidos de grado investigación con pureza verificada. Precios al por mayor para instituciones.",
     cta_view: "Ver catálogo",
     cta_contact: "Contactar a un especialista",
 
