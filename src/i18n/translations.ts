@@ -3,7 +3,7 @@ export type Lang = "en" | "es";
 export const translations = {
   en: {
     // Navbar
-    nav_tagline: '"PEPTIDES MADE FOR YOU"',
+    nav_tagline: '"PEPTIDES MADE TO SYNC"',
     nav_about: "About",
     nav_shop: "Shop",
     nav_contact: "Contact",
@@ -12,7 +12,7 @@ export const translations = {
     nav_banner: "US Manufactured Research Use Only Peptides",
 
     // Hero
-    hero_kicker: "Peptides Made For You",
+    hero_kicker: "PEPTIDES MADE TO SYNC",
     hero_title_1: "Research-Grade Peptides,",
     hero_title_2: "Based in the USA",
     hero_cta_shop: "Shop Catalog",
@@ -46,7 +46,7 @@ export const translations = {
     // Stats
     stat_purity: "Verified Purity",
     stat_catalog: "Peptides in Catalog",
-    stat_labs: "Labs served",
+    stat_labs: "Happy Customers",
     stat_ships: "Ships in 24 Hours",
 
     // Shop
@@ -127,7 +127,7 @@ export const translations = {
     lang_es: "Español",
   },
   es: {
-    nav_tagline: '"PÉPTIDOS HECHOS PARA TI"',
+    nav_tagline: '"PÉPTIDOS HECHOS PARA SINCRONIZAR"',
     nav_about: "Nosotros",
     nav_shop: "Tienda",
     nav_contact: "Contacto",
@@ -135,7 +135,7 @@ export const translations = {
     nav_cart: "Carrito",
     nav_banner: "Péptidos fabricados en EE. UU. solo para uso de investigación",
 
-    hero_kicker: "Péptidos hechos para ti",
+    hero_kicker: "PÉPTIDOS HECHOS PARA SINCRONIZAR",
     hero_title_1: "Péptidos de grado investigación,",
     hero_title_2: "Con sede en EE. UU.",
     hero_cta_shop: "Ver catálogo",
@@ -167,7 +167,7 @@ export const translations = {
 
     stat_purity: "Pureza verificada",
     stat_catalog: "Péptidos en catálogo",
-    stat_labs: "Laboratorios atendidos",
+    stat_labs: "Clientes Felices",
     stat_ships: "Envío en 24 horas",
 
     shop_breadcrumb: "Inicio / Tienda",
