@@ -127,7 +127,7 @@ export const translations = {
     lang_es: "Español",
   },
   es: {
-    nav_tagline: '"PÉPTIDOS HECHOS PARA TI"',
+    nav_tagline: '"PÉPTIDOS HECHOS PARA SINCRONIZAR"',
     nav_about: "Nosotros",
     nav_shop: "Tienda",
     nav_contact: "Contacto",
@@ -135,7 +135,7 @@ export const translations = {
     nav_cart: "Carrito",
     nav_banner: "Péptidos fabricados en EE. UU. solo para uso de investigación",
 
-    hero_kicker: "Péptidos hechos para ti",
+    hero_kicker: "PÉPTIDOS HECHOS PARA SINCRONIZAR",
     hero_title_1: "Péptidos de grado investigación,",
     hero_title_2: "Con sede en EE. UU.",
     hero_cta_shop: "Ver catálogo",
@@ -167,7 +167,7 @@ export const translations = {
 
     stat_purity: "Pureza verificada",
     stat_catalog: "Péptidos en catálogo",
-    stat_labs: "Laboratorios atendidos",
+    stat_labs: "Clientes Felices",
     stat_ships: "Envío en 24 horas",
 
     shop_breadcrumb: "Inicio / Tienda",
