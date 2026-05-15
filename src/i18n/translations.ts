@@ -3,7 +3,7 @@ export type Lang = "en" | "es";
 export const translations = {
   en: {
     // Navbar
-    nav_tagline: '"PEPTIDES MADE FOR YOU"',
+    nav_tagline: '"PEPTIDES MADE TO SYNC"',
     nav_about: "About",
     nav_shop: "Shop",
     nav_contact: "Contact",
@@ -12,7 +12,7 @@ export const translations = {
     nav_banner: "US Manufactured Research Use Only Peptides",
 
     // Hero
-    hero_kicker: "Peptides Made For You",
+    hero_kicker: "PEPTIDES MADE TO SYNC",
     hero_title_1: "Research-Grade Peptides,",
     hero_title_2: "Based in the USA",
     hero_cta_shop: "Shop Catalog",
@@ -46,7 +46,7 @@ export const translations = {
     // Stats
     stat_purity: "Verified Purity",
     stat_catalog: "Peptides in Catalog",
-    stat_labs: "Labs served",
+    stat_labs: "Happy Customers",
     stat_ships: "Ships in 24 Hours",
 
     // Shop
