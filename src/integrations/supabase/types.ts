@@ -76,6 +76,30 @@ export type Database = {
           },
         ]
       }
+      order_reviews: {
+        Row: {
+          created_at: string
+          id: string
+          order_id: string
+          rating: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          order_id: string
+          rating: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          order_id?: string
+          rating?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       order_status_history: {
         Row: {
           created_at: string
