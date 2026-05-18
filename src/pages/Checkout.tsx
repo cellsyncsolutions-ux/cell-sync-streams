@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
-import { Trash2, Award } from "lucide-react";
+import { Trash2, Award, Star } from "lucide-react";
 
 const POINTS_PER_DOLLAR = 100; // 100 pts = $1
 
@@ -19,6 +19,10 @@ const Checkout = () => {
   const [submitting, setSubmitting] = useState(false);
   const [availablePoints, setAvailablePoints] = useState(0);
   const [pointsToRedeem, setPointsToRedeem] = useState(0);
+  const [completedOrderId, setCompletedOrderId] = useState<string | null>(null);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [submittingReview, setSubmittingReview] = useState(false);
   const [shipping, setShipping] = useState({
     name: "",
     address_line1: "",
@@ -116,11 +120,73 @@ const Checkout = () => {
         ? `Order placed! Redeemed ${safePoints} pts ($${discount.toFixed(2)} off) · Earned ${earned} pts`
         : `Order placed! You earned ${earned} points`
     );
+    setCompletedOrderId(order.id);
+  };
+
+  const submitReview = async (stars: number) => {
+    if (!user || !completedOrderId || submittingReview) return;
+    setSubmittingReview(true);
+    const { error } = await supabase
+      .from("order_reviews")
+      .insert({ order_id: completedOrderId, user_id: user.id, rating: stars });
+    setSubmittingReview(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Thanks for your review!");
     navigate("/account");
   };
 
   if (loading || !user) {
     return <main className="min-h-screen flex items-center justify-center text-muted-foreground">Loading...</main>;
+  }
+
+  if (completedOrderId) {
+    return (
+      <main className="min-h-screen bg-background">
+        <header className="bg-navy text-navy-foreground">
+          <div className="container flex h-20 items-center justify-between">
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="Cell Sync Solutions" className="h-10 w-10" />
+              <span className="font-extrabold text-primary">CELL SYNC SOLUTIONS</span>
+            </Link>
+          </div>
+        </header>
+        <div className="container py-20 flex justify-center">
+          <div className="bg-card border border-border rounded-lg p-10 max-w-md w-full text-center">
+            <h1 className="text-2xl font-extrabold tracking-tight mb-2">Order placed!</h1>
+            <p className="text-muted-foreground mb-6">How was your experience?</p>
+            <div className="flex justify-center gap-2 mb-6" onMouseLeave={() => setHoverRating(0)}>
+              {[1, 2, 3, 4, 5].map((n) => {
+                const filled = (hoverRating || rating) >= n;
+                return (
+                  <button
+                    key={n}
+                    type="button"
+                    aria-label={`${n} star${n > 1 ? "s" : ""}`}
+                    disabled={submittingReview}
+                    onMouseEnter={() => setHoverRating(n)}
+                    onClick={() => {
+                      setRating(n);
+                      submitReview(n);
+                    }}
+                    className="transition-transform hover:scale-110 disabled:opacity-50"
+                  >
+                    <Star
+                      className={`h-10 w-10 ${filled ? "fill-primary text-primary" : "text-muted-foreground"}`}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+            <Button variant="ghost" onClick={() => navigate("/account")} disabled={submittingReview}>
+              Skip
+            </Button>
+          </div>
+        </div>
+      </main>
+    );
   }
 
   return (
