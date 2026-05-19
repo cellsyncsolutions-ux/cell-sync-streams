@@ -20,7 +20,7 @@ export const products: Product[] = [
   { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, image: vial,
     variants: [{ label: "5mg/5mg", price: 85 }] },
   { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 65], image: vial,
-    variants: [{ label: "5mg", price: 45 }, { label: "10mg", price: 65 }] },
+    variants: [{ label: "5mg", price: 45 }, { label: "10mg", price: 65, outOfStock: true }] },
   { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: vial,
     variants: [{ label: "5mg", price: 45 }, { label: "10mg", price: 80, outOfStock: true }] },
   { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 65, image: vial,
