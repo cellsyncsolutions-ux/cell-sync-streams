@@ -30,7 +30,7 @@ export const products: Product[] = [
   { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: vial,
     variants: [{ label: "1mg", price: 95 }] },
   { id: "tb-500", name: "TB-500", category: "Peptides", price: 40, priceRange: [40, 65], image: vial,
-    variants: [{ label: "5mg", price: 40 }, { label: "10mg", price: 65 }] },
+    variants: [{ label: "5mg", price: 40 }, { label: "10mg", price: 65, outOfStock: true }] },
   { id: "mots-c", name: "MOTS-C", category: "Peptides", price: 55, priceRange: [55, 85], image: vial,
     variants: [{ label: "10mg", price: 55 }, { label: "20mg", price: 85 }] },
   { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: vial,
