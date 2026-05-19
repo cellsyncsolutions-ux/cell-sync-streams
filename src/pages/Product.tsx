@@ -114,6 +114,12 @@ const Product = () => {
                     ))}
                   </SelectContent>
                 </Select>
+                {selectedVariant?.outOfStock && (
+                  <p className="mt-3 inline-flex items-center gap-2 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
+                    <span className="h-2 w-2 rounded-full bg-destructive" aria-hidden="true" />
+                    Out of stock — this dosage is currently unavailable
+                  </p>
+                )}
               </div>
             )}
 
