@@ -49,6 +49,7 @@ const Product = () => {
 
   const handleAdd = () => {
     const variant = product.variants?.find((v) => v.label === variantLabel);
+    if (variant?.outOfStock) return;
     addItem(product, variant);
     toast.success(`${product.name}${variant ? ` – ${variant.label}` : ""} added to cart`);
   };
@@ -108,7 +109,7 @@ const Product = () => {
                   <SelectContent>
                     {product.variants.map((v) => (
                       <SelectItem key={v.label} value={v.label}>
-                        {v.label} — {fmt(v.price)}
+                        {v.label} — {fmt(v.price)}{v.outOfStock ? " (Out of stock)" : ""}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -128,8 +129,8 @@ const Product = () => {
               </ul>
             </div>
 
-            <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto">
-              {t("product_add")}
+            <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock}>
+              {selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
             </Button>
 
             <div className="text-xs text-muted-foreground mt-6 leading-relaxed space-y-3">
