@@ -9,7 +9,7 @@ export type Product = {
   priceRange?: [number, number];
   sale?: boolean;
   image: string;
-  variants?: { label: string; price: number }[];
+  variants?: { label: string; price: number; outOfStock?: boolean }[];
 };
 
 export const products: Product[] = [
@@ -44,7 +44,7 @@ export const products: Product[] = [
   { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: vial,
     variants: [{ label: "5mg", price: 40 }] },
   { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: vial,
-    variants: [{ label: "10mg", price: 95 }, { label: "50mg", price: 400 }] },
+    variants: [{ label: "10mg", price: 95 }, { label: "50mg", price: 400, outOfStock: true }] },
   { id: "nad", name: "NAD+", category: "Peptides", price: 70, priceRange: [70, 120], image: vial,
     variants: [{ label: "500mg", price: 70 }, { label: "1000mg", price: 120 }] },
   { id: "mt-1", name: "MT-1 (Melanotan 1)", category: "Peptides", price: 45, image: vial,
