@@ -42,11 +42,16 @@ const ProductCard = ({ p }: { p: Product }) => {
         <h3 className="font-semibold text-base mb-2 min-h-[3rem] leading-snug">{p.name}</h3>
       </Link>
       <div className="mb-4">
-        {p.priceRange ? (
-          <span className="text-primary font-bold text-lg">
-            {fmt(p.priceRange[0])} – {fmt(p.priceRange[1])}
-          </span>
-        ) : p.originalPrice ? (
+        {p.variants && p.variants.length > 1 ? (() => {
+          const prices = p.variants.map((v) => v.price);
+          const min = Math.min(...prices);
+          const max = Math.max(...prices);
+          return (
+            <span className="text-primary font-bold text-lg">
+              {fmt(min)} – {fmt(max)}
+            </span>
+          );
+        })() : p.originalPrice ? (
           <>
             <span className="text-muted-foreground line-through mr-2 text-sm">{fmt(p.originalPrice)}</span>
             <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
