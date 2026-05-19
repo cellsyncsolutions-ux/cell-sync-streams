@@ -44,10 +44,18 @@ const ProductCard = ({ p }: { p: Product }) => {
       <div className="mb-4">
         {p.variants && p.variants.length > 1 ? (() => {
           const prices = p.variants.map((v) => v.price);
+          const originals = p.variants.map((v) => v.originalPrice).filter((o): o is number => o !== undefined);
           const min = Math.min(...prices);
           const max = Math.max(...prices);
+          const origMin = originals.length > 0 ? Math.min(...originals) : null;
+          const origMax = originals.length > 0 ? Math.max(...originals) : null;
           return (
             <span className="text-primary font-bold text-lg">
+              {origMin !== null && origMax !== null && (
+                <span className="text-muted-foreground line-through mr-2 text-sm">
+                  {fmt(origMin)} – {fmt(origMax)}
+                </span>
+              )}
               {fmt(min)} – {fmt(max)}
             </span>
           );

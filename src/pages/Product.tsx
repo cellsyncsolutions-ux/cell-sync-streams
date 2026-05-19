@@ -56,6 +56,7 @@ const Product = () => {
 
   const selectedVariant = product.variants?.find((v) => v.label === variantLabel);
   const displayPrice = selectedVariant ? selectedVariant.price : product.price;
+  const displayOriginal = selectedVariant?.originalPrice ?? product.originalPrice;
 
   return (
     <main className="min-h-screen bg-background">
@@ -89,9 +90,9 @@ const Product = () => {
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-5">{product.name}</h1>
 
             <div className="mb-6">
-              {product.originalPrice && !selectedVariant ? (
+              {displayOriginal ? (
                 <>
-                  <span className="text-muted-foreground line-through mr-3 text-xl">{fmt(product.originalPrice)}</span>
+                  <span className="text-muted-foreground line-through mr-3 text-xl">{fmt(displayOriginal)}</span>
                   <span className="text-primary font-extrabold text-3xl">{fmt(displayPrice)}</span>
                 </>
               ) : (
@@ -109,7 +110,7 @@ const Product = () => {
                   <SelectContent>
                     {product.variants.map((v) => (
                       <SelectItem key={v.label} value={v.label}>
-                        {v.label} — {fmt(v.price)}{v.outOfStock ? " (Out of stock)" : ""}
+                        {v.label} — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}{v.outOfStock ? " (Out of stock)" : ""}
                       </SelectItem>
                     ))}
                   </SelectContent>
