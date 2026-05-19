@@ -59,7 +59,12 @@ const ProductCard = ({ p }: { p: Product }) => {
               {fmt(min)} – {fmt(max)}
             </span>
           );
-        })() : p.originalPrice ? (
+        })() : p.variants && p.variants.length === 1 && p.variants[0].originalPrice ? (
+          <>
+            <span className="text-muted-foreground line-through mr-2 text-sm">{fmt(p.variants[0].originalPrice!)}</span>
+            <span className="text-primary font-bold text-lg">{fmt(p.variants[0].price)}</span>
+          </>
+        ) : p.originalPrice ? (
           <>
             <span className="text-muted-foreground line-through mr-2 text-sm">{fmt(p.originalPrice)}</span>
             <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
