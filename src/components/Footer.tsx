@@ -29,7 +29,6 @@ const Footer = () => {
           <li><a href="#shop">{t("footer_all")}</a></li>
           <li><a href="#shop">{t("cat_peptides")}</a></li>
           <li><a href="#shop">{t("cat_blends")}</a></li>
-          <li><a href="#shop">{t("cat_capsules")}</a></li>
         </ul>
       </div>
       <div>
