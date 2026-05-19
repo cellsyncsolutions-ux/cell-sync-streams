@@ -40,7 +40,7 @@ export const products: Product[] = [
   { id: "selank", name: "SELANK", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
     variants: [{ label: "5mg", price: 35 }, { label: "10mg", price: 50 }] },
   { id: "tesamorelin", name: "TESAMORELIN", category: "Peptides", price: 60, priceRange: [60, 160], image: vial,
-    variants: [{ label: "5mg", price: 60 }, { label: "10mg", price: 90 }, { label: "20mg", price: 160 }] },
+    variants: [{ label: "5mg", price: 60 }, { label: "10mg", price: 90 }, { label: "20mg", price: 160, outOfStock: true }] },
   { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: vial,
     variants: [{ label: "5mg", price: 40 }] },
   { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: vial,
