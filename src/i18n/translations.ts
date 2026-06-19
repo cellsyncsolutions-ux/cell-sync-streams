@@ -41,7 +41,7 @@ export const translations = {
       "To be the most trusted source for research peptides by upholding uncompromising standards in quality, transparency, and scientific integrity.",
     about_mission_title: "Our Mission",
     about_mission_body:
-      "Empower laboratories with cGMP-manufactured, independently tested peptides backed by responsive, human support.",
+      "Empower laboratories with cGMP-manufactured, independently tested peptides backed by responsive support.",
 
     // Stats
     stat_purity: "Verified Purity",
