@@ -163,7 +163,7 @@ export const translations = {
       "Ser la fuente más confiable de péptidos de investigación, manteniendo estándares inquebrantables de calidad, transparencia e integridad científica.",
     about_mission_title: "Nuestra misión",
     about_mission_body:
-      "Empoderar a los laboratorios con péptidos fabricados bajo cGMP, probados de forma independiente y respaldados por un soporte humano y receptivo.",
+      "Empoderar a los laboratorios con péptidos fabricados bajo cGMP, probados de forma independiente y respaldados por un soporte receptivo.",
 
     stat_purity: "Pureza verificada",
     stat_catalog: "Péptidos en catálogo",
