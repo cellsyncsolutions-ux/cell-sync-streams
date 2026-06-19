@@ -24,7 +24,7 @@ export const translations = {
     about_p1_pre: "We provide ",
     about_p1_strong: "premium-grade research peptides",
     about_p1_post:
-      " engineered for precision, purity, and performance. Our products are synthesized using advanced manufacturing protocols and undergo strict quality control to ensure consistent, high-purity compounds that meet the demands of modern research environments.",
+      " engineered by our suppliers for precision, purity, and performance. Our products are synthesized using advanced manufacturing protocols and undergo strict quality control to ensure consistent, high-purity compounds that meet the demands of modern research environments.",
     about_p2_pre: "Built for laboratories, professionals, and serious researchers, our catalog delivers reliable compounds with ",
     about_p2_strong: "verified specifications",
     about_p2_post: ", batch consistency, and fast, secure fulfillment. Every order is handled with care to preserve product integrity from production to delivery.",
@@ -146,7 +146,7 @@ export const translations = {
     about_p1_pre: "Ofrecemos ",
     about_p1_strong: "péptidos de investigación de grado premium",
     about_p1_post:
-      " diseñados para precisión, pureza y rendimiento. Nuestros productos se sintetizan utilizando protocolos de fabricación avanzados y se someten a estrictos controles de calidad para garantizar compuestos consistentes y de alta pureza que cumplen con las exigencias de los entornos de investigación modernos.",
+      " diseñados por nuestros proveedores para precisión, pureza y rendimiento. Nuestros productos se sintetizan utilizando protocolos de fabricación avanzados y se someten a estrictos controles de calidad para garantizar compuestos consistentes y de alta pureza que cumplen con las exigencias de los entornos de investigación modernos.",
     about_p2_pre: "Pensados para laboratorios, profesionales e investigadores serios, nuestro catálogo ofrece compuestos confiables con ",
     about_p2_strong: "especificaciones verificadas",
     about_p2_post: ", consistencia entre lotes y un envío rápido y seguro. Cada pedido se gestiona con cuidado para preservar la integridad del producto desde la producción hasta la entrega.",

@@ -4,7 +4,7 @@ const Stats = () => {
   const { t } = useLanguage();
   const stats = [
     { v: "≥99%", l: t("stat_purity") },
-    { v: "15+", l: t("stat_catalog") },
+    { v: "20+", l: t("stat_catalog") },
     { v: "5,000+", l: t("stat_labs") },
     { v: "24H", l: t("stat_ships") },
   ];
