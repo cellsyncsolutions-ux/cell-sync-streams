@@ -18,7 +18,9 @@ const CTA = () => {
             <Button asChild variant="hero" size="lg">
               <a href="#shop">{t("cta_view")} <ArrowRight className="h-4 w-4" /></a>
             </Button>
-            <Button variant="glass" size="lg">{t("cta_contact")}</Button>
+            <Button asChild variant="glass" size="lg">
+              <a href="mailto:support@cellsyncsolutions.com">{t("cta_contact")}</a>
+            </Button>
           </div>
         </div>
       </div>
