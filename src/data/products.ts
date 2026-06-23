@@ -1,4 +1,5 @@
-import vial from "@/assets/vial.jpg";
+import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
+const vial = vialAsset.url;
 
 export type Product = {
   id: string;
