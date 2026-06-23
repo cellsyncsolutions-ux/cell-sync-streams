@@ -140,6 +140,30 @@ const Product = () => {
               {selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
             </Button>
 
+            <div className="mt-6 rounded-lg border border-border bg-card p-5">
+              <h2 className="text-sm font-bold uppercase tracking-wider mb-3">Research Resources</h2>
+              <div className="flex flex-wrap gap-2">
+                <Button asChild variant="outline" size="sm">
+                  <a href="https://peptide-res-73eea6b2.vibepreview.com" target="_blank" rel="noopener noreferrer">
+                    Learn More
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="sm">
+                  <a href="https://peptide-res-73eea6b2.vibepreview.com" target="_blank" rel="noopener noreferrer">
+                    Research Information
+                  </a>
+                </Button>
+                <Button asChild variant="hero" size="sm">
+                  <a href="https://peptide-res-73eea6b2.vibepreview.com" target="_blank" rel="noopener noreferrer">
+                    View Research Library
+                  </a>
+                </Button>
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground italic">
+                Educational content is provided through an independent research resource. Products sold on this website are strictly for Research Use Only.
+              </p>
+            </div>
+
             <div className="text-xs text-muted-foreground mt-6 leading-relaxed space-y-3">
               <p>
                 <strong className="text-foreground block mb-1">Intended Use:</strong>

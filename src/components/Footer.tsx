@@ -38,6 +38,7 @@ const Footer = () => {
           <li><a href="#faq">{t("footer_faq")}</a></li>
           <li><a href="#track">{t("footer_track")}</a></li>
           <li><a href="#contact">{t("footer_contact")}</a></li>
+          <li><Link to="/research-library" className="hover:underline">Peptide Research Library</Link></li>
         </ul>
       </div>
       <div>
