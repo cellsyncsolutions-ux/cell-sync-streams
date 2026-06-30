@@ -89,7 +89,6 @@ const Account = () => {
     setSaving(true);
     const updates = {
       full_name: String(form.get("full_name") || "").slice(0, 100),
-      phone: String(form.get("phone") || "").slice(0, 30),
       address_line1: String(form.get("address_line1") || "").slice(0, 200),
       address_line2: String(form.get("address_line2") || "").slice(0, 200),
       city: String(form.get("city") || "").slice(0, 100),
@@ -369,10 +368,6 @@ const Account = () => {
                 <div>
                   <Label htmlFor="full_name">Full Name</Label>
                   <Input id="full_name" name="full_name" defaultValue={profile.full_name || ""} maxLength={100} />
-                </div>
-                <div>
-                  <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" name="phone" defaultValue={profile.phone || ""} maxLength={30} />
                 </div>
               </div>
               <div>

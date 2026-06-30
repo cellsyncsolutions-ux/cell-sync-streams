@@ -9,7 +9,7 @@ const Privacy = () => (
 
     <h2>1. Information We Collect</h2>
     <ul>
-      <li><strong>Account information:</strong> name, email, phone, password (hashed).</li>
+      <li><strong>Account information:</strong> name, email, password (hashed).</li>
       <li><strong>Order &amp; shipping information:</strong> shipping address, order history, points balance.</li>
       <li><strong>Payment information:</strong> processed by our PCI-compliant payment processor; we do <strong>not</strong> store full card numbers on our servers.</li>
       <li><strong>Usage information:</strong> IP address, browser type, pages visited, referring URL, and similar telemetry collected via cookies and standard server logs.</li>
