@@ -7,7 +7,6 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import AgeGate from "@/components/AgeGate";
 import About from "@/components/About";
-import SmsDeals from "@/components/SmsDeals";
 
 const Index = () => (
   <main className="min-h-screen bg-background">
@@ -18,7 +17,6 @@ const Index = () => (
     <Stats />
     <Shop />
     <Features />
-    <SmsDeals />
     <CTA />
     <Footer />
   </main>
