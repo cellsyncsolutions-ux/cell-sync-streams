@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Auth from "./pages/Auth.tsx";
+import ResetPassword from "./pages/ResetPassword.tsx";
 import Account from "./pages/Account.tsx";
 import Checkout from "./pages/Checkout.tsx";
 import Terms from "./pages/Terms.tsx";
@@ -34,6 +35,7 @@ const App = () => (
                 <Route path="/" element={<Index />} />
                 <Route path="/product/:id" element={<Product />} />
                 <Route path="/auth" element={<Auth />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/account" element={<Account />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/terms" element={<Terms />} />
