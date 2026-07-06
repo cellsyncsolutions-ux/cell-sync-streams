@@ -44,6 +44,41 @@ const AdminQRCodes = () => {
     products.forEach((p, i) => setTimeout(() => downloadOne(p.id, p.name), i * 150));
   };
 
+  const downloadHtml = () => {
+    const cells = products
+      .map((p) => {
+        const canvas = canvasRefs.current[p.id];
+        const dataUrl = canvas ? canvas.toDataURL("image/png") : "";
+        const url = urlFor(p.id);
+        return `
+          <td style="border:1px solid #ccc;padding:16px;text-align:center;vertical-align:top;width:33%;">
+            <img src="${dataUrl}" width="180" height="180" alt="QR code for ${p.name}" style="display:block;margin:0 auto;" />
+            <div style="font-family:Arial,sans-serif;font-size:13px;font-weight:bold;margin-top:8px;">${p.name}</div>
+            <div style="font-family:Arial,sans-serif;font-size:10px;color:#555;margin-top:4px;word-break:break-all;">${url}</div>
+          </td>`;
+      });
+
+    const rows: string[] = [];
+    for (let i = 0; i < cells.length; i += 3) {
+      rows.push(`<tr>${cells.slice(i, i + 3).join("")}${"<td style=\"border:none\"></td>".repeat(3 - cells.slice(i, i + 3).length)}</tr>`);
+    }
+
+    const html = `<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Product QR Codes</title></head>
+<body style="font-family:Arial,sans-serif;padding:24px;">
+<h1 style="font-size:22px;margin:0 0 4px;">Product QR Codes</h1>
+<p style="font-size:12px;color:#555;margin:0 0 16px;">Generated ${new Date().toLocaleString()} — select all (Ctrl/Cmd+A) and copy into your document editor.</p>
+<table style="border-collapse:collapse;width:100%;">${rows.join("")}</table>
+</body></html>`;
+
+    const blob = new Blob([html], { type: "text/html" });
+    const link = document.createElement("a");
+    link.download = "product-qr-codes.html";
+    link.href = URL.createObjectURL(blob);
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  };
+
   const copyOne = async (id: string) => {
     const canvas = canvasRefs.current[id];
     if (!canvas) return;
@@ -84,6 +119,7 @@ const AdminQRCodes = () => {
           </div>
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => window.print()}>Print / Save as PDF</Button>
+            <Button variant="outline" onClick={downloadHtml}>Download HTML</Button>
             <Button variant="hero" onClick={downloadAll}>Download all PNGs</Button>
           </div>
         </div>
