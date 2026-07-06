@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
@@ -162,6 +163,23 @@ const Product = () => {
               <p className="mt-3 text-xs text-muted-foreground italic">
                 Educational content is provided through an independent research resource. Products sold on this website are strictly for Research Use Only.
               </p>
+            </div>
+
+            <div className="mt-6 rounded-lg border border-border bg-card p-5 flex items-center gap-5">
+              <div className="bg-white p-3 rounded-md shrink-0">
+                <QRCodeSVG
+                  value={`${typeof window !== "undefined" ? window.location.origin : "https://cellssyncsolutions.com"}/product/${product.id}`}
+                  size={112}
+                  level="M"
+                  includeMargin={false}
+                />
+              </div>
+              <div>
+                <h2 className="text-sm font-bold uppercase tracking-wider mb-1">Scan to Share</h2>
+                <p className="text-xs text-muted-foreground">
+                  Scan this QR code with any phone camera to open this product page instantly.
+                </p>
+              </div>
             </div>
 
             <div className="text-xs text-muted-foreground mt-6 leading-relaxed space-y-3">
