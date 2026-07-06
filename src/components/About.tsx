@@ -9,12 +9,12 @@ const About = () => {
       <>
         {t("about_bullet_4_pre")}
         <a
-          href="https://www.nature.com/subjects/peptides"
+          href="https://peptide-res-73eea6b2.vibepreview.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary font-semibold hover:underline"
         >
-          Nature
+          RESEARCH HUB
         </a>
         {t("about_bullet_4_post")}
       </>
