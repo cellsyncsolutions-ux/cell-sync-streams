@@ -23,10 +23,33 @@ const Auth = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [submitting, setSubmitting] = useState(false);
+  const [resetting, setResetting] = useState(false);
 
   useEffect(() => {
     if (!loading && user) navigate("/account", { replace: true });
   }, [user, loading, navigate]);
+
+  const handleForgotPassword = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const emailInput = document.getElementById("si-email") as HTMLInputElement | null;
+    const email = emailInput?.value.trim() ?? "";
+    const parsed = z.string().email().safeParse(email);
+    if (!parsed.success) {
+      toast.error("Enter your email above first, then click Forgot password.");
+      emailInput?.focus();
+      return;
+    }
+    setResetting(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setResetting(false);
+    if (error) {
+      toast.error(error.message);
+      return;
+    }
+    toast.success("Password reset email sent. Check your inbox.");
+  };
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,6 +126,16 @@ const Auth = () => {
               <div>
                 <Label htmlFor="si-pw">Password</Label>
                 <Input id="si-pw" name="password" type="password" required maxLength={72} />
+              </div>
+              <div className="flex justify-end -mt-2">
+                <button
+                  type="button"
+                  onClick={handleForgotPassword}
+                  disabled={resetting}
+                  className="text-xs text-primary hover:underline disabled:opacity-60"
+                >
+                  {resetting ? "Sending..." : "Forgot password?"}
+                </button>
               </div>
               <Button type="submit" variant="hero" className="w-full" disabled={submitting}>
                 {submitting ? "Signing in..." : "Sign In"}
