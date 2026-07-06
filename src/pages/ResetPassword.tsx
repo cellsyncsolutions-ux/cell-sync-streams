@@ -11,6 +11,8 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const [ready, setReady] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [resendEmail, setResendEmail] = useState("");
+  const [resending, setResending] = useState(false);
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
@@ -73,6 +75,38 @@ const ResetPassword = () => {
             {submitting ? "Updating..." : "Update password"}
           </Button>
         </form>
+
+      <div className="mt-8 pt-6 border-t border-border">
+        <h2 className="text-sm font-semibold mb-1">Didn't get the email?</h2>
+        <p className="text-xs text-muted-foreground mb-3">
+          Enter your email and we'll send another reset link.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Input
+            type="email"
+            placeholder="you@example.com"
+            value={resendEmail}
+            onChange={(e) => setResendEmail(e.target.value)}
+            autoComplete="email"
+          />
+          <Button
+            type="button"
+            variant="outline"
+            disabled={resending || !resendEmail}
+            onClick={async () => {
+              setResending(true);
+              const { error } = await supabase.auth.resetPasswordForEmail(resendEmail, {
+                redirectTo: `${window.location.origin}/reset-password`,
+              });
+              setResending(false);
+              if (error) toast.error(error.message);
+              else toast.success("Reset email sent. Check your inbox.");
+            }}
+          >
+            {resending ? "Sending..." : "Resend"}
+          </Button>
+        </div>
+      </div>
       </div>
 
       <Link to="/auth" className="text-sm text-muted-foreground hover:text-primary mt-6">← Back to sign in</Link>
