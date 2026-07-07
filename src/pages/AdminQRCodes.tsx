@@ -86,10 +86,38 @@ const AdminQRCodes = () => {
       if (!blob) return;
       try {
         await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+        toast.success("QR code copied to clipboard");
       } catch {
-        // Fallback: nothing
+        toast.error("Copy failed — your browser blocked clipboard access");
       }
     });
+  };
+
+  const copyAllAsHtml = async () => {
+    const cells = products.map((p) => {
+      const canvas = canvasRefs.current[p.id];
+      const dataUrl = canvas ? canvas.toDataURL("image/png") : "";
+      const url = urlFor(p.id);
+      return `<td style="border:1px solid #ccc;padding:16px;text-align:center;vertical-align:top;width:33%;"><img src="${dataUrl}" width="180" height="180" alt="QR code for ${p.name}" style="display:block;margin:0 auto;" /><div style="font-family:Arial,sans-serif;font-size:13px;font-weight:bold;margin-top:8px;">${p.name}</div><div style="font-family:Arial,sans-serif;font-size:10px;color:#555;margin-top:4px;word-break:break-all;">${url}</div></td>`;
+    });
+    const rows: string[] = [];
+    for (let i = 0; i < cells.length; i += 3) {
+      const slice = cells.slice(i, i + 3);
+      rows.push(`<tr>${slice.join("")}${'<td style="border:none"></td>'.repeat(3 - slice.length)}</tr>`);
+    }
+    const html = `<table style="border-collapse:collapse;">${rows.join("")}</table>`;
+    const plain = products.map((p) => `${p.name}: ${urlFor(p.id)}`).join("\n");
+    try {
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "text/html": new Blob([html], { type: "text/html" }),
+          "text/plain": new Blob([plain], { type: "text/plain" }),
+        }),
+      ]);
+      toast.success("All QR codes copied — paste into your document");
+    } catch {
+      toast.error("Copy failed — try 'Download HTML' instead");
+    }
   };
 
   if (loading || isAdmin === null) {
@@ -120,6 +148,7 @@ const AdminQRCodes = () => {
           <div className="flex gap-2">
             <Button variant="outline" onClick={() => window.print()}>Print / Save as PDF</Button>
             <Button variant="outline" onClick={downloadHtml}>Download HTML</Button>
+            <Button variant="outline" onClick={copyAllAsHtml}>Copy all</Button>
             <Button variant="hero" onClick={downloadAll}>Download all PNGs</Button>
           </div>
         </div>
