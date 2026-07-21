@@ -3,11 +3,13 @@ import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
 import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
 import bpc157Asset from "@/assets/bpc-157-vial.jpg.asset.json";
 import cjcNoDacAsset from "@/assets/cjc-1295-no-dac-vial.jpg.asset.json";
+import klowAsset from "@/assets/klow-70mg-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
 const bpc157Vial = bpc157Asset.url;
 const cjcNoDacVial = cjcNoDacAsset.url;
+const klowVial = klowAsset.url;
 
 export type Product = {
   id: string;
@@ -40,7 +42,7 @@ export const products: Product[] = [
   { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 65, image: vial,
     sale: true,
     variants: [{ label: "5mg", price: 65, originalPrice: 73 }] },
-  { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: vial,
+  { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: klowVial,
     sale: true,
     variants: [{ label: "80mg", price: 115, originalPrice: 128 }] },
   { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: vial,
