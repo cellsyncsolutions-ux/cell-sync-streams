@@ -8,6 +8,7 @@ import igf1Lr3Asset from "@/assets/igf1-lr3-vial.jpg.asset.json";
 import motsCAsset from "@/assets/mots-c-vial.jpg.asset.json";
 import cjcIpaAsset from "@/assets/cjc-ipa-vial.jpg.asset.json";
 import wBlendAsset from "@/assets/w-blend-vial.jpg.asset.json";
+import selankAsset from "@/assets/selank-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -18,6 +19,7 @@ const igf1Lr3Vial = igf1Lr3Asset.url;
 const motsCVial = motsCAsset.url;
 const cjcIpaVial = cjcIpaAsset.url;
 const wBlendVial = wBlendAsset.url;
+const selankVial = selankAsset.url;
 
 export type Product = {
   id: string;
@@ -68,7 +70,7 @@ export const products: Product[] = [
   { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
     sale: true,
     variants: [{ label: "50mg", price: 35, originalPrice: 39 }, { label: "100mg", price: 50, originalPrice: 56 }] },
-  { id: "selank", name: "SELANK", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
+  { id: "selank", name: "SELANK", category: "Peptides", price: 35, priceRange: [35, 50], image: selankVial,
     sale: true,
     variants: [{ label: "5mg", price: 35, originalPrice: 39 }, { label: "10mg", price: 50, originalPrice: 56 }] },
   { id: "tesamorelin", name: "TESAMORELIN", category: "Peptides", price: 60, priceRange: [60, 160], image: vial,
