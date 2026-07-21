@@ -11,6 +11,7 @@ import wBlendAsset from "@/assets/w-blend-vial.jpg.asset.json";
 import selankAsset from "@/assets/selank-vial.jpg.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
+import mt2Asset from "@/assets/mt-2-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -24,6 +25,7 @@ const wBlendVial = wBlendAsset.url;
 const selankVial = selankAsset.url;
 const tesamorelinVial = tesamorelinAsset.url;
 const ss31Vial = ss31Asset.url;
+const mt2Vial = mt2Asset.url;
 
 export type Product = {
   id: string;
@@ -92,7 +94,7 @@ export const products: Product[] = [
   { id: "mt-1", name: "MT-1 (Melanotan 1)", category: "Peptides", price: 45, image: vial,
     sale: true,
     variants: [{ label: "10mg", price: 45, originalPrice: 50 }] },
-  { id: "mt-2", name: "MT-2 (Melanotan 2)", category: "Peptides", price: 45, image: vial,
+  { id: "mt-2", name: "MT-2 (Melanotan 2)", category: "Peptides", price: 45, image: mt2Vial,
     sale: true,
     variants: [{ label: "10mg", price: 45, originalPrice: 50 }] },
   { id: "ipa", name: "IPA (Ipamorelin)", category: "Peptides", price: 45, image: vial,
