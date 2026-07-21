@@ -7,6 +7,7 @@ import klowAsset from "@/assets/klow-70mg-vial.jpg.asset.json";
 import igf1Lr3Asset from "@/assets/igf1-lr3-vial.jpg.asset.json";
 import motsCAsset from "@/assets/mots-c-vial.jpg.asset.json";
 import cjcIpaAsset from "@/assets/cjc-ipa-vial.jpg.asset.json";
+import wBlendAsset from "@/assets/w-blend-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -16,6 +17,7 @@ const klowVial = klowAsset.url;
 const igf1Lr3Vial = igf1Lr3Asset.url;
 const motsCVial = motsCAsset.url;
 const cjcIpaVial = cjcIpaAsset.url;
+const wBlendVial = wBlendAsset.url;
 
 export type Product = {
   id: string;
@@ -60,7 +62,7 @@ export const products: Product[] = [
   { id: "mots-c", name: "MOTS-C", category: "Peptides", price: 55, priceRange: [55, 85], image: motsCVial,
     sale: true,
     variants: [{ label: "10mg", price: 55, originalPrice: 62 }, { label: "20mg", price: 85, originalPrice: 95, outOfStock: true }] },
-  { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: vial,
+  { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: wBlendVial,
     sale: true,
     variants: [{ label: "5mg/5mg", price: 75, originalPrice: 84 }, { label: "10mg/10mg", price: 130, originalPrice: 145 }] },
   { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
