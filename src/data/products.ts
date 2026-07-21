@@ -47,7 +47,7 @@ export const products: Product[] = [
   { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: klowVial,
     sale: true,
     variants: [{ label: "80mg", price: 115, originalPrice: 128 }] },
-  { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: vial,
+  { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: igf1Lr3Vial,
     sale: true,
     variants: [{ label: "1mg", price: 95, originalPrice: 106 }] },
   { id: "tb-500", name: "TB-500", category: "Peptides", price: 40, priceRange: [40, 65], image: vial,
