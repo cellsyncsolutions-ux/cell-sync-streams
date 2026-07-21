@@ -10,6 +10,7 @@ import cjcIpaAsset from "@/assets/cjc-ipa-vial.jpg.asset.json";
 import wBlendAsset from "@/assets/w-blend-vial.jpg.asset.json";
 import selankAsset from "@/assets/selank-vial.jpg.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
+import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -22,6 +23,7 @@ const cjcIpaVial = cjcIpaAsset.url;
 const wBlendVial = wBlendAsset.url;
 const selankVial = selankAsset.url;
 const tesamorelinVial = tesamorelinAsset.url;
+const ss31Vial = ss31Asset.url;
 
 export type Product = {
   id: string;
@@ -81,7 +83,7 @@ export const products: Product[] = [
   { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: vial,
     sale: true,
     variants: [{ label: "5mg", price: 40, originalPrice: 45 }] },
-  { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: vial,
+  { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: ss31Vial,
     sale: true,
     variants: [{ label: "10mg", price: 95, originalPrice: 106 }, { label: "50mg", price: 400, originalPrice: 445, outOfStock: true }] },
   { id: "nad", name: "NAD+", category: "Peptides", price: 70, priceRange: [70, 120], image: vial,
