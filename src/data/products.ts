@@ -42,7 +42,7 @@ export const products: Product[] = [
   { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 65, image: vial,
     sale: true,
     variants: [{ label: "5mg", price: 65, originalPrice: 73 }] },
-  { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: vial,
+  { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: klowVial,
     sale: true,
     variants: [{ label: "80mg", price: 115, originalPrice: 128 }] },
   { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: vial,
