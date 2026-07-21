@@ -2,10 +2,12 @@ import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
 import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
 import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
 import bpc157Asset from "@/assets/bpc-157-vial.jpg.asset.json";
+import cjcNoDacAsset from "@/assets/cjc-1295-no-dac-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
 const bpc157Vial = bpc157Asset.url;
+const cjcNoDacVial = cjcNoDacAsset.url;
 
 export type Product = {
   id: string;
@@ -32,7 +34,7 @@ export const products: Product[] = [
   { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 65], image: bpc157Vial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 65, originalPrice: 73 }] },
-  { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: vial,
+  { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: cjcNoDacVial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 80, originalPrice: 89, outOfStock: true }] },
   { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 65, image: vial,
