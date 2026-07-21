@@ -4,12 +4,14 @@ import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
 import bpc157Asset from "@/assets/bpc-157-vial.jpg.asset.json";
 import cjcNoDacAsset from "@/assets/cjc-1295-no-dac-vial.jpg.asset.json";
 import klowAsset from "@/assets/klow-70mg-vial.jpg.asset.json";
+import igf1Lr3Asset from "@/assets/igf1-lr3-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
 const bpc157Vial = bpc157Asset.url;
 const cjcNoDacVial = cjcNoDacAsset.url;
 const klowVial = klowAsset.url;
+const igf1Lr3Vial = igf1Lr3Asset.url;
 
 export type Product = {
   id: string;
@@ -45,7 +47,7 @@ export const products: Product[] = [
   { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: klowVial,
     sale: true,
     variants: [{ label: "80mg", price: 115, originalPrice: 128 }] },
-  { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: vial,
+  { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: igf1Lr3Vial,
     sale: true,
     variants: [{ label: "1mg", price: 95, originalPrice: 106 }] },
   { id: "tb-500", name: "TB-500", category: "Peptides", price: 40, priceRange: [40, 65], image: vial,
