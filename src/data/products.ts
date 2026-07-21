@@ -4,12 +4,14 @@ import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
 import bpc157Asset from "@/assets/bpc-157-vial.jpg.asset.json";
 import cjcNoDacAsset from "@/assets/cjc-1295-no-dac-vial.jpg.asset.json";
 import klowAsset from "@/assets/klow-70mg-vial.jpg.asset.json";
+import igf1Lr3Asset from "@/assets/igf1-lr3-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
 const bpc157Vial = bpc157Asset.url;
 const cjcNoDacVial = cjcNoDacAsset.url;
 const klowVial = klowAsset.url;
+const igf1Lr3Vial = igf1Lr3Asset.url;
 
 export type Product = {
   id: string;
