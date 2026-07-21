@@ -6,6 +6,7 @@ import cjcNoDacAsset from "@/assets/cjc-1295-no-dac-vial.jpg.asset.json";
 import klowAsset from "@/assets/klow-70mg-vial.jpg.asset.json";
 import igf1Lr3Asset from "@/assets/igf1-lr3-vial.jpg.asset.json";
 import motsCAsset from "@/assets/mots-c-vial.jpg.asset.json";
+import cjcIpaAsset from "@/assets/cjc-ipa-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -14,6 +15,7 @@ const cjcNoDacVial = cjcNoDacAsset.url;
 const klowVial = klowAsset.url;
 const igf1Lr3Vial = igf1Lr3Asset.url;
 const motsCVial = motsCAsset.url;
+const cjcIpaVial = cjcIpaAsset.url;
 
 export type Product = {
   id: string;
