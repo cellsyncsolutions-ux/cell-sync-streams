@@ -36,7 +36,7 @@ export const products: Product[] = [
   { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 120, image: glowVial,
     sale: true,
     variants: [{ label: "70mg", price: 120, originalPrice: 134 }] },
-  { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, image: vial,
+  { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, image: cjcIpaVial,
     sale: true,
     variants: [{ label: "5mg/5mg", price: 85, originalPrice: 95 }] },
   { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 65], image: bpc157Vial,
