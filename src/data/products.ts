@@ -62,7 +62,7 @@ export const products: Product[] = [
   { id: "mots-c", name: "MOTS-C", category: "Peptides", price: 55, priceRange: [55, 85], image: motsCVial,
     sale: true,
     variants: [{ label: "10mg", price: 55, originalPrice: 62 }, { label: "20mg", price: 85, originalPrice: 95, outOfStock: true }] },
-  { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: vial,
+  { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: wBlendVial,
     sale: true,
     variants: [{ label: "5mg/5mg", price: 75, originalPrice: 84 }, { label: "10mg/10mg", price: 130, originalPrice: 145 }] },
   { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
