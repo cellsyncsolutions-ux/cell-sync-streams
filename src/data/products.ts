@@ -9,6 +9,7 @@ import motsCAsset from "@/assets/mots-c-vial.jpg.asset.json";
 import cjcIpaAsset from "@/assets/cjc-ipa-vial.jpg.asset.json";
 import wBlendAsset from "@/assets/w-blend-vial.jpg.asset.json";
 import selankAsset from "@/assets/selank-vial.jpg.asset.json";
+import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -20,6 +21,7 @@ const motsCVial = motsCAsset.url;
 const cjcIpaVial = cjcIpaAsset.url;
 const wBlendVial = wBlendAsset.url;
 const selankVial = selankAsset.url;
+const tesamorelinVial = tesamorelinAsset.url;
 
 export type Product = {
   id: string;
@@ -73,7 +75,7 @@ export const products: Product[] = [
   { id: "selank", name: "SELANK", category: "Peptides", price: 35, priceRange: [35, 50], image: selankVial,
     sale: true,
     variants: [{ label: "5mg", price: 35, originalPrice: 39 }, { label: "10mg", price: 50, originalPrice: 56 }] },
-  { id: "tesamorelin", name: "TESAMORELIN", category: "Peptides", price: 60, priceRange: [60, 160], image: vial,
+  { id: "tesamorelin", name: "TESAMORELIN", category: "Peptides", price: 60, priceRange: [60, 160], image: tesamorelinVial,
     sale: true,
     variants: [{ label: "5mg", price: 60, originalPrice: 67 }, { label: "10mg", price: 90, originalPrice: 100 }, { label: "20mg", price: 160, originalPrice: 178, outOfStock: true }] },
   { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: vial,
