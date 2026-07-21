@@ -1,9 +1,11 @@
 import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
 import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
 import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
+import bpc157Asset from "@/assets/bpc-157-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
+const bpc157Vial = bpc157Asset.url;
 
 export type Product = {
   id: string;
@@ -27,7 +29,7 @@ export const products: Product[] = [
   { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, image: vial,
     sale: true,
     variants: [{ label: "5mg/5mg", price: 85, originalPrice: 95 }] },
-  { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 65], image: vial,
+  { id: "bpc-157", name: "BPC-157", category: "Peptides", price: 45, priceRange: [45, 65], image: bpc157Vial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 65, originalPrice: 73 }] },
   { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: vial,
