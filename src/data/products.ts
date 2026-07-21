@@ -1,7 +1,9 @@
 import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
 import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
+import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
+const glowVial = glowAsset.url;
 
 export type Product = {
   id: string;
@@ -19,7 +21,7 @@ export const products: Product[] = [
   { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 60, priceRange: [60, 295], image: glp3RtVial,
     sale: true,
     variants: [{ label: "5mg", price: 60, originalPrice: 67 }, { label: "10mg", price: 100, originalPrice: 112 }, { label: "20mg", price: 175, originalPrice: 195 }, { label: "30mg", price: 200, originalPrice: 223 }, { label: "60mg", price: 295, originalPrice: 328, outOfStock: true }] },
-  { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 120, image: vial,
+  { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 120, image: glowVial,
     sale: true,
     variants: [{ label: "70mg", price: 120, originalPrice: 134 }] },
   { id: "cjc-ipa", name: "CJC 1295 No DAC + Ipamorelin", category: "Blends", price: 85, image: vial,
