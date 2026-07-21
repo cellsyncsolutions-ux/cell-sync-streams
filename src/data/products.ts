@@ -1,5 +1,7 @@
 import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
+import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
 const vial = vialAsset.url;
+const glp3RtVial = glp3RtAsset.url;
 
 export type Product = {
   id: string;
@@ -14,7 +16,7 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 60, priceRange: [60, 295], image: vial,
+  { id: "glp-3", name: "GLP-3 RT", category: "Peptides", price: 60, priceRange: [60, 295], image: glp3RtVial,
     sale: true,
     variants: [{ label: "5mg", price: 60, originalPrice: 67 }, { label: "10mg", price: 100, originalPrice: 112 }, { label: "20mg", price: 175, originalPrice: 195 }, { label: "30mg", price: 200, originalPrice: 223 }, { label: "60mg", price: 295, originalPrice: 328, outOfStock: true }] },
   { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 120, image: vial,
