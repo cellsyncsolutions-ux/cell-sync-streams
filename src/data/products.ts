@@ -12,6 +12,7 @@ import selankAsset from "@/assets/selank-vial.jpg.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
 import mt2Asset from "@/assets/mt-2-vial.jpg.asset.json";
+import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
