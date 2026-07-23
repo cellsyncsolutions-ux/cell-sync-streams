@@ -103,7 +103,7 @@ export const products: Product[] = [
   { id: "mt-2", name: "MT-2 (Melanotan 2)", category: "Peptides", price: 45, image: mt2Vial,
     sale: true,
     variants: [{ label: "10mg", price: 45, originalPrice: 50 }] },
-  { id: "ipa", name: "IPA (Ipamorelin)", category: "Peptides", price: 45, image: vial,
+  { id: "ipa", name: "IPA (Ipamorelin)", category: "Peptides", price: 45, image: ipaVial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 80, originalPrice: 89, outOfStock: true }] },
 ];
