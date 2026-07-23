@@ -12,6 +12,7 @@ import selankAsset from "@/assets/selank-vial.jpg.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
 import mt2Asset from "@/assets/mt-2-vial.jpg.asset.json";
+import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -26,6 +27,7 @@ const selankVial = selankAsset.url;
 const tesamorelinVial = tesamorelinAsset.url;
 const ss31Vial = ss31Asset.url;
 const mt2Vial = mt2Asset.url;
+const semaxVial = semaxAsset.url;
 
 export type Product = {
   id: string;
@@ -82,7 +84,7 @@ export const products: Product[] = [
   { id: "tesamorelin", name: "TESAMORELIN", category: "Peptides", price: 60, priceRange: [60, 160], image: tesamorelinVial,
     sale: true,
     variants: [{ label: "5mg", price: 60, originalPrice: 67 }, { label: "10mg", price: 90, originalPrice: 100 }, { label: "20mg", price: 160, originalPrice: 178, outOfStock: true }] },
-  { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: vial,
+  { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: semaxVial,
     sale: true,
     variants: [{ label: "5mg", price: 40, originalPrice: 45 }] },
   { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: ss31Vial,
