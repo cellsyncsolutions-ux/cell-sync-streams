@@ -84,7 +84,7 @@ export const products: Product[] = [
   { id: "tesamorelin", name: "TESAMORELIN", category: "Peptides", price: 60, priceRange: [60, 160], image: tesamorelinVial,
     sale: true,
     variants: [{ label: "5mg", price: 60, originalPrice: 67 }, { label: "10mg", price: 90, originalPrice: 100 }, { label: "20mg", price: 160, originalPrice: 178, outOfStock: true }] },
-  { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: vial,
+  { id: "semax", name: "SEMAX", category: "Peptides", price: 40, image: semaxVial,
     sale: true,
     variants: [{ label: "5mg", price: 40, originalPrice: 45 }] },
   { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: ss31Vial,
