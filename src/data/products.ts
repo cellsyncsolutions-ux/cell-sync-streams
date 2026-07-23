@@ -59,7 +59,7 @@ export const products: Product[] = [
   { id: "cjc-nodac", name: "CJC 1295 No DAC", category: "Peptides", price: 45, image: cjcNoDacVial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 80, originalPrice: 89, outOfStock: true }] },
-  { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 65, image: vial,
+  { id: "cjc-wdac", name: "CJC 1295 W/DAC", category: "Peptides", price: 65, image: cjcWdacVial,
     sale: true,
     variants: [{ label: "5mg", price: 65, originalPrice: 73 }] },
   { id: "klow", name: "KLOW (KPV/GHK-Cu/BPC157/TB500)", category: "Blends", price: 115, image: klowVial,
