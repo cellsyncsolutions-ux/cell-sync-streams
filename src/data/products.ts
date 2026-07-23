@@ -27,6 +27,7 @@ const selankVial = selankAsset.url;
 const tesamorelinVial = tesamorelinAsset.url;
 const ss31Vial = ss31Asset.url;
 const mt2Vial = mt2Asset.url;
+const semaxVial = semaxAsset.url;
 
 export type Product = {
   id: string;
