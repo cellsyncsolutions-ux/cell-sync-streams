@@ -19,6 +19,7 @@ const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
 const bpc157Vial = bpc157Asset.url;
 const cjcNoDacVial = cjcNoDacAsset.url;
+const cjcWdacVial = cjcWdacAsset.url;
 const klowVial = klowAsset.url;
 const igf1Lr3Vial = igf1Lr3Asset.url;
 const motsCVial = motsCAsset.url;
