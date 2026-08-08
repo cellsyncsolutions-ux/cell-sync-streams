@@ -15,6 +15,7 @@ import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
 import mt2Asset from "@/assets/mt-2-vial.jpg.asset.json";
 import mt1Asset from "@/assets/mt-1-vial.jpg.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
+import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
@@ -33,6 +34,7 @@ const ss31Vial = ss31Asset.url;
 const mt2Vial = mt2Asset.url;
 const mt1Vial = mt1Asset.url;
 const semaxVial = semaxAsset.url;
+const tb500Vial = tb500Asset.url;
 const ipaVial = ipaAsset.url;
 
 export type Product = {
@@ -72,7 +74,7 @@ export const products: Product[] = [
   { id: "igf-lr3", name: "IGF1-LR3", category: "Peptides", price: 95, image: igf1Lr3Vial,
     sale: true,
     variants: [{ label: "1mg", price: 95, originalPrice: 106 }] },
-  { id: "tb-500", name: "TB-500", category: "Peptides", price: 40, priceRange: [40, 65], image: vial,
+  { id: "tb-500", name: "TB-500", category: "Peptides", price: 40, priceRange: [40, 65], image: tb500Vial,
     sale: true,
     variants: [{ label: "5mg", price: 40, originalPrice: 45 }, { label: "10mg", price: 65, originalPrice: 73, outOfStock: true }] },
   { id: "mots-c", name: "MOTS-C", category: "Peptides", price: 55, priceRange: [55, 85], image: motsCVial,
