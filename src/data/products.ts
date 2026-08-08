@@ -85,7 +85,7 @@ export const products: Product[] = [
   { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: wBlendVial,
     sale: true,
     variants: [{ label: "5mg/5mg", price: 75, originalPrice: 84 }, { label: "10mg/10mg", price: 130, originalPrice: 145 }] },
-  { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
+  { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: ghkCuVial,
     sale: true,
     variants: [{ label: "50mg", price: 35, originalPrice: 39 }, { label: "100mg", price: 50, originalPrice: 56 }] },
   { id: "selank", name: "SELANK", category: "Peptides", price: 35, priceRange: [35, 50], image: selankVial,
