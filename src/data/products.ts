@@ -18,6 +18,7 @@ import mt1Asset from "@/assets/mt-1-vial.jpg.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
+const ghkCuVial = ghkCuAsset.url;
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
