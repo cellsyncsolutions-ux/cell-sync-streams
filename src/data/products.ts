@@ -1,3 +1,4 @@
+import ghkCuAsset from "@/assets/ghk-cu-vial.png.asset.json";
 import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
 import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
 import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
