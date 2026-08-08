@@ -1,3 +1,4 @@
+import ghkCuAsset from "@/assets/ghk-cu-vial.png.asset.json";
 import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
 import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
 import glowAsset from "@/assets/glow-70mg-vial.jpg.asset.json";
@@ -17,6 +18,7 @@ import mt1Asset from "@/assets/mt-1-vial.jpg.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
+const ghkCuVial = ghkCuAsset.url;
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
 const glowVial = glowAsset.url;
@@ -83,7 +85,7 @@ export const products: Product[] = [
   { id: "w-blend", name: "W BLEND (BPC-157 + TB-500)", category: "Blends", price: 75, priceRange: [75, 130], image: wBlendVial,
     sale: true,
     variants: [{ label: "5mg/5mg", price: 75, originalPrice: 84 }, { label: "10mg/10mg", price: 130, originalPrice: 145 }] },
-  { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: vial,
+  { id: "ghk-cu", name: "GHK-Cu", category: "Peptides", price: 35, priceRange: [35, 50], image: ghkCuVial,
     sale: true,
     variants: [{ label: "50mg", price: 35, originalPrice: 39 }, { label: "100mg", price: 50, originalPrice: 56 }] },
   { id: "selank", name: "SELANK", category: "Peptides", price: 35, priceRange: [35, 50], image: selankVial,
