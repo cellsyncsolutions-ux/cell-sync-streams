@@ -13,6 +13,7 @@ import selankAsset from "@/assets/selank-vial.jpg.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
 import mt2Asset from "@/assets/mt-2-vial.jpg.asset.json";
+import mt1Asset from "@/assets/mt-1-vial.jpg.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
 const vial = vialAsset.url;
@@ -30,6 +31,7 @@ const selankVial = selankAsset.url;
 const tesamorelinVial = tesamorelinAsset.url;
 const ss31Vial = ss31Asset.url;
 const mt2Vial = mt2Asset.url;
+const mt1Vial = mt1Asset.url;
 const semaxVial = semaxAsset.url;
 const ipaVial = ipaAsset.url;
 
@@ -97,7 +99,7 @@ export const products: Product[] = [
   { id: "nad", name: "NAD+", category: "Peptides", price: 70, priceRange: [70, 120], image: vial,
     sale: true,
     variants: [{ label: "500mg", price: 70, originalPrice: 78 }, { label: "1000mg", price: 120, originalPrice: 134 }] },
-  { id: "mt-1", name: "MT-1 (Melanotan 1)", category: "Peptides", price: 45, image: vial,
+  { id: "mt-1", name: "MT-1 (Melanotan 1)", category: "Peptides", price: 45, image: mt1Vial,
     sale: true,
     variants: [{ label: "10mg", price: 45, originalPrice: 50 }] },
   { id: "mt-2", name: "MT-2 (Melanotan 2)", category: "Peptides", price: 45, image: mt2Vial,
