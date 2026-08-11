@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
+import ProductDocuments from "@/components/ProductDocuments";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
@@ -140,6 +141,8 @@ const Product = () => {
             <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock}>
               {selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
             </Button>
+
+            <ProductDocuments productId={product.id} />
 
             <div className="mt-6 rounded-lg border border-border bg-card p-5">
               <h2 className="text-sm font-bold uppercase tracking-wider mb-3">Research Resources</h2>
