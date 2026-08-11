@@ -201,6 +201,39 @@ export type Database = {
         }
         Relationships: []
       }
+      product_documents: {
+        Row: {
+          created_at: string
+          file_path: string
+          file_size: number | null
+          id: string
+          product_id: string
+          title: string
+          updated_at: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          created_at?: string
+          file_path: string
+          file_size?: number | null
+          id?: string
+          product_id: string
+          title: string
+          updated_at?: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          created_at?: string
+          file_path?: string
+          file_size?: number | null
+          id?: string
+          product_id?: string
+          title?: string
+          updated_at?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address_line1: string | null
