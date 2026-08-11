@@ -1,3 +1,4 @@
+import nadAsset from "@/assets/nad-vial.png.asset.json";
 import ghkCuAsset from "@/assets/ghk-cu-vial.png.asset.json";
 import vialAsset from "@/assets/retatrutide-vial.png.asset.json";
 import glp3RtAsset from "@/assets/glp3-rt-vial.png.asset.json";
@@ -18,6 +19,7 @@ import mt1Asset from "@/assets/mt-1-vial.jpg.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
+const nadVial = nadAsset.url;
 const ghkCuVial = ghkCuAsset.url;
 const vial = vialAsset.url;
 const glp3RtVial = glp3RtAsset.url;
@@ -100,7 +102,7 @@ export const products: Product[] = [
   { id: "ss-31", name: "SS-31", category: "Peptides", price: 95, priceRange: [95, 400], image: ss31Vial,
     sale: true,
     variants: [{ label: "10mg", price: 95, originalPrice: 106 }, { label: "50mg", price: 400, originalPrice: 445, outOfStock: true }] },
-  { id: "nad", name: "NAD+", category: "Peptides", price: 70, priceRange: [70, 120], image: vial,
+  { id: "nad", name: "NAD+", category: "Peptides", price: 70, priceRange: [70, 120], image: nadVial,
     sale: true,
     variants: [{ label: "500mg", price: 70, originalPrice: 78 }, { label: "1000mg", price: 120, originalPrice: 134 }] },
   { id: "mt-1", name: "MT-1 (Melanotan 1)", category: "Peptides", price: 45, image: mt1Vial,
