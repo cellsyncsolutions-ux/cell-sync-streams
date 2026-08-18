@@ -9,7 +9,7 @@ export const translations = {
     nav_contact: "Contact",
     nav_login: "Login",
     nav_cart: "Cart",
-    nav_banner: "US Manufactured Research Use Only Peptides",
+    nav_banner: "U.S.A BASED RESEARCH USE ONLY PEPTIDES",
 
     // Hero
     hero_kicker: "PEPTIDES MADE TO SYNC",
@@ -133,7 +133,7 @@ export const translations = {
     nav_contact: "Contacto",
     nav_login: "Iniciar sesión",
     nav_cart: "Carrito",
-    nav_banner: "Péptidos fabricados en EE. UU. solo para uso de investigación",
+    nav_banner: "PÉPTIDOS CON BASE EN EE. UU. SOLO PARA USO DE INVESTIGACIÓN",
 
     hero_kicker: "PÉPTIDOS HECHOS PARA SINCRONIZAR",
     hero_title_1: "Péptidos de grado investigación,",
