@@ -47,6 +47,7 @@ const Footer = () => {
           <li><Link to="/terms" className="hover:underline">{t("footer_terms")}</Link></li>
           <li><Link to="/privacy" className="hover:underline">{t("footer_privacy")}</Link></li>
           <li><Link to="/refund-policy" className="hover:underline">{t("footer_refund")}</Link></li>
+          <li><Link to="/compliance" className="hover:underline">{t("footer_compliance")}</Link></li>
         </ul>
       </div>
     </div>

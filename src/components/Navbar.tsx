@@ -30,6 +30,7 @@ const Navbar = () => {
           <a href="#about" className="hidden md:block hover:text-primary transition-smooth">{t("nav_about")}</a>
           <a href="#shop" className="hidden md:block hover:text-primary transition-smooth">{t("nav_shop")}</a>
           <Link to="/research-library" className="hidden lg:block hover:text-primary transition-smooth">Research Library</Link>
+          <Link to="/compliance" className="hidden lg:block hover:text-primary transition-smooth">{t("nav_compliance")}</Link>
           <a href="#contact" className="hidden md:block hover:text-primary transition-smooth">{t("nav_contact")}</a>
           {user ? (
             <Link to="/account" className="hidden md:flex items-center gap-1.5 hover:text-primary transition-smooth">
@@ -58,6 +59,7 @@ const Navbar = () => {
                 <a href="#about" onClick={() => setOpen(false)}>{t("nav_about")}</a>
                 <a href="#shop" onClick={() => setOpen(false)}>{t("nav_shop")}</a>
                 <Link to="/research-library" onClick={() => setOpen(false)}>Research Library</Link>
+                <Link to="/compliance" onClick={() => setOpen(false)}>{t("nav_compliance")}</Link>
                 <a href="#contact" onClick={() => setOpen(false)}>{t("nav_contact")}</a>
                 {user ? (
                   <Link to="/account" onClick={() => setOpen(false)}>Account</Link>
