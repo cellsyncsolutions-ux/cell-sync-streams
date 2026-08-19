@@ -331,7 +331,20 @@ const Checkout = () => {
                 </div>
               </div>
 
-              <Button type="submit" variant="hero" className="w-full" disabled={submitting}>
+              <div className="flex items-start gap-3 rounded-lg border border-border bg-secondary/40 p-3 mb-4">
+                <Checkbox
+                  id="research-ack"
+                  checked={acknowledged}
+                  onCheckedChange={(v) => setAcknowledged(v === true)}
+                  className="mt-0.5"
+                />
+                <Label htmlFor="research-ack" className="text-xs leading-relaxed font-normal cursor-pointer">
+                  I acknowledge that the products offered by Cell Sync Solutions are supplied exclusively for
+                  legitimate research and laboratory purposes and are not intended for human or veterinary use.
+                </Label>
+              </div>
+
+              <Button type="submit" variant="hero" className="w-full" disabled={submitting || !acknowledged}>
                 {submitting ? "Placing order..." : "Place Order"}
               </Button>
               <p className="text-xs text-muted-foreground mt-3 text-center">Demo checkout — no payment is collected.</p>
