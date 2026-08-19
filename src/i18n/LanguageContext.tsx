@@ -3,7 +3,13 @@ import { translations, Lang, TranslationKey } from "./translations";
 
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (k: TranslationKey) => string };
 
-const LanguageContext = createContext<Ctx | undefined>(undefined);
+const defaultCtx: Ctx = {
+  lang: "en",
+  setLang: () => {},
+  t: (k: TranslationKey) => translations.en[k] ?? k,
+};
+
+const LanguageContext = createContext<Ctx>(defaultCtx);
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [lang, setLangState] = useState<Lang>(() => {
@@ -26,8 +32,4 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export const useLanguage = () => {
-  const ctx = useContext(LanguageContext);
-  if (!ctx) throw new Error("useLanguage must be used within LanguageProvider");
-  return ctx;
-};
+export const useLanguage = () => useContext(LanguageContext);
