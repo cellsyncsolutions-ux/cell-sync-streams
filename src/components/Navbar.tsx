@@ -72,7 +72,7 @@ const Navbar = () => {
       </nav>
     </div>
     <div className="bg-primary text-primary-foreground">
-      <div className="container py-2.5 md:py-3 text-center font-bold uppercase tracking-[0.12em] md:tracking-[0.2em] text-[9px] sm:text-[10px] md:text-xs">
+      <div className="container py-1.5 sm:py-2.5 md:py-3 text-center font-bold uppercase tracking-[0.05em] sm:tracking-[0.1em] md:tracking-[0.2em] leading-tight text-[9px] sm:text-[10px] md:text-xs">
         {t("nav_banner")}
       </div>
     </div>
