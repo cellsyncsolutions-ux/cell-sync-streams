@@ -8,6 +8,7 @@ export const translations = {
     nav_shop: "Shop",
     nav_contact: "Contact",
     nav_login: "Login",
+    nav_compliance: "Compliance",
     nav_cart: "Cart",
     nav_banner: "U.S.A BASED RESEARCH USE ONLY PEPTIDES — Products are supplied solely for legitimate laboratory and research applications. They are not intended for human consumption, administration, diagnosis, treatment, prevention, or mitigation of disease.",
 
@@ -113,6 +114,7 @@ export const translations = {
     footer_terms: "Terms of Service",
     footer_privacy: "Privacy Policy",
     footer_refund: "Refund & Return Policy",
+    footer_compliance: "Compliance",
 
     // Age gate
     age_title: "You must be at least 21 to enter",
@@ -132,6 +134,7 @@ export const translations = {
     nav_shop: "Tienda",
     nav_contact: "Contacto",
     nav_login: "Iniciar sesión",
+    nav_compliance: "Cumplimiento",
     nav_cart: "Carrito",
     nav_banner: "PÉPTIDOS CON BASE EN EE. UU. SOLO PARA USO DE INVESTIGACIÓN — Los productos se suministran exclusivamente para aplicaciones legítimas de laboratorio e investigación. No están destinados al consumo humano, administración, diagnóstico, tratamiento, prevención o mitigación de enfermedades.",
 
@@ -230,6 +233,7 @@ export const translations = {
     footer_terms: "Términos del Servicio",
     footer_privacy: "Política de Privacidad",
     footer_refund: "Política de Reembolsos y Devoluciones",
+    footer_compliance: "Cumplimiento",
 
     age_title: "Debes tener al menos 21 años para entrar",
     age_body:
