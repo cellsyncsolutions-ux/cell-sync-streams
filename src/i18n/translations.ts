@@ -10,6 +10,8 @@ export const translations = {
     nav_login: "Login",
     nav_cart: "Cart",
     nav_banner: "U.S.A BASED RESEARCH USE ONLY PEPTIDES",
+    nav_research_disclaimer:
+      "Products are supplied solely for legitimate laboratory and research applications. They are not intended for human consumption, administration, diagnosis, treatment, prevention, or mitigation of disease.",
 
     // Hero
     hero_kicker: "PEPTIDES MADE TO SYNC",
@@ -134,6 +136,8 @@ export const translations = {
     nav_login: "Iniciar sesión",
     nav_cart: "Carrito",
     nav_banner: "PÉPTIDOS CON BASE EN EE. UU. SOLO PARA USO DE INVESTIGACIÓN",
+    nav_research_disclaimer:
+      "Los productos se suministran exclusivamente para aplicaciones legítimas de laboratorio e investigación. No están destinados al consumo humano, administración, diagnóstico, tratamiento, prevención o mitigación de enfermedades.",
 
     hero_kicker: "PÉPTIDOS HECHOS PARA SINCRONIZAR",
     hero_title_1: "Péptidos de grado investigación,",
