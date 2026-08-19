@@ -76,6 +76,11 @@ const Navbar = () => {
         {t("nav_banner")}
       </div>
     </div>
+    <div className="bg-navy text-navy-foreground border-t border-navy-foreground/10">
+      <div className="container py-2 md:py-2.5 text-center text-[10px] sm:text-xs md:text-sm leading-relaxed opacity-90">
+        {t("nav_research_disclaimer")}
+      </div>
+    </div>
   </header>
   );
 };
