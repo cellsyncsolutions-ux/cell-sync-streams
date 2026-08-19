@@ -6,6 +6,7 @@ import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
 import { Trash2, Award, Star } from "lucide-react";
@@ -23,6 +24,7 @@ const Checkout = () => {
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
   const [submittingReview, setSubmittingReview] = useState(false);
+  const [acknowledged, setAcknowledged] = useState(false);
   const [shipping, setShipping] = useState({
     name: "",
     address_line1: "",
@@ -71,6 +73,10 @@ const Checkout = () => {
     if (!user || items.length === 0) return;
     if (!shipping.name || !shipping.address_line1 || !shipping.city || !shipping.country) {
       toast.error("Please complete shipping details");
+      return;
+    }
+    if (!acknowledged) {
+      toast.error("Please acknowledge the research-use-only statement");
       return;
     }
     setSubmitting(true);
