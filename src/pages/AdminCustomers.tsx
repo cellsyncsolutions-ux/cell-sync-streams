@@ -49,6 +49,14 @@ const DOT: Record<string, string> = {
   account: "bg-muted-foreground",
 };
 
+const TYPE_FILTERS: { value: string; label: string }[] = [
+  { value: "signin", label: "Sign-ins" },
+  { value: "password", label: "Password" },
+  { value: "order", label: "Orders" },
+  { value: "suspension", label: "Suspensions" },
+  { value: "account", label: "Account" },
+];
+
 const AdminCustomers = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
@@ -61,6 +69,31 @@ const AdminCustomers = () => {
   const [activity, setActivity] = useState<Record<string, TimelineEvent[]>>({});
   const [activityLoading, setActivityLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [fTypes, setFTypes] = useState<string[]>([]);
+  const [fFrom, setFFrom] = useState("");
+  const [fTo, setFTo] = useState("");
+  const [fIp, setFIp] = useState("");
+
+  const resetFilters = () => {
+    setFTypes([]);
+    setFFrom("");
+    setFTo("");
+    setFIp("");
+  };
+
+  const filterEvents = (events: TimelineEvent[]) => {
+    const ip = fIp.trim().toLowerCase();
+    const from = fFrom ? new Date(`${fFrom}T00:00:00`).getTime() : null;
+    const to = fTo ? new Date(`${fTo}T23:59:59.999`).getTime() : null;
+    return events.filter((e) => {
+      if (fTypes.length && !fTypes.includes(e.type)) return false;
+      const t = new Date(e.at).getTime();
+      if (from !== null && t < from) return false;
+      if (to !== null && t > to) return false;
+      if (ip && !(e.detail ?? "").toLowerCase().includes(ip)) return false;
+      return true;
+    });
+  };
 
   const load = async () => {
     setFetching(true);
@@ -109,6 +142,7 @@ const AdminCustomers = () => {
       return;
     }
     setActivityFor(id);
+    resetFilters();
     if (activity[id]) return;
     setActivityLoading(true);
     const { data, error } = await supabase.functions.invoke("admin-customers", { body: { action: "timeline", userId: id } });
