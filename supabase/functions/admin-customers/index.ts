@@ -71,7 +71,7 @@ Deno.serve(async (req) => {
       if (!targetId) return json({ error: "Missing userId" }, 400);
 
       const [authEvents, orders, history, profile] = await Promise.all([
-        userClient.rpc("admin_user_activity", { _user_id: targetId, _limit: 200 }),
+        admin.rpc("admin_user_activity", { _user_id: targetId, _limit: 200 }),
         admin.from("orders").select("id, status, total, created_at").eq("user_id", targetId).order("created_at", { ascending: false }),
         admin.from("order_status_history").select("id, order_id, status, created_at").order("created_at", { ascending: false }).limit(500),
         admin.from("profiles").select("suspended, suspended_at, created_at").eq("id", targetId).maybeSingle(),
