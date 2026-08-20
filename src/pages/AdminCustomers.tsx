@@ -39,6 +39,16 @@ const fmtDate = (v?: string | null) =>
   v ? new Date(v).toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" }) : "—";
 const money = (n: number) => `$${Number(n).toFixed(2)}`;
 
+type TimelineEvent = { at: string; type: string; label: string; detail?: string | null };
+
+const DOT: Record<string, string> = {
+  signin: "bg-primary",
+  password: "bg-amber-500",
+  order: "bg-emerald-500",
+  suspension: "bg-destructive",
+  account: "bg-muted-foreground",
+};
+
 const AdminCustomers = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
@@ -47,6 +57,9 @@ const AdminCustomers = () => {
   const [busy, setBusy] = useState<string | null>(null);
   const [q, setQ] = useState("");
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [activityFor, setActivityFor] = useState<string | null>(null);
+  const [activity, setActivity] = useState<Record<string, TimelineEvent[]>>({});
+  const [activityLoading, setActivityLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
 
   const load = async () => {
@@ -88,6 +101,23 @@ const AdminCustomers = () => {
     }
     toast.success(action === "suspend" ? "Account suspended" : "Account reinstated");
     setCustomers((list) => list.map((x) => (x.id === c.id ? { ...x, suspended: !c.suspended } : x)));
+  };
+
+  const openActivity = async (id: string) => {
+    if (activityFor === id) {
+      setActivityFor(null);
+      return;
+    }
+    setActivityFor(id);
+    if (activity[id]) return;
+    setActivityLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-customers", { body: { action: "timeline", userId: id } });
+    setActivityLoading(false);
+    if (error || data?.error) {
+      toast.error(data?.error ?? "Could not load activity");
+      return;
+    }
+    setActivity((a) => ({ ...a, [id]: (data?.events ?? []) as TimelineEvent[] }));
   };
 
   const filtered = useMemo(() => {
@@ -167,6 +197,9 @@ const AdminCustomers = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
+                  <Button variant="outline" size="sm" onClick={() => openActivity(c.id)}>
+                    {activityFor === c.id ? "Hide activity" : "Activity"}
+                  </Button>
                   <Button variant="outline" size="sm" onClick={() => setExpanded(expanded === c.id ? null : c.id)}>
                     {expanded === c.id ? "Hide orders" : "View orders"}
                   </Button>
@@ -180,6 +213,29 @@ const AdminCustomers = () => {
                   </Button>
                 </div>
               </div>
+
+              {activityFor === c.id && (
+                <div className="mt-4 border-t border-border pt-4">
+                  <h3 className="text-sm font-bold uppercase tracking-wide mb-3">Activity timeline</h3>
+                  {activityLoading && !activity[c.id] ? (
+                    <p className="text-sm text-muted-foreground">Loading activity…</p>
+                  ) : (activity[c.id]?.length ?? 0) === 0 ? (
+                    <p className="text-sm text-muted-foreground">No recorded activity yet.</p>
+                  ) : (
+                    <ol className="relative border-l border-border pl-5 space-y-4 max-h-96 overflow-y-auto">
+                      {activity[c.id].map((e, i) => (
+                        <li key={`${e.at}-${i}`} className="relative">
+                          <span className={`absolute -left-[26px] top-1.5 h-2.5 w-2.5 rounded-full ${DOT[e.type] ?? "bg-muted-foreground"}`} />
+                          <p className="text-sm font-medium">{e.label}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {fmtDate(e.at)}{e.detail ? ` · ${e.detail}` : ""}
+                          </p>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                </div>
+              )}
 
               {expanded === c.id && (
                 <div className="mt-4 border-t border-border pt-4">
