@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.sms-unsubscribe]
 verify_jwt = false
+
+[functions.admin-customers]
+verify_jwt = true
