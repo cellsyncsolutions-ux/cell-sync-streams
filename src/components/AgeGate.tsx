@@ -4,18 +4,55 @@ import { FlaskConical } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+
+export const COMPLIANCE_VERSION = "2026-08-20";
 
 const AgeGate = () => {
   const [open, setOpen] = useState(false);
   const [is21, setIs21] = useState(false);
   const [compliance, setCompliance] = useState(false);
   const [human, setHuman] = useState(false);
+  const [saving, setSaving] = useState(false);
   const { t } = useLanguage();
   const allChecked = is21 && compliance && human;
 
   useEffect(() => {
-    if (!localStorage.getItem("css-age-ok")) setOpen(true);
+    if (localStorage.getItem("css-age-ok") !== COMPLIANCE_VERSION) setOpen(true);
   }, []);
+
+  const getVisitorId = () => {
+    let id = localStorage.getItem("css-visitor-id");
+    if (!id) {
+      id = crypto.randomUUID();
+      localStorage.setItem("css-visitor-id", id);
+    }
+    return id;
+  };
+
+  const accept = async () => {
+    if (!allChecked || saving) return;
+    setSaving(true);
+    const acceptedAt = new Date().toISOString();
+    try {
+      const { data } = await supabase.auth.getUser();
+      await supabase.from("compliance_consents").insert({
+        version: COMPLIANCE_VERSION,
+        accepted_at: acceptedAt,
+        visitor_id: getVisitorId(),
+        user_id: data?.user?.id ?? null,
+        page_url: window.location.href,
+        user_agent: navigator.userAgent,
+        language: navigator.language,
+      });
+    } catch {
+      // never block entry on logging failure
+    }
+    localStorage.setItem("css-age-ok", COMPLIANCE_VERSION);
+    localStorage.setItem("css-age-ok-at", acceptedAt);
+    setSaving(false);
+    setOpen(false);
+  };
 
   if (!open) return null;
 
@@ -62,13 +99,9 @@ const AgeGate = () => {
           <Button variant="secondary" onClick={() => (window.location.href = "https://google.com")}>{t("age_decline")}</Button>
           <Button
             variant="glass"
-            disabled={!allChecked}
+            disabled={!allChecked || saving}
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 disabled:opacity-50"
-            onClick={() => {
-              if (!allChecked) return;
-              localStorage.setItem("css-age-ok", "1");
-              setOpen(false);
-            }}
+            onClick={accept}
           >
             {t("age_accept")}
           </Button>
