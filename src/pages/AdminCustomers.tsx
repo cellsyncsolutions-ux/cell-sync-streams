@@ -251,13 +251,58 @@ const AdminCustomers = () => {
               {activityFor === c.id && (
                 <div className="mt-4 border-t border-border pt-4">
                   <h3 className="text-sm font-bold uppercase tracking-wide mb-3">Activity timeline</h3>
+                  <div className="mb-4 space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      {TYPE_FILTERS.map((t) => {
+                        const on = fTypes.includes(t.value);
+                        return (
+                          <button
+                            key={t.value}
+                            type="button"
+                            onClick={() =>
+                              setFTypes((prev) =>
+                                prev.includes(t.value) ? prev.filter((v) => v !== t.value) : [...prev, t.value]
+                              )
+                            }
+                            className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs transition-colors ${
+                              on ? "border-primary bg-primary/10 text-foreground" : "border-border text-muted-foreground hover:text-foreground"
+                            }`}
+                          >
+                            <span className={`h-2 w-2 rounded-full ${DOT[t.value]}`} />
+                            {t.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+                    <div className="flex flex-wrap items-end gap-3">
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">From</p>
+                        <Input type="date" value={fFrom} onChange={(e) => setFFrom(e.target.value)} className="h-9 w-40" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">To</p>
+                        <Input type="date" value={fTo} onChange={(e) => setFTo(e.target.value)} className="h-9 w-40" />
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground mb-1">IP address</p>
+                        <Input placeholder="e.g. 192.168" value={fIp} onChange={(e) => setFIp(e.target.value)} className="h-9 w-44" />
+                      </div>
+                      <Button variant="ghost" size="sm" onClick={resetFilters}>Clear filters</Button>
+                    </div>
+                  </div>
                   {activityLoading && !activity[c.id] ? (
                     <p className="text-sm text-muted-foreground">Loading activity…</p>
                   ) : (activity[c.id]?.length ?? 0) === 0 ? (
                     <p className="text-sm text-muted-foreground">No recorded activity yet.</p>
+                  ) : filterEvents(activity[c.id]).length === 0 ? (
+                    <p className="text-sm text-muted-foreground">No events match these filters.</p>
                   ) : (
+                    <>
+                    <p className="text-xs text-muted-foreground mb-2">
+                      Showing {filterEvents(activity[c.id]).length} of {activity[c.id].length} events
+                    </p>
                     <ol className="relative border-l border-border pl-5 space-y-4 max-h-96 overflow-y-auto">
-                      {activity[c.id].map((e, i) => (
+                      {filterEvents(activity[c.id]).map((e, i) => (
                         <li key={`${e.at}-${i}`} className="relative">
                           <span className={`absolute -left-[26px] top-1.5 h-2.5 w-2.5 rounded-full ${DOT[e.type] ?? "bg-muted-foreground"}`} />
                           <p className="text-sm font-medium">{e.label}</p>
@@ -267,6 +312,7 @@ const AdminCustomers = () => {
                         </li>
                       ))}
                     </ol>
+                    </>
                   )}
                 </div>
               )}
