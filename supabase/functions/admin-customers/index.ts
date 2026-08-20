@@ -8,6 +8,31 @@ const service = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
 
+const AUTH_LABELS: Record<string, string> = {
+  login: "Signed in",
+  logout: "Signed out",
+  token_refreshed: "Session refreshed",
+  token_revoked: "Session revoked",
+  user_signedup: "Signed up",
+  user_confirmation_requested: "Confirmation email requested",
+  user_recovery_requested: "Password reset requested",
+  user_reauthenticate_requested: "Re-authentication requested",
+  user_updated_password: "Password changed",
+  user_modified: "Account details updated",
+  user_repeated_signup: "Repeated signup attempt",
+  user_deleted: "Account deleted",
+};
+
+function authLabelOf(action: string) {
+  return AUTH_LABELS[action] ?? action.replace(/_/g, " ");
+}
+
+function authTypeOf(action: string) {
+  if (action.includes("recovery") || action.includes("password") || action.includes("reauthenticate")) return "password";
+  if (action.includes("login") || action.includes("logout") || action.includes("token")) return "signin";
+  return "account";
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
   try {
@@ -39,6 +64,39 @@ Deno.serve(async (req) => {
         .eq("id", targetId);
       if (pErr) return json({ error: pErr.message }, 400);
       return json({ ok: true });
+    }
+
+    if (action === "timeline") {
+      const targetId = String(body?.userId ?? "");
+      if (!targetId) return json({ error: "Missing userId" }, 400);
+
+      const [authEvents, orders, history, profile] = await Promise.all([
+        userClient.rpc("admin_user_activity", { _user_id: targetId, _limit: 200 }),
+        admin.from("orders").select("id, status, total, created_at").eq("user_id", targetId).order("created_at", { ascending: false }),
+        admin.from("order_status_history").select("id, order_id, status, created_at").order("created_at", { ascending: false }).limit(500),
+        admin.from("profiles").select("suspended, suspended_at, created_at").eq("id", targetId).maybeSingle(),
+      ]);
+
+      const orderIds = new Set((orders.data ?? []).map((o) => o.id));
+      const events: { at: string; type: string; label: string; detail?: string | null }[] = [];
+
+      for (const e of (authEvents.data ?? []) as { event_at: string; action: string; ip_address: string | null }[]) {
+        events.push({ at: e.event_at, type: authTypeOf(e.action), label: authLabelOf(e.action), detail: e.ip_address ? `IP ${e.ip_address}` : null });
+      }
+      for (const o of orders.data ?? []) {
+        events.push({ at: o.created_at, type: "order", label: `Order placed · $${Number(o.total).toFixed(2)}`, detail: `#${o.id.slice(0, 8)}` });
+      }
+      for (const h of history.data ?? []) {
+        if (!orderIds.has(h.order_id)) continue;
+        events.push({ at: h.created_at, type: "order", label: `Order status: ${h.status}`, detail: `#${h.order_id.slice(0, 8)}` });
+      }
+      if (profile.data?.created_at) events.push({ at: profile.data.created_at, type: "account", label: "Account created" });
+      if (profile.data?.suspended && profile.data.suspended_at) {
+        events.push({ at: profile.data.suspended_at, type: "suspension", label: "Account suspended by admin" });
+      }
+
+      events.sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime());
+      return json({ events, authLogAvailable: !authEvents.error, authLogError: authEvents.error?.message ?? null });
     }
 
     // list
