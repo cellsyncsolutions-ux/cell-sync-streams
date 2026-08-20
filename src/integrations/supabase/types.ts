@@ -344,6 +344,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_user_activity: {
+        Args: { _limit?: number; _user_id: string }
+        Returns: {
+          action: string
+          event_at: string
+          ip_address: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
