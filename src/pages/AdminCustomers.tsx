@@ -272,7 +272,13 @@ const AdminCustomers = () => {
 
               {activityFor === c.id && (
                 <div className="mt-4 border-t border-border pt-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wide mb-3">Activity timeline</h3>
+                  <div className="mb-3 flex items-center gap-3">
+                    <h3 className="text-sm font-bold uppercase tracking-wide">Activity timeline</h3>
+                    <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+                      <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                      Live
+                    </span>
+                  </div>
                   <div className="mb-4 space-y-3">
                     <div className="flex flex-wrap gap-2">
                       {TYPE_FILTERS.map((t) => {
