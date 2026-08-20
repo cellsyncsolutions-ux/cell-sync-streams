@@ -122,6 +122,10 @@ export const translations = {
       "By entering this site you confirm that you are a research professional and accept our Terms & Conditions. All products are for laboratory research use only.",
     age_decline: "Decline",
     age_accept: "Accept & Enter",
+    age_check_21: "I confirm I am 21 years of age or older.",
+    age_check_compliance:
+      "I have read and agree to the Compliance Policy and Terms — products are for laboratory research use only and not for human or veterinary use.",
+    age_check_robot: "I confirm I am a human and not an automated bot.",
 
     // Language switcher
     lang_label: "Language",
@@ -240,6 +244,10 @@ export const translations = {
       "Al entrar a este sitio confirmas que eres un profesional de investigación y aceptas nuestros Términos y Condiciones. Todos los productos son únicamente para uso de investigación de laboratorio.",
     age_decline: "Rechazar",
     age_accept: "Aceptar y entrar",
+    age_check_21: "Confirmo que tengo 21 años o más.",
+    age_check_compliance:
+      "He leído y acepto la Política de Cumplimiento y los Términos: los productos son solo para uso de investigación de laboratorio y no para uso humano o veterinario.",
+    age_check_robot: "Confirmo que soy una persona y no un bot automatizado.",
 
     lang_label: "Idioma",
     lang_en: "English",
