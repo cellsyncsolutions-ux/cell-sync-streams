@@ -35,6 +35,42 @@ export type Database = {
         }
         Relationships: []
       }
+      compliance_consents: {
+        Row: {
+          accepted_at: string
+          created_at: string
+          id: string
+          language: string | null
+          page_url: string | null
+          user_agent: string | null
+          user_id: string | null
+          version: string
+          visitor_id: string | null
+        }
+        Insert: {
+          accepted_at?: string
+          created_at?: string
+          id?: string
+          language?: string | null
+          page_url?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+          version: string
+          visitor_id?: string | null
+        }
+        Update: {
+          accepted_at?: string
+          created_at?: string
+          id?: string
+          language?: string | null
+          page_url?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+          version?: string
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
       order_items: {
         Row: {
           created_at: string
