@@ -136,6 +136,35 @@ const AdminCustomers = () => {
     setCustomers((list) => list.map((x) => (x.id === c.id ? { ...x, suspended: !c.suspended } : x)));
   };
 
+  const loadTimeline = async (id: string, silent = false) => {
+    if (!silent) setActivityLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-customers", { body: { action: "timeline", userId: id } });
+    if (!silent) setActivityLoading(false);
+    if (error || data?.error) {
+      if (!silent) toast.error(data?.error ?? "Could not load activity");
+      return;
+    }
+    setActivity((a) => ({ ...a, [id]: (data?.events ?? []) as TimelineEvent[] }));
+  };
+
+  // Live updates: refresh the open timeline on order/status changes + light polling for auth events
+  useEffect(() => {
+    if (!activityFor || !isAdmin) return;
+    const id = activityFor;
+    const channel = supabase
+      .channel(`activity-${id}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "orders" }, () => loadTimeline(id, true))
+      .on("postgres_changes", { event: "*", schema: "public", table: "order_status_history" }, () => loadTimeline(id, true))
+      .subscribe();
+
+    const poll = window.setInterval(() => loadTimeline(id, true), 20000);
+
+    return () => {
+      supabase.removeChannel(channel);
+      window.clearInterval(poll);
+    };
+  }, [activityFor, isAdmin]);
+
   const openActivity = async (id: string) => {
     if (activityFor === id) {
       setActivityFor(null);
@@ -144,14 +173,7 @@ const AdminCustomers = () => {
     setActivityFor(id);
     resetFilters();
     if (activity[id]) return;
-    setActivityLoading(true);
-    const { data, error } = await supabase.functions.invoke("admin-customers", { body: { action: "timeline", userId: id } });
-    setActivityLoading(false);
-    if (error || data?.error) {
-      toast.error(data?.error ?? "Could not load activity");
-      return;
-    }
-    setActivity((a) => ({ ...a, [id]: (data?.events ?? []) as TimelineEvent[] }));
+    await loadTimeline(id);
   };
 
   const filtered = useMemo(() => {
@@ -250,7 +272,13 @@ const AdminCustomers = () => {
 
               {activityFor === c.id && (
                 <div className="mt-4 border-t border-border pt-4">
-                  <h3 className="text-sm font-bold uppercase tracking-wide mb-3">Activity timeline</h3>
+                  <div className="mb-3 flex items-center gap-3">
+                    <h3 className="text-sm font-bold uppercase tracking-wide">Activity timeline</h3>
+                    <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-wide text-muted-foreground">
+                      <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                      Live
+                    </span>
+                  </div>
                   <div className="mb-4 space-y-3">
                     <div className="flex flex-wrap gap-2">
                       {TYPE_FILTERS.map((t) => {
