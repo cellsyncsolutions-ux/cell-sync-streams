@@ -136,6 +136,35 @@ const AdminCustomers = () => {
     setCustomers((list) => list.map((x) => (x.id === c.id ? { ...x, suspended: !c.suspended } : x)));
   };
 
+  const loadTimeline = async (id: string, silent = false) => {
+    if (!silent) setActivityLoading(true);
+    const { data, error } = await supabase.functions.invoke("admin-customers", { body: { action: "timeline", userId: id } });
+    if (!silent) setActivityLoading(false);
+    if (error || data?.error) {
+      if (!silent) toast.error(data?.error ?? "Could not load activity");
+      return;
+    }
+    setActivity((a) => ({ ...a, [id]: (data?.events ?? []) as TimelineEvent[] }));
+  };
+
+  // Live updates: refresh the open timeline on order/status changes + light polling for auth events
+  useEffect(() => {
+    if (!activityFor || !isAdmin) return;
+    const id = activityFor;
+    const channel = supabase
+      .channel(`activity-${id}`)
+      .on("postgres_changes", { event: "*", schema: "public", table: "orders" }, () => loadTimeline(id, true))
+      .on("postgres_changes", { event: "*", schema: "public", table: "order_status_history" }, () => loadTimeline(id, true))
+      .subscribe();
+
+    const poll = window.setInterval(() => loadTimeline(id, true), 20000);
+
+    return () => {
+      supabase.removeChannel(channel);
+      window.clearInterval(poll);
+    };
+  }, [activityFor, isAdmin]);
+
   const openActivity = async (id: string) => {
     if (activityFor === id) {
       setActivityFor(null);
@@ -144,14 +173,7 @@ const AdminCustomers = () => {
     setActivityFor(id);
     resetFilters();
     if (activity[id]) return;
-    setActivityLoading(true);
-    const { data, error } = await supabase.functions.invoke("admin-customers", { body: { action: "timeline", userId: id } });
-    setActivityLoading(false);
-    if (error || data?.error) {
-      toast.error(data?.error ?? "Could not load activity");
-      return;
-    }
-    setActivity((a) => ({ ...a, [id]: (data?.events ?? []) as TimelineEvent[] }));
+    await loadTimeline(id);
   };
 
   const filtered = useMemo(() => {
