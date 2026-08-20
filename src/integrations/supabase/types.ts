@@ -248,6 +248,8 @@ export type Database = {
           points: number
           postal_code: string | null
           state: string | null
+          suspended: boolean
+          suspended_at: string | null
           updated_at: string
         }
         Insert: {
@@ -263,6 +265,8 @@ export type Database = {
           points?: number
           postal_code?: string | null
           state?: string | null
+          suspended?: boolean
+          suspended_at?: string | null
           updated_at?: string
         }
         Update: {
@@ -278,6 +282,8 @@ export type Database = {
           points?: number
           postal_code?: string | null
           state?: string | null
+          suspended?: boolean
+          suspended_at?: string | null
           updated_at?: string
         }
         Relationships: []
