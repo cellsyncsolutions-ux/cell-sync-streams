@@ -21,6 +21,7 @@ import Compliance from "./pages/Compliance.tsx";
 import { LanguageProvider } from "./i18n/LanguageContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
+import AgeGate from "./components/AgeGate";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <AgeGate />
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/product/:id" element={<Product />} />
