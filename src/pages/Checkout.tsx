@@ -129,6 +129,8 @@ const Checkout = () => {
         points_redeemed: safePoints,
         total: finalTotal,
         status: "pending",
+        coupon_code: coupon?.code ?? null,
+        affiliate_id: coupon?.affiliate_id ?? null,
         shipping_name: shipping.name,
         shipping_address_line1: shipping.address_line1,
         shipping_address_line2: shipping.address_line2,
