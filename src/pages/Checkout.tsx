@@ -318,6 +318,35 @@ const Checkout = () => {
               <div className="border-t border-border pt-4 mb-4">
                 <div className="bg-secondary/60 rounded-lg p-3 mb-3">
                   <div className="flex items-center gap-2 mb-2">
+                    <Ticket className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-bold">Coupon code</span>
+                  </div>
+                  {coupon ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-mono font-bold">{coupon.code}</span>
+                      <span className="text-xs text-primary">{coupon.discount_percent}% off</span>
+                      <Button type="button" size="sm" variant="ghost" className="h-8 ml-auto" onClick={removeCoupon}>
+                        Remove
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <Input
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                        placeholder="Enter code"
+                        maxLength={32}
+                        className="bg-card"
+                      />
+                      <Button type="button" size="sm" variant="outline" className="h-10" onClick={applyCoupon} disabled={checkingCoupon}>
+                        {checkingCoupon ? "…" : "Apply"}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-secondary/60 rounded-lg p-3 mb-3">
+                  <div className="flex items-center gap-2 mb-2">
                     <Award className="h-4 w-4 text-primary" />
                     <span className="text-sm font-bold">Redeem points</span>
                     <span className="ml-auto text-xs text-muted-foreground">
