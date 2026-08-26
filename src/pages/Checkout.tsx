@@ -62,14 +62,51 @@ const Checkout = () => {
 
   // Cap redemption to balance and to the order subtotal
   const subtotal = total;
-  const maxRedeemableByCart = Math.floor(subtotal * POINTS_PER_DOLLAR);
+  const couponDiscount = coupon ? Math.round(subtotal * (coupon.discount_percent / 100) * 100) / 100 : 0;
+  const afterCoupon = Math.max(0, subtotal - couponDiscount);
+  const maxRedeemableByCart = Math.floor(afterCoupon * POINTS_PER_DOLLAR);
   const maxRedeemable = Math.min(availablePoints, maxRedeemableByCart);
   const safePoints = Math.max(0, Math.min(pointsToRedeem, maxRedeemable));
-  const discount = safePoints / POINTS_PER_DOLLAR;
+  const pointsDiscount = safePoints / POINTS_PER_DOLLAR;
+  const discount = couponDiscount + pointsDiscount;
   const finalTotal = Math.max(0, subtotal - discount);
 
   const applyMax = () => setPointsToRedeem(maxRedeemable);
   const clearRedeem = () => setPointsToRedeem(0);
+
+  const applyCoupon = async () => {
+    const code = couponInput.trim().toUpperCase();
+    if (!code) return;
+    setCheckingCoupon(true);
+    const { data, error } = await supabase
+      .from("coupons")
+      .select("id, code, discount_percent, affiliate_id, max_uses, times_used")
+      .ilike("code", code)
+      .eq("active", true)
+      .maybeSingle();
+    setCheckingCoupon(false);
+    if (error || !data) {
+      toast.error("Invalid or expired coupon code");
+      return;
+    }
+    if (data.max_uses !== null && data.times_used >= data.max_uses) {
+      toast.error("This coupon has reached its usage limit");
+      return;
+    }
+    setCoupon({
+      id: data.id,
+      code: data.code,
+      discount_percent: Number(data.discount_percent),
+      affiliate_id: data.affiliate_id,
+    });
+    setPointsToRedeem(0);
+    toast.success(`Coupon ${data.code} applied — ${data.discount_percent}% off`);
+  };
+
+  const removeCoupon = () => {
+    setCoupon(null);
+    setCouponInput("");
+  };
 
   const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
