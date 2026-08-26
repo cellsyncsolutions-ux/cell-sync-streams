@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
-import { Trash2, Award, Star } from "lucide-react";
+import { Trash2, Award, Star, Ticket } from "lucide-react";
 
 const POINTS_PER_DOLLAR = 100; // 100 pts = $1
 
@@ -25,6 +25,9 @@ const Checkout = () => {
   const [hoverRating, setHoverRating] = useState(0);
   const [submittingReview, setSubmittingReview] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
+  const [couponInput, setCouponInput] = useState("");
+  const [checkingCoupon, setCheckingCoupon] = useState(false);
+  const [coupon, setCoupon] = useState<{ id: string; code: string; discount_percent: number; affiliate_id: string | null } | null>(null);
   const [shipping, setShipping] = useState({
     name: "",
     address_line1: "",
@@ -59,14 +62,51 @@ const Checkout = () => {
 
   // Cap redemption to balance and to the order subtotal
   const subtotal = total;
-  const maxRedeemableByCart = Math.floor(subtotal * POINTS_PER_DOLLAR);
+  const couponDiscount = coupon ? Math.round(subtotal * (coupon.discount_percent / 100) * 100) / 100 : 0;
+  const afterCoupon = Math.max(0, subtotal - couponDiscount);
+  const maxRedeemableByCart = Math.floor(afterCoupon * POINTS_PER_DOLLAR);
   const maxRedeemable = Math.min(availablePoints, maxRedeemableByCart);
   const safePoints = Math.max(0, Math.min(pointsToRedeem, maxRedeemable));
-  const discount = safePoints / POINTS_PER_DOLLAR;
+  const pointsDiscount = safePoints / POINTS_PER_DOLLAR;
+  const discount = couponDiscount + pointsDiscount;
   const finalTotal = Math.max(0, subtotal - discount);
 
   const applyMax = () => setPointsToRedeem(maxRedeemable);
   const clearRedeem = () => setPointsToRedeem(0);
+
+  const applyCoupon = async () => {
+    const code = couponInput.trim().toUpperCase();
+    if (!code) return;
+    setCheckingCoupon(true);
+    const { data, error } = await supabase
+      .from("coupons")
+      .select("id, code, discount_percent, affiliate_id, max_uses, times_used")
+      .ilike("code", code)
+      .eq("active", true)
+      .maybeSingle();
+    setCheckingCoupon(false);
+    if (error || !data) {
+      toast.error("Invalid or expired coupon code");
+      return;
+    }
+    if (data.max_uses !== null && data.times_used >= data.max_uses) {
+      toast.error("This coupon has reached its usage limit");
+      return;
+    }
+    setCoupon({
+      id: data.id,
+      code: data.code,
+      discount_percent: Number(data.discount_percent),
+      affiliate_id: data.affiliate_id,
+    });
+    setPointsToRedeem(0);
+    toast.success(`Coupon ${data.code} applied — ${data.discount_percent}% off`);
+  };
+
+  const removeCoupon = () => {
+    setCoupon(null);
+    setCouponInput("");
+  };
 
   const placeOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,6 +129,8 @@ const Checkout = () => {
         points_redeemed: safePoints,
         total: finalTotal,
         status: "pending",
+        coupon_code: coupon?.code ?? null,
+        affiliate_id: coupon?.affiliate_id ?? null,
         shipping_name: shipping.name,
         shipping_address_line1: shipping.address_line1,
         shipping_address_line2: shipping.address_line2,
@@ -276,6 +318,35 @@ const Checkout = () => {
               <div className="border-t border-border pt-4 mb-4">
                 <div className="bg-secondary/60 rounded-lg p-3 mb-3">
                   <div className="flex items-center gap-2 mb-2">
+                    <Ticket className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-bold">Coupon code</span>
+                  </div>
+                  {coupon ? (
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-mono font-bold">{coupon.code}</span>
+                      <span className="text-xs text-primary">{coupon.discount_percent}% off</span>
+                      <Button type="button" size="sm" variant="ghost" className="h-8 ml-auto" onClick={removeCoupon}>
+                        Remove
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <Input
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
+                        placeholder="Enter code"
+                        maxLength={32}
+                        className="bg-card"
+                      />
+                      <Button type="button" size="sm" variant="outline" className="h-10" onClick={applyCoupon} disabled={checkingCoupon}>
+                        {checkingCoupon ? "…" : "Apply"}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="bg-secondary/60 rounded-lg p-3 mb-3">
+                  <div className="flex items-center gap-2 mb-2">
                     <Award className="h-4 w-4 text-primary" />
                     <span className="text-sm font-bold">Redeem points</span>
                     <span className="ml-auto text-xs text-muted-foreground">
@@ -317,10 +388,16 @@ const Checkout = () => {
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
+                  {coupon && (
+                    <div className="flex justify-between text-primary">
+                      <span>Coupon {coupon.code} ({coupon.discount_percent}%)</span>
+                      <span>−${couponDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
                   {safePoints > 0 && (
                     <div className="flex justify-between text-primary">
                       <span>Points discount ({safePoints} pts)</span>
-                      <span>−${discount.toFixed(2)}</span>
+                      <span>−${pointsDiscount.toFixed(2)}</span>
                     </div>
                   )}
                   <div className="flex justify-between font-extrabold text-lg pt-2 border-t border-border">

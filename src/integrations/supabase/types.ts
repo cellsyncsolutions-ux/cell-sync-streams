@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      affiliates: {
+        Row: {
+          active: boolean
+          commission_rate: number
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          commission_rate?: number
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          commission_rate?: number
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       app_settings: {
         Row: {
           key: string
@@ -70,6 +106,53 @@ export type Database = {
           visitor_id?: string | null
         }
         Relationships: []
+      }
+      coupons: {
+        Row: {
+          active: boolean
+          affiliate_id: string | null
+          code: string
+          created_at: string
+          discount_percent: number
+          expires_at: string | null
+          id: string
+          max_uses: number | null
+          times_used: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          affiliate_id?: string | null
+          code: string
+          created_at?: string
+          discount_percent?: number
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          times_used?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          affiliate_id?: string | null
+          code?: string
+          created_at?: string
+          discount_percent?: number
+          expires_at?: string | null
+          id?: string
+          max_uses?: number | null
+          times_used?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coupons_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       order_items: {
         Row: {
@@ -167,6 +250,8 @@ export type Database = {
       }
       orders: {
         Row: {
+          affiliate_id: string | null
+          coupon_code: string | null
           created_at: string
           discount: number
           id: string
@@ -190,6 +275,8 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          affiliate_id?: string | null
+          coupon_code?: string | null
           created_at?: string
           discount?: number
           id?: string
@@ -213,6 +300,8 @@ export type Database = {
           user_id: string
         }
         Update: {
+          affiliate_id?: string | null
+          coupon_code?: string | null
           created_at?: string
           discount?: number
           id?: string
@@ -235,7 +324,15 @@ export type Database = {
           total?: number
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "orders_affiliate_id_fkey"
+            columns: ["affiliate_id"]
+            isOneToOne: false
+            referencedRelation: "affiliates"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       product_documents: {
         Row: {
