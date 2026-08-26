@@ -5,12 +5,10 @@ import Shop from "@/components/Shop";
 import Features from "@/components/Features";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-import AgeGate from "@/components/AgeGate";
 import About from "@/components/About";
 
 const Index = () => (
   <main className="min-h-screen bg-background">
-    <AgeGate />
     <Navbar />
     <Hero />
     <About />
