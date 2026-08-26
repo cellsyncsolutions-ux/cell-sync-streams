@@ -216,7 +216,8 @@ const AdminInventory = () => {
                     <td className="p-3 text-muted-foreground">{r.variant || "—"}</td>
                     <td className="p-3">
                       <div className="flex items-center gap-1">
-                        <Button size="sm" variant="outline" onClick={() => setField(key, "quantity", Math.max(0, r.quantity - 1))}>−</Button>
+                        <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", Math.max(0, r.quantity - 10))}>−10</Button>
+                        <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", Math.max(0, r.quantity - 1))}>−</Button>
                         <Input
                           type="number"
                           min={0}
@@ -224,8 +225,10 @@ const AdminInventory = () => {
                           onChange={(e) => setField(key, "quantity", Number(e.target.value))}
                           className="w-20 text-center"
                         />
-                        <Button size="sm" variant="outline" onClick={() => setField(key, "quantity", r.quantity + 1)}>+</Button>
+                        <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", r.quantity + 1)}>+</Button>
+                        <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", r.quantity + 10)}>+10</Button>
                       </div>
+
                     </td>
                     <td className="p-3">
                       <Input
