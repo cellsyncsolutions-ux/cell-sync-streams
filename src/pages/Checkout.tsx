@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
-import { Trash2, Award, Star } from "lucide-react";
+import { Trash2, Award, Star, Ticket } from "lucide-react";
 
 const POINTS_PER_DOLLAR = 100; // 100 pts = $1
 
