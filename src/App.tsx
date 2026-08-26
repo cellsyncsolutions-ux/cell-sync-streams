@@ -16,6 +16,7 @@ import Admin from "./pages/Admin.tsx";
 import AdminQRCodes from "./pages/AdminQRCodes.tsx";
 import AdminCustomers from "./pages/AdminCustomers.tsx";
 import AdminInventory from "./pages/AdminInventory.tsx";
+import AdminAffiliates from "./pages/AdminAffiliates.tsx";
 import Product from "./pages/Product.tsx";
 import ResearchLibrary from "./pages/ResearchLibrary.tsx";
 import Compliance from "./pages/Compliance.tsx";
