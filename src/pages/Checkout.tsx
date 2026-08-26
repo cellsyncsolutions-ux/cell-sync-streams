@@ -388,10 +388,16 @@ const Checkout = () => {
                     <span>Subtotal</span>
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
+                  {coupon && (
+                    <div className="flex justify-between text-primary">
+                      <span>Coupon {coupon.code} ({coupon.discount_percent}%)</span>
+                      <span>−${couponDiscount.toFixed(2)}</span>
+                    </div>
+                  )}
                   {safePoints > 0 && (
                     <div className="flex justify-between text-primary">
                       <span>Points discount ({safePoints} pts)</span>
-                      <span>−${discount.toFixed(2)}</span>
+                      <span>−${pointsDiscount.toFixed(2)}</span>
                     </div>
                   )}
                   <div className="flex justify-between font-extrabold text-lg pt-2 border-t border-border">
