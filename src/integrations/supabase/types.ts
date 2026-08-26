@@ -270,6 +270,39 @@ export type Database = {
         }
         Relationships: []
       }
+      product_inventory: {
+        Row: {
+          created_at: string
+          id: string
+          low_stock_threshold: number
+          product_id: string
+          product_name: string
+          quantity: number
+          updated_at: string
+          variant: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          low_stock_threshold?: number
+          product_id: string
+          product_name: string
+          quantity?: number
+          updated_at?: string
+          variant?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          low_stock_threshold?: number
+          product_id?: string
+          product_name?: string
+          quantity?: number
+          updated_at?: string
+          variant?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address_line1: string | null

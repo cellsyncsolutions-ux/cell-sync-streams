@@ -15,6 +15,7 @@ import Refund from "./pages/Refund.tsx";
 import Admin from "./pages/Admin.tsx";
 import AdminQRCodes from "./pages/AdminQRCodes.tsx";
 import AdminCustomers from "./pages/AdminCustomers.tsx";
+import AdminInventory from "./pages/AdminInventory.tsx";
 import Product from "./pages/Product.tsx";
 import ResearchLibrary from "./pages/ResearchLibrary.tsx";
 import Compliance from "./pages/Compliance.tsx";
@@ -48,6 +49,7 @@ const App = () => (
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/admin/qr-codes" element={<AdminQRCodes />} />
                 <Route path="/admin/customers" element={<AdminCustomers />} />
+                <Route path="/admin/inventory" element={<AdminInventory />} />
                 <Route path="/research-library" element={<ResearchLibrary />} />
                 <Route path="/compliance" element={<Compliance />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
