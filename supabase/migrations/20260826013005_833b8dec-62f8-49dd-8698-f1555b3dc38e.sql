@@ -1,0 +1,23 @@
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.profiles TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.orders TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.order_items TO authenticated;
+GRANT SELECT ON public.order_status_history TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.order_reviews TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.product_documents TO authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON public.product_inventory TO authenticated;
+GRANT SELECT ON public.user_roles TO authenticated;
+GRANT SELECT ON public.app_settings TO authenticated;
+GRANT INSERT ON public.compliance_consents TO authenticated;
+GRANT INSERT ON public.compliance_consents TO anon;
+
+GRANT ALL ON public.profiles TO service_role;
+GRANT ALL ON public.orders TO service_role;
+GRANT ALL ON public.order_items TO service_role;
+GRANT ALL ON public.order_status_history TO service_role;
+GRANT ALL ON public.order_reviews TO service_role;
+GRANT ALL ON public.product_documents TO service_role;
+GRANT ALL ON public.product_inventory TO service_role;
+GRANT ALL ON public.user_roles TO service_role;
+GRANT ALL ON public.app_settings TO service_role;
+GRANT ALL ON public.compliance_consents TO service_role;
+GRANT ALL ON public.sms_subscribers TO service_role;
