@@ -46,15 +46,24 @@ const ProductDocuments = ({ productId }: { productId: string }) => {
   }, [user]);
 
   const openDoc = async (path: string) => {
+    // iOS Safari blocks window.open called after an await, so open synchronously first.
+    const win = window.open("", "_blank");
     const { data, error } = await supabase.storage
       .from("product-documents")
       .createSignedUrl(path, 60 * 10);
     if (error || !data?.signedUrl) {
+      win?.close();
       toast.error("Could not open document");
       return;
     }
-    window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+    if (win && !win.closed) {
+      win.opener = null;
+      win.location.href = data.signedUrl;
+    } else {
+      window.location.href = data.signedUrl;
+    }
   };
+
 
   const handleUpload = async (file: File) => {
     if (file.type !== "application/pdf") {
