@@ -60,7 +60,13 @@ const ProductDocuments = ({ productId }: { productId: string }) => {
       win.opener = null;
       win.location.href = data.signedUrl;
     } else {
-      window.location.href = data.signedUrl;
+      const a = document.createElement("a");
+      a.href = data.signedUrl;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
     }
   };
 
