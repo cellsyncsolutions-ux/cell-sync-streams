@@ -56,7 +56,9 @@ Deno.serve(async (req) => {
 
   let sent = 0, failed = 0;
   for (const sub of due ?? []) {
-    const body = new URLSearchParams({ To: sub.phone, From: FROM, Body: message });
+    const body = new URLSearchParams({ To: sub.phone, Body: message });
+    if (FROM.startsWith("MG")) body.set("MessagingServiceSid", FROM);
+    else body.set("From", FROM);
     const r = await fetch(`${GATEWAY_URL}/Messages.json`, {
       method: "POST",
       headers: {
