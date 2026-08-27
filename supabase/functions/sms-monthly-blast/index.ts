@@ -13,6 +13,16 @@ Deno.serve(async (req) => {
       status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
+  const isValidFrom = /^\+[1-9]\d{7,14}$/.test(FROM) || /^MG[0-9a-fA-F]{32}$/.test(FROM);
+  if (!isValidFrom) {
+    return new Response(
+      JSON.stringify({
+        error:
+          "TWILIO_FROM_NUMBER is invalid. It must be an E.164 phone number (e.g. +15551234567) or a Messaging Service SID starting with MG — not a Twilio account/user SID.",
+      }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },
+    );
+  }
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
@@ -46,7 +56,9 @@ Deno.serve(async (req) => {
 
   let sent = 0, failed = 0;
   for (const sub of due ?? []) {
-    const body = new URLSearchParams({ To: sub.phone, From: FROM, Body: message });
+    const body = new URLSearchParams({ To: sub.phone, Body: message });
+    if (FROM.startsWith("MG")) body.set("MessagingServiceSid", FROM);
+    else body.set("From", FROM);
     const r = await fetch(`${GATEWAY_URL}/Messages.json`, {
       method: "POST",
       headers: {

@@ -1,0 +1,1 @@
+revoke execute on function public.increment_coupon_usage() from public, anon, authenticated;
