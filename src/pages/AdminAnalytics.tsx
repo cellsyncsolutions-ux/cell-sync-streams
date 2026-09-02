@@ -122,11 +122,15 @@ const AdminAnalytics = () => {
   })();
 
   const series = useMemo(() => {
-    const span = days || 90;
+    let span = days || 90;
+    if (days === 0 && valid.length > 0) {
+      const minTs = Math.min(...valid.map((o) => new Date(o.created_at).getTime()));
+      span = Math.max(90, Math.ceil((Date.now() - minTs) / 86400000) + 1);
+    }
     const map = new Map<string, { date: string; revenue: number; orders: number }>();
     for (let i = span - 1; i >= 0; i--) {
       const d = new Date(Date.now() - i * 86400000).toISOString().slice(0, 10);
-      map.set(d, { date: d.slice(5), revenue: 0, orders: 0 });
+      map.set(d, { date: days === 0 ? d : d.slice(5), revenue: 0, orders: 0 });
     }
     valid.forEach((o) => {
       const k = new Date(o.created_at).toISOString().slice(0, 10);
