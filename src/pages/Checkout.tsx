@@ -9,7 +9,9 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
-import { Trash2, Award, Star, Ticket } from "lucide-react";
+import { Trash2, Award, Star, Ticket, Truck } from "lucide-react";
+import { getShippingQuotes, FREE_SHIPPING_THRESHOLD, type ShippingMethodId } from "@/lib/shipping";
+
 
 const POINTS_PER_DOLLAR = 100; // 100 pts = $1
 
@@ -26,7 +28,9 @@ const Checkout = () => {
   const [submittingReview, setSubmittingReview] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
   const [couponInput, setCouponInput] = useState("");
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethodId>("ground");
   const [checkingCoupon, setCheckingCoupon] = useState(false);
+
   const [coupon, setCoupon] = useState<{ id: string; code: string; discount_percent: number; affiliate_id: string | null } | null>(null);
   const [shipping, setShipping] = useState({
     name: "",
@@ -69,7 +73,15 @@ const Checkout = () => {
   const safePoints = Math.max(0, Math.min(pointsToRedeem, maxRedeemable));
   const pointsDiscount = safePoints / POINTS_PER_DOLLAR;
   const discount = couponDiscount + pointsDiscount;
-  const finalTotal = Math.max(0, subtotal - discount);
+  const merchandiseTotal = Math.max(0, subtotal - discount);
+
+  // USPS shipping calculated from the destination ZIP (rate sheet: Aug 2026 USPS rates)
+  const isDomestic = /^(|us|usa|united states|united states of america)$/i.test(shipping.country.trim());
+  const quotes = isDomestic ? getShippingQuotes(shipping.postal_code, merchandiseTotal) : [];
+  const selectedQuote = quotes.find((q) => q.id === shippingMethod) ?? quotes[0] ?? null;
+  const shippingCost = selectedQuote ? selectedQuote.price : 0;
+  const finalTotal = merchandiseTotal + shippingCost;
+
 
   const applyMax = () => setPointsToRedeem(maxRedeemable);
   const clearRedeem = () => setPointsToRedeem(0);
@@ -119,6 +131,10 @@ const Checkout = () => {
       toast.error("Please acknowledge the research-use-only statement");
       return;
     }
+    if (!selectedQuote) {
+      toast.error("Enter a valid U.S. ZIP code to calculate shipping");
+      return;
+    }
     setSubmitting(true);
     const { data: order, error } = await supabase
       .from("orders")
@@ -127,10 +143,13 @@ const Checkout = () => {
         subtotal,
         discount,
         points_redeemed: safePoints,
+        shipping_cost: shippingCost,
+        shipping_method: selectedQuote.name,
         total: finalTotal,
         status: "pending",
         coupon_code: coupon?.code ?? null,
         affiliate_id: coupon?.affiliate_id ?? null,
+
         shipping_name: shipping.name,
         shipping_address_line1: shipping.address_line1,
         shipping_address_line2: shipping.address_line2,
@@ -383,6 +402,52 @@ const Checkout = () => {
                   )}
                 </div>
 
+
+                <div className="mb-4 border-t border-border pt-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Truck className="h-4 w-4 text-primary" />
+                    <span className="font-semibold text-sm">Shipping (USPS)</span>
+                  </div>
+                  {!isDomestic ? (
+                    <p className="text-xs text-muted-foreground">We currently ship within the United States only.</p>
+                  ) : quotes.length === 0 ? (
+                    <p className="text-xs text-muted-foreground">Enter your ZIP code to calculate shipping.</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {quotes.map((q) => (
+                        <label
+                          key={q.id}
+                          className={`flex items-center justify-between gap-3 rounded-lg border p-2.5 cursor-pointer text-sm ${
+                            selectedQuote?.id === q.id ? "border-primary bg-secondary/50" : "border-border"
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name="shipping-method"
+                              className="accent-primary"
+                              checked={selectedQuote?.id === q.id}
+                              onChange={() => setShippingMethod(q.id)}
+                            />
+                            <span>
+                              <span className="block font-medium leading-tight">{q.name}</span>
+                              <span className="block text-xs text-muted-foreground">{q.eta}</span>
+                            </span>
+                          </span>
+                          <span className="font-semibold whitespace-nowrap">
+                            {q.free ? "FREE" : `$${q.price.toFixed(2)}`}
+                          </span>
+                        </label>
+                      ))}
+                      {merchandiseTotal < FREE_SHIPPING_THRESHOLD && (
+                        <p className="text-xs text-primary">
+                          Add ${(FREE_SHIPPING_THRESHOLD - merchandiseTotal).toFixed(2)} for free Ground Advantage shipping.
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between text-muted-foreground">
                     <span>Subtotal</span>
@@ -400,11 +465,16 @@ const Checkout = () => {
                       <span>−${pointsDiscount.toFixed(2)}</span>
                     </div>
                   )}
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Shipping{selectedQuote ? ` — ${selectedQuote.name}` : ""}</span>
+                    <span>{selectedQuote ? (selectedQuote.free ? "FREE" : `$${shippingCost.toFixed(2)}`) : "—"}</span>
+                  </div>
+
                   <div className="flex justify-between font-extrabold text-lg pt-2 border-t border-border">
                     <span>Total</span>
                     <span>${finalTotal.toFixed(2)}</span>
                   </div>
-                  <p className="text-xs text-primary pt-1">You'll earn {Math.floor(finalTotal)} points</p>
+                  <p className="text-xs text-primary pt-1">You'll earn {Math.floor(merchandiseTotal)} points</p>
                 </div>
               </div>
 

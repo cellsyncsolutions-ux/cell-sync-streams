@@ -1,0 +1,1 @@
+revoke all on function public.handle_order_points() from public, anon, authenticated;
