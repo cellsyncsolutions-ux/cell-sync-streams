@@ -402,6 +402,52 @@ const Checkout = () => {
                   )}
                 </div>
 
+
+                <div className="mb-4 border-t border-border pt-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Truck className="h-4 w-4 text-primary" />
+                    <span className="font-semibold text-sm">Shipping (USPS)</span>
+                  </div>
+                  {!isDomestic ? (
+                    <p className="text-xs text-muted-foreground">We currently ship within the United States only.</p>
+                  ) : quotes.length === 0 ? (
+                    <p className="text-xs text-muted-foreground">Enter your ZIP code to calculate shipping.</p>
+                  ) : (
+                    <div className="space-y-2">
+                      {quotes.map((q) => (
+                        <label
+                          key={q.id}
+                          className={`flex items-center justify-between gap-3 rounded-lg border p-2.5 cursor-pointer text-sm ${
+                            selectedQuote?.id === q.id ? "border-primary bg-secondary/50" : "border-border"
+                          }`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <input
+                              type="radio"
+                              name="shipping-method"
+                              className="accent-primary"
+                              checked={selectedQuote?.id === q.id}
+                              onChange={() => setShippingMethod(q.id)}
+                            />
+                            <span>
+                              <span className="block font-medium leading-tight">{q.name}</span>
+                              <span className="block text-xs text-muted-foreground">{q.eta}</span>
+                            </span>
+                          </span>
+                          <span className="font-semibold whitespace-nowrap">
+                            {q.free ? "FREE" : `$${q.price.toFixed(2)}`}
+                          </span>
+                        </label>
+                      ))}
+                      {merchandiseTotal < FREE_SHIPPING_THRESHOLD && (
+                        <p className="text-xs text-primary">
+                          Add ${(FREE_SHIPPING_THRESHOLD - merchandiseTotal).toFixed(2)} for free Ground Advantage shipping.
+                        </p>
+                      )}
+                    </div>
+                  )}
+                </div>
+
                 <div className="space-y-1.5 text-sm">
                   <div className="flex justify-between text-muted-foreground">
                     <span>Subtotal</span>
@@ -419,6 +465,11 @@ const Checkout = () => {
                       <span>−${pointsDiscount.toFixed(2)}</span>
                     </div>
                   )}
+                  <div className="flex justify-between text-muted-foreground">
+                    <span>Shipping{selectedQuote ? ` — ${selectedQuote.name}` : ""}</span>
+                    <span>{selectedQuote ? (selectedQuote.free ? "FREE" : `$${shippingCost.toFixed(2)}`) : "—"}</span>
+                  </div>
+
                   <div className="flex justify-between font-extrabold text-lg pt-2 border-t border-border">
                     <span>Total</span>
                     <span>${finalTotal.toFixed(2)}</span>
