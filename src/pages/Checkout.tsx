@@ -9,7 +9,9 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import logo from "@/assets/logo-mark.png";
-import { Trash2, Award, Star, Ticket } from "lucide-react";
+import { Trash2, Award, Star, Ticket, Truck } from "lucide-react";
+import { getShippingQuotes, FREE_SHIPPING_THRESHOLD, type ShippingMethodId } from "@/lib/shipping";
+
 
 const POINTS_PER_DOLLAR = 100; // 100 pts = $1
 
