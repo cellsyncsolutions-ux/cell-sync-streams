@@ -28,7 +28,9 @@ const Checkout = () => {
   const [submittingReview, setSubmittingReview] = useState(false);
   const [acknowledged, setAcknowledged] = useState(false);
   const [couponInput, setCouponInput] = useState("");
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethodId>("ground");
   const [checkingCoupon, setCheckingCoupon] = useState(false);
+
   const [coupon, setCoupon] = useState<{ id: string; code: string; discount_percent: number; affiliate_id: string | null } | null>(null);
   const [shipping, setShipping] = useState({
     name: "",
