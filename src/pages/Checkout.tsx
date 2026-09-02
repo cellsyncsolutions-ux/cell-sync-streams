@@ -474,7 +474,7 @@ const Checkout = () => {
                     <span>Total</span>
                     <span>${finalTotal.toFixed(2)}</span>
                   </div>
-                  <p className="text-xs text-primary pt-1">You'll earn {Math.floor(finalTotal)} points</p>
+                  <p className="text-xs text-primary pt-1">You'll earn {Math.floor(merchandiseTotal)} points</p>
                 </div>
               </div>
 
