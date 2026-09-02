@@ -131,6 +131,10 @@ const Checkout = () => {
       toast.error("Please acknowledge the research-use-only statement");
       return;
     }
+    if (!selectedQuote) {
+      toast.error("Enter a valid U.S. ZIP code to calculate shipping");
+      return;
+    }
     setSubmitting(true);
     const { data: order, error } = await supabase
       .from("orders")
@@ -139,10 +143,13 @@ const Checkout = () => {
         subtotal,
         discount,
         points_redeemed: safePoints,
+        shipping_cost: shippingCost,
+        shipping_method: selectedQuote.name,
         total: finalTotal,
         status: "pending",
         coupon_code: coupon?.code ?? null,
         affiliate_id: coupon?.affiliate_id ?? null,
+
         shipping_name: shipping.name,
         shipping_address_line1: shipping.address_line1,
         shipping_address_line2: shipping.address_line2,
