@@ -69,7 +69,15 @@ const Checkout = () => {
   const safePoints = Math.max(0, Math.min(pointsToRedeem, maxRedeemable));
   const pointsDiscount = safePoints / POINTS_PER_DOLLAR;
   const discount = couponDiscount + pointsDiscount;
-  const finalTotal = Math.max(0, subtotal - discount);
+  const merchandiseTotal = Math.max(0, subtotal - discount);
+
+  // USPS shipping calculated from the destination ZIP (rate sheet: Aug 2026 USPS rates)
+  const isDomestic = /^(|us|usa|united states|united states of america)$/i.test(shipping.country.trim());
+  const quotes = isDomestic ? getShippingQuotes(shipping.postal_code, merchandiseTotal) : [];
+  const selectedQuote = quotes.find((q) => q.id === shippingMethod) ?? quotes[0] ?? null;
+  const shippingCost = selectedQuote ? selectedQuote.price : 0;
+  const finalTotal = merchandiseTotal + shippingCost;
+
 
   const applyMax = () => setPointsToRedeem(maxRedeemable);
   const clearRedeem = () => setPointsToRedeem(0);
