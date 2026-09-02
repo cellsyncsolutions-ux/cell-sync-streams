@@ -265,7 +265,9 @@ export type Database = {
           shipping_address_line1: string | null
           shipping_address_line2: string | null
           shipping_city: string | null
+          shipping_cost: number
           shipping_country: string | null
+          shipping_method: string | null
           shipping_name: string | null
           shipping_postal_code: string | null
           shipping_state: string | null
@@ -290,7 +292,9 @@ export type Database = {
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
+          shipping_cost?: number
           shipping_country?: string | null
+          shipping_method?: string | null
           shipping_name?: string | null
           shipping_postal_code?: string | null
           shipping_state?: string | null
@@ -315,7 +319,9 @@ export type Database = {
           shipping_address_line1?: string | null
           shipping_address_line2?: string | null
           shipping_city?: string | null
+          shipping_cost?: number
           shipping_country?: string | null
+          shipping_method?: string | null
           shipping_name?: string | null
           shipping_postal_code?: string | null
           shipping_state?: string | null
