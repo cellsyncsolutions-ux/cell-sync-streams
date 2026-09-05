@@ -138,12 +138,19 @@ const AdminInventory = () => {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return rows.filter((r) => {
-      if (lowOnly && r.quantity > r.low_stock_threshold) return false;
-      if (!q) return true;
-      return `${r.product_name} ${r.variant} ${r.product_id}`.toLowerCase().includes(q);
-    });
+    return rows
+      .filter((r) => {
+        if (lowOnly && r.quantity > r.low_stock_threshold) return false;
+        if (!q) return true;
+        return `${r.product_name} ${r.variant} ${r.product_id}`.toLowerCase().includes(q);
+      })
+      .sort((a, b) => {
+        if (a.available === false && b.available !== false) return 1;
+        if (a.available !== false && b.available === false) return -1;
+        return a.product_name.localeCompare(b.product_name);
+      });
   }, [rows, query, lowOnly]);
+
 
   const totals = useMemo(() => {
     const units = rows.reduce((s, r) => s + (r.quantity || 0), 0);
