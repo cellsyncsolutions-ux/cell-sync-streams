@@ -26,11 +26,40 @@ const Product = () => {
   const [variantLabel, setVariantLabel] = useState<string | undefined>(
     product?.variants?.[0]?.label
   );
+  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [checkingAvailability, setCheckingAvailability] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setVariantLabel(product?.variants?.[0]?.label);
   }, [id, product]);
+
+  useEffect(() => {
+    if (!product) return;
+    const variant = product.variants?.find((v) => v.label === variantLabel);
+    const variantName = variant?.label ?? "";
+
+    const checkAvailability = async () => {
+      setCheckingAvailability(true);
+      const { data, error } = await supabase
+        .from("product_inventory")
+        .select("available")
+        .eq("product_id", product.id)
+        .eq("variant", variantName)
+        .maybeSingle();
+
+      if (error) {
+        console.error("Failed to load inventory availability", error);
+        setIsAvailable(true);
+      } else {
+        setIsAvailable(data?.available ?? true);
+      }
+      setCheckingAvailability(false);
+    };
+
+    checkAvailability();
+  }, [product, variantLabel]);
+
 
   if (!product) {
     return (
