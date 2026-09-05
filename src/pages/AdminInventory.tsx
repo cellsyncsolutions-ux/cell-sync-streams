@@ -256,20 +256,33 @@ const AdminInventory = () => {
                       />
                     </td>
                     <td className="p-3">
-                      <span
-                        className={
-                          status === "Out"
-                            ? "text-destructive font-semibold"
-                            : status === "Low"
-                            ? "text-primary font-semibold"
-                            : "text-muted-foreground"
-                        }
-                      >
-                        {status}
-                      </span>
+                      {r.available === false ? (
+                        <span className="text-destructive font-semibold">Unavailable</span>
+                      ) : (
+                        <span
+                          className={
+                            status === "Out"
+                              ? "text-destructive font-semibold"
+                              : status === "Low"
+                              ? "text-primary font-semibold"
+                              : "text-muted-foreground"
+                          }
+                        >
+                          {status}
+                        </span>
+                      )}
                     </td>
                     <td className="p-3 text-right">
-                      <Button size="sm" variant="outline" onClick={() => saveRow(r)}>Save</Button>
+                      <div className="flex gap-2 justify-end">
+                        <Button
+                          size="sm"
+                          variant={r.available === false ? "hero" : "outline"}
+                          onClick={() => toggleAvailable(r)}
+                        >
+                          {r.available === false ? "Make available" : "Mark unavailable"}
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => saveRow(r)}>Save</Button>
+                      </div>
                     </td>
                   </tr>
                 );
