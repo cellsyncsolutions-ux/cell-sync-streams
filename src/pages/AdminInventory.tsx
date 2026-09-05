@@ -149,7 +149,8 @@ const AdminInventory = () => {
     const units = rows.reduce((s, r) => s + (r.quantity || 0), 0);
     const low = rows.filter((r) => r.quantity <= r.low_stock_threshold).length;
     const out = rows.filter((r) => r.quantity === 0).length;
-    return { units, low, out, skus: rows.length };
+    const unavailable = rows.filter((r) => r.available === false).length;
+    return { units, low, out, unavailable, skus: rows.length };
   }, [rows]);
 
   if (loading || isAdmin === null) {
