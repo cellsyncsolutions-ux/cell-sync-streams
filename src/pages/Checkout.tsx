@@ -39,7 +39,7 @@ const Checkout = () => {
     city: "",
     state: "",
     postal_code: "",
-    country: "",
+    country: "United States",
   });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Checkout = () => {
           city: data.city || "",
           state: data.state || "",
           postal_code: data.postal_code || "",
-          country: data.country || "",
+          country: data.country || "United States",
         });
       }
     });
