@@ -184,12 +184,13 @@ const AdminInventory = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
             { label: "SKUs tracked", value: totals.skus },
             { label: "Total units", value: totals.units },
             { label: "Low stock", value: totals.low },
             { label: "Out of stock", value: totals.out },
+            { label: "Unavailable", value: totals.unavailable },
           ].map((s) => (
             <div key={s.label} className="rounded-lg border border-border bg-card p-4">
               <div className="text-xs uppercase tracking-wide text-muted-foreground">{s.label}</div>
