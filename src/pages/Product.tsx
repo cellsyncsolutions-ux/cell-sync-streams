@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import ProductDocuments from "@/components/ProductDocuments";
+import { supabase } from "@/integrations/supabase/client";
+
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
