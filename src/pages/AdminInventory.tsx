@@ -81,17 +81,19 @@ const AdminInventory = () => {
     );
   };
 
+  const payload = (r: Row) => ({
+    product_id: r.product_id,
+    product_name: r.product_name,
+    variant: r.variant,
+    quantity: Math.max(0, Math.floor(r.quantity || 0)),
+    low_stock_threshold: Math.max(0, Math.floor(r.low_stock_threshold || 0)),
+    available: r.available !== false,
+  });
+
   const saveRow = async (row: Row) => {
-    const { error } = await supabase.from("product_inventory").upsert(
-      {
-        product_id: row.product_id,
-        product_name: row.product_name,
-        variant: row.variant,
-        quantity: Math.max(0, Math.floor(row.quantity || 0)),
-        low_stock_threshold: Math.max(0, Math.floor(row.low_stock_threshold || 0)),
-      },
-      { onConflict: "product_id,variant" }
-    );
+    const { error } = await supabase
+      .from("product_inventory")
+      .upsert(payload(row), { onConflict: "product_id,variant" });
     if (error) {
       toast.error(error.message);
       return;
@@ -100,18 +102,31 @@ const AdminInventory = () => {
     load();
   };
 
+  const toggleAvailable = async (row: Row) => {
+    const next = { ...row, available: !(row.available !== false) };
+    setRows((prev) =>
+      prev.map((r) =>
+        `${r.product_id}::${r.variant}` === `${row.product_id}::${row.variant}` ? next : r
+      )
+    );
+    const { error } = await supabase
+      .from("product_inventory")
+      .upsert(payload(next), { onConflict: "product_id,variant" });
+    if (error) {
+      toast.error(error.message);
+      load();
+      return;
+    }
+    toast.success(
+      `${row.product_name}${row.variant ? ` — ${row.variant}` : ""} is now ${next.available ? "available" : "temporarily unavailable"}`
+    );
+  };
+
   const saveAll = async () => {
     setBusy(true);
-    const { error } = await supabase.from("product_inventory").upsert(
-      rows.map((r) => ({
-        product_id: r.product_id,
-        product_name: r.product_name,
-        variant: r.variant,
-        quantity: Math.max(0, Math.floor(r.quantity || 0)),
-        low_stock_threshold: Math.max(0, Math.floor(r.low_stock_threshold || 0)),
-      })),
-      { onConflict: "product_id,variant" }
-    );
+    const { error } = await supabase
+      .from("product_inventory")
+      .upsert(rows.map(payload), { onConflict: "product_id,variant" });
     setBusy(false);
     if (error) {
       toast.error(error.message);
