@@ -29,10 +29,17 @@ const Product = () => {
     [product]
   );
 
+  const variantInStock = (label: string) => {
+    const v = product?.variants?.find((x) => x.label === label);
+    return !v?.outOfStock && isVariantAvailable(availabilityMap, product?.id ?? "", label);
+  };
+
   const firstAvailableVariant = useMemo(() => {
     if (!product) return undefined;
-    if (variantLabels.length === 0) return undefined;
-    return variantLabels.find((label) => isVariantAvailable(availabilityMap, product.id, label));
+    if (variantLabels.length === 0) {
+      return variantInStock("") ? "" : undefined;
+    }
+    return variantLabels.find((label) => variantInStock(label));
   }, [product, variantLabels, availabilityMap]);
 
   const [variantLabel, setVariantLabel] = useState<string | undefined>(
@@ -49,7 +56,9 @@ const Product = () => {
 
   const selectedVariant = product?.variants?.find((v) => v.label === variantLabel);
   const isAvailable = product
-    ? isVariantAvailable(availabilityMap, product.id, selectedVariant?.label ?? "")
+    ? selectedVariant
+      ? variantInStock(selectedVariant.label)
+      : variantInStock("")
     : true;
 
 
