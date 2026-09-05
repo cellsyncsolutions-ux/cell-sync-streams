@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import ProductDocuments from "@/components/ProductDocuments";
-import { supabase } from "@/integrations/supabase/client";
+import { useAvailability, isVariantAvailable } from "@/hooks/useAvailability";
 
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
@@ -21,44 +21,36 @@ const Product = () => {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const { t } = useLanguage();
+  const { map: availabilityMap, loading: checkingAvailability } = useAvailability();
   const product = products.find((p) => p.id === id);
+
+  const variantLabels = useMemo(
+    () => product?.variants?.map((v) => v.label) ?? [],
+    [product]
+  );
+
+  const firstAvailableVariant = useMemo(() => {
+    if (!product) return undefined;
+    if (variantLabels.length === 0) return undefined;
+    return variantLabels.find((label) => isVariantAvailable(availabilityMap, product.id, label));
+  }, [product, variantLabels, availabilityMap]);
 
   const [variantLabel, setVariantLabel] = useState<string | undefined>(
     product?.variants?.[0]?.label
   );
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
-  const [checkingAvailability, setCheckingAvailability] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setVariantLabel(product?.variants?.[0]?.label);
-  }, [id, product]);
+    // Default to the first in-stock variant; fall back to the first listed variant if none are available.
+    if (product) {
+      setVariantLabel(firstAvailableVariant ?? product.variants?.[0]?.label);
+    }
+  }, [id, product, firstAvailableVariant]);
 
-  useEffect(() => {
-    if (!product) return;
-    const variant = product.variants?.find((v) => v.label === variantLabel);
-    const variantName = variant?.label ?? "";
-
-    const checkAvailability = async () => {
-      setCheckingAvailability(true);
-      const { data, error } = await supabase
-        .from("product_inventory")
-        .select("available")
-        .eq("product_id", product.id)
-        .eq("variant", variantName)
-        .maybeSingle();
-
-      if (error) {
-        console.error("Failed to load inventory availability", error);
-        setIsAvailable(true);
-      } else {
-        setIsAvailable(data?.available ?? true);
-      }
-      setCheckingAvailability(false);
-    };
-
-    checkAvailability();
-  }, [product, variantLabel]);
+  const selectedVariant = product?.variants?.find((v) => v.label === variantLabel);
+  const isAvailable = product
+    ? isVariantAvailable(availabilityMap, product.id, selectedVariant?.label ?? "")
+    : true;
 
 
   if (!product) {
