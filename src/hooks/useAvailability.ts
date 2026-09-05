@@ -18,14 +18,15 @@ export const useAvailability = () => {
     (async () => {
       const { data, error } = await supabase
         .from("product_inventory")
-        .select("product_id, variant, available");
+        .select("product_id, variant, available, quantity");
       if (!active) return;
       if (error) {
         console.error("Failed to load availability", error);
       } else if (data) {
         const next: AvailabilityMap = {};
         for (const row of data) {
-          next[key(row.product_id, row.variant ?? "")] = row.available ?? true;
+          next[key(row.product_id, row.variant ?? "")] =
+            (row.available ?? true) && (row.quantity ?? 0) > 0;
         }
         setMap(next);
       }
