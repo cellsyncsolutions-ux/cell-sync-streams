@@ -176,9 +176,10 @@ const Product = () => {
               </ul>
             </div>
 
-            <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock}>
-              {selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
+            <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock || !isAvailable || checkingAvailability}>
+              {!isAvailable ? t("product_coming_soon") : selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
             </Button>
+
 
             <ProductDocuments productId={product.id} />
 
