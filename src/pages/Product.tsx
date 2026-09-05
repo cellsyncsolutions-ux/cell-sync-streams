@@ -146,14 +146,17 @@ const Product = () => {
                     <SelectValue placeholder="Select dosage" />
                   </SelectTrigger>
                   <SelectContent>
-                    {product.variants.map((v) => (
-                      <SelectItem key={v.label} value={v.label}>
-                        {v.label} — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}{v.outOfStock ? " (Out of stock)" : ""}
-                      </SelectItem>
-                    ))}
+                    {product.variants.map((v) => {
+                      const inStock = variantInStock(v.label);
+                      return (
+                        <SelectItem key={v.label} value={v.label} disabled={!inStock}>
+                          {v.label} — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}{!inStock ? " (Out of stock)" : ""}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
-                {selectedVariant?.outOfStock && (
+                {!isAvailable && (
                   <p className="mt-3 inline-flex items-center gap-2 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
                     <span className="h-2 w-2 rounded-full bg-destructive" aria-hidden="true" />
                     Out of stock — this dosage is currently unavailable
