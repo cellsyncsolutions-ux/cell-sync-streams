@@ -68,12 +68,11 @@ Deno.serve(async (req) => {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     const TWILIO_API_KEY = Deno.env.get("TWILIO_API_KEY");
     const FROM = Deno.env.get("TWILIO_FROM_NUMBER");
-    if (LOVABLE_API_KEY && TWILIO_API_KEY && FROM) {
-      const body = new URLSearchParams({
-        To: phone,
-        From: FROM,
-        Body: messageBody,
-      });
+    const isValidFrom = !!FROM && (/^\+[1-9]\d{7,14}$/.test(FROM) || /^MG[0-9a-fA-F]{32}$/.test(FROM));
+    if (LOVABLE_API_KEY && TWILIO_API_KEY && isValidFrom) {
+      const body = new URLSearchParams({ To: phone, Body: messageBody });
+      if (FROM!.startsWith("MG")) body.set("MessagingServiceSid", FROM!);
+      else body.set("From", FROM!);
       const r = await fetch(`${GATEWAY_URL}/Messages.json`, {
         method: "POST",
         headers: {
