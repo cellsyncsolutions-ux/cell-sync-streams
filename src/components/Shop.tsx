@@ -91,7 +91,7 @@ const Shop = () => {
               </select>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {list.map((p) => <ProductCard key={p.id} p={p} />)}
+              {list.map((p) => <ProductCard key={p.id} p={p} available={availableOf(p.id, p.variants)} />)}
             </div>
           </div>
         </div>
