@@ -39,7 +39,7 @@ const Checkout = () => {
     city: "",
     state: "",
     postal_code: "",
-    country: "",
+    country: "United States",
   });
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const Checkout = () => {
           city: data.city || "",
           state: data.state || "",
           postal_code: data.postal_code || "",
-          country: data.country || "",
+          country: data.country || "United States",
         });
       }
     });
@@ -76,7 +76,7 @@ const Checkout = () => {
   const merchandiseTotal = Math.max(0, subtotal - discount);
 
   // USPS shipping calculated from the destination ZIP (rate sheet: Aug 2026 USPS rates)
-  const isDomestic = /^(|us|usa|united states|united states of america)$/i.test(shipping.country.trim());
+  const isDomestic = /^(|u\.?\s?s\.?|u\.?\s?s\.?a\.?|usa|america|united states.*)$/i.test(shipping.country.trim());
   const quotes = isDomestic ? getShippingQuotes(shipping.postal_code, merchandiseTotal) : [];
   const selectedQuote = quotes.find((q) => q.id === shippingMethod) ?? quotes[0] ?? null;
   const shippingCost = selectedQuote ? selectedQuote.price : 0;
@@ -308,7 +308,15 @@ const Checkout = () => {
                   </div>
                   <div>
                     <Label>Country</Label>
-                    <Input value={shipping.country} onChange={(e) => setShipping({ ...shipping, country: e.target.value })} maxLength={100} required />
+                    <select
+                      value={isDomestic ? "United States" : shipping.country}
+                      onChange={(e) => setShipping({ ...shipping, country: e.target.value })}
+                      className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                      required
+                    >
+                      <option value="United States">United States</option>
+                    </select>
+                    <p className="text-xs text-muted-foreground mt-1">We currently ship within the United States only.</p>
                   </div>
                 </div>
               </div>
