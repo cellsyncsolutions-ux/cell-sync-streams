@@ -198,6 +198,8 @@ export const translations = {
     product_sale: "¡Oferta!",
     product_select: "Elegir opciones",
     product_add: "Agregar al carrito",
+    product_coming_soon: "Próximamente",
+
 
     features_kicker: "Por qué los investigadores nos eligen",
     features_title_1: "Diseñado para ",
