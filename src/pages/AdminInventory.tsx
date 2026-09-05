@@ -56,7 +56,7 @@ const AdminInventory = () => {
     setBusy(true);
     const { data, error } = await supabase
       .from("product_inventory")
-      .select("id, product_id, product_name, variant, quantity, low_stock_threshold");
+      .select("id, product_id, product_name, variant, quantity, low_stock_threshold, available");
     setBusy(false);
     if (error) {
       toast.error(error.message);
