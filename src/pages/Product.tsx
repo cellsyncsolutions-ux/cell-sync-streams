@@ -109,6 +109,11 @@ const Product = () => {
                 {t("product_sale")}
               </span>
             )}
+            {!isAvailable && (
+              <span className="absolute top-4 right-4 z-10 bg-navy text-navy-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded">
+                {t("product_coming_soon")}
+              </span>
+            )}
             <img
               src={product.image}
               alt={product.name}
@@ -117,6 +122,7 @@ const Product = () => {
               className="h-full w-full object-cover"
             />
           </div>
+
 
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-3">{catLabel}</p>
