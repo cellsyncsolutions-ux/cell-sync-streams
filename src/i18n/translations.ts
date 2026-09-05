@@ -70,6 +70,8 @@ export const translations = {
     product_sale: "Sale!",
     product_select: "Select Options",
     product_add: "Add to Cart",
+    product_coming_soon: "Coming Soon",
+
 
     // Features
     features_kicker: "Why researchers choose us",
