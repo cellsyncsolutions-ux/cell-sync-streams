@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { products } from "@/data/products";
 import { useCart } from "@/contexts/CartContext";
@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import ProductDocuments from "@/components/ProductDocuments";
-import { supabase } from "@/integrations/supabase/client";
+import { useAvailability, isVariantAvailable } from "@/hooks/useAvailability";
 
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
@@ -21,44 +21,45 @@ const Product = () => {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const { t } = useLanguage();
+  const { map: availabilityMap, loading: checkingAvailability } = useAvailability();
   const product = products.find((p) => p.id === id);
+
+  const variantLabels = useMemo(
+    () => product?.variants?.map((v) => v.label) ?? [],
+    [product]
+  );
+
+  const variantInStock = (label: string) => {
+    const v = product?.variants?.find((x) => x.label === label);
+    return !v?.outOfStock && isVariantAvailable(availabilityMap, product?.id ?? "", label);
+  };
+
+  const firstAvailableVariant = useMemo(() => {
+    if (!product) return undefined;
+    if (variantLabels.length === 0) {
+      return variantInStock("") ? "" : undefined;
+    }
+    return variantLabels.find((label) => variantInStock(label));
+  }, [product, variantLabels, availabilityMap]);
 
   const [variantLabel, setVariantLabel] = useState<string | undefined>(
     product?.variants?.[0]?.label
   );
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
-  const [checkingAvailability, setCheckingAvailability] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    setVariantLabel(product?.variants?.[0]?.label);
-  }, [id, product]);
+    // Default to the first in-stock variant; fall back to the first listed variant if none are available.
+    if (product) {
+      setVariantLabel(firstAvailableVariant ?? product.variants?.[0]?.label);
+    }
+  }, [id, product, firstAvailableVariant]);
 
-  useEffect(() => {
-    if (!product) return;
-    const variant = product.variants?.find((v) => v.label === variantLabel);
-    const variantName = variant?.label ?? "";
-
-    const checkAvailability = async () => {
-      setCheckingAvailability(true);
-      const { data, error } = await supabase
-        .from("product_inventory")
-        .select("available")
-        .eq("product_id", product.id)
-        .eq("variant", variantName)
-        .maybeSingle();
-
-      if (error) {
-        console.error("Failed to load inventory availability", error);
-        setIsAvailable(true);
-      } else {
-        setIsAvailable(data?.available ?? true);
-      }
-      setCheckingAvailability(false);
-    };
-
-    checkAvailability();
-  }, [product, variantLabel]);
+  const selectedVariant = product?.variants?.find((v) => v.label === variantLabel);
+  const isAvailable = product
+    ? selectedVariant
+      ? variantInStock(selectedVariant.label)
+      : variantInStock("")
+    : true;
 
 
   if (!product) {
@@ -81,14 +82,11 @@ const Product = () => {
     product.category === "Capsules" ? t("cat_capsules") : product.category;
 
   const handleAdd = () => {
-    const variant = product.variants?.find((v) => v.label === variantLabel);
-    if (variant?.outOfStock || !isAvailable) return;
-    addItem(product, variant);
-    toast.success(`${product.name}${variant ? ` – ${variant.label}` : ""} added to cart`);
+    if (selectedVariant?.outOfStock || !isAvailable) return;
+    addItem(product, selectedVariant);
+    toast.success(`${product.name}${selectedVariant ? ` – ${selectedVariant.label}` : ""} added to cart`);
   };
 
-
-  const selectedVariant = product.variants?.find((v) => v.label === variantLabel);
   const displayPrice = selectedVariant ? selectedVariant.price : product.price;
   const displayOriginal = selectedVariant?.originalPrice ?? product.originalPrice;
 
@@ -148,14 +146,17 @@ const Product = () => {
                     <SelectValue placeholder="Select dosage" />
                   </SelectTrigger>
                   <SelectContent>
-                    {product.variants.map((v) => (
-                      <SelectItem key={v.label} value={v.label}>
-                        {v.label} — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}{v.outOfStock ? " (Out of stock)" : ""}
-                      </SelectItem>
-                    ))}
+                    {product.variants.map((v) => {
+                      const inStock = variantInStock(v.label);
+                      return (
+                        <SelectItem key={v.label} value={v.label} disabled={!inStock}>
+                          {v.label} — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}{!inStock ? " (Out of stock)" : ""}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
-                {selectedVariant?.outOfStock && (
+                {!isAvailable && (
                   <p className="mt-3 inline-flex items-center gap-2 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
                     <span className="h-2 w-2 rounded-full bg-destructive" aria-hidden="true" />
                     Out of stock — this dosage is currently unavailable
