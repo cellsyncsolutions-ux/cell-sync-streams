@@ -14,6 +14,7 @@ type Row = {
   variant: string;
   quantity: number;
   low_stock_threshold: number;
+  available: boolean;
 };
 
 const buildSkus = (): Row[] => {
@@ -21,10 +22,10 @@ const buildSkus = (): Row[] => {
   products.forEach((p) => {
     if (p.variants?.length) {
       p.variants.forEach((v) =>
-        rows.push({ product_id: p.id, product_name: p.name, variant: v.label, quantity: 0, low_stock_threshold: 5 })
+        rows.push({ product_id: p.id, product_name: p.name, variant: v.label, quantity: 0, low_stock_threshold: 5, available: true })
       );
     } else {
-      rows.push({ product_id: p.id, product_name: p.name, variant: "", quantity: 0, low_stock_threshold: 5 });
+      rows.push({ product_id: p.id, product_name: p.name, variant: "", quantity: 0, low_stock_threshold: 5, available: true });
     }
   });
   return rows;
