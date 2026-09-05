@@ -375,6 +375,7 @@ export type Database = {
       }
       product_inventory: {
         Row: {
+          available: boolean
           created_at: string
           id: string
           low_stock_threshold: number
@@ -385,6 +386,7 @@ export type Database = {
           variant: string
         }
         Insert: {
+          available?: boolean
           created_at?: string
           id?: string
           low_stock_threshold?: number
@@ -395,6 +397,7 @@ export type Database = {
           variant?: string
         }
         Update: {
+          available?: boolean
           created_at?: string
           id?: string
           low_stock_threshold?: number

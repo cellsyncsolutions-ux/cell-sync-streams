@@ -14,6 +14,7 @@ type Row = {
   variant: string;
   quantity: number;
   low_stock_threshold: number;
+  available: boolean;
 };
 
 const buildSkus = (): Row[] => {
@@ -21,10 +22,10 @@ const buildSkus = (): Row[] => {
   products.forEach((p) => {
     if (p.variants?.length) {
       p.variants.forEach((v) =>
-        rows.push({ product_id: p.id, product_name: p.name, variant: v.label, quantity: 0, low_stock_threshold: 5 })
+        rows.push({ product_id: p.id, product_name: p.name, variant: v.label, quantity: 0, low_stock_threshold: 5, available: true })
       );
     } else {
-      rows.push({ product_id: p.id, product_name: p.name, variant: "", quantity: 0, low_stock_threshold: 5 });
+      rows.push({ product_id: p.id, product_name: p.name, variant: "", quantity: 0, low_stock_threshold: 5, available: true });
     }
   });
   return rows;
@@ -55,7 +56,7 @@ const AdminInventory = () => {
     setBusy(true);
     const { data, error } = await supabase
       .from("product_inventory")
-      .select("id, product_id, product_name, variant, quantity, low_stock_threshold");
+      .select("id, product_id, product_name, variant, quantity, low_stock_threshold, available");
     setBusy(false);
     if (error) {
       toast.error(error.message);
@@ -80,17 +81,19 @@ const AdminInventory = () => {
     );
   };
 
+  const payload = (r: Row) => ({
+    product_id: r.product_id,
+    product_name: r.product_name,
+    variant: r.variant,
+    quantity: Math.max(0, Math.floor(r.quantity || 0)),
+    low_stock_threshold: Math.max(0, Math.floor(r.low_stock_threshold || 0)),
+    available: r.available !== false,
+  });
+
   const saveRow = async (row: Row) => {
-    const { error } = await supabase.from("product_inventory").upsert(
-      {
-        product_id: row.product_id,
-        product_name: row.product_name,
-        variant: row.variant,
-        quantity: Math.max(0, Math.floor(row.quantity || 0)),
-        low_stock_threshold: Math.max(0, Math.floor(row.low_stock_threshold || 0)),
-      },
-      { onConflict: "product_id,variant" }
-    );
+    const { error } = await supabase
+      .from("product_inventory")
+      .upsert(payload(row), { onConflict: "product_id,variant" });
     if (error) {
       toast.error(error.message);
       return;
@@ -99,18 +102,31 @@ const AdminInventory = () => {
     load();
   };
 
+  const toggleAvailable = async (row: Row) => {
+    const next = { ...row, available: !(row.available !== false) };
+    setRows((prev) =>
+      prev.map((r) =>
+        `${r.product_id}::${r.variant}` === `${row.product_id}::${row.variant}` ? next : r
+      )
+    );
+    const { error } = await supabase
+      .from("product_inventory")
+      .upsert(payload(next), { onConflict: "product_id,variant" });
+    if (error) {
+      toast.error(error.message);
+      load();
+      return;
+    }
+    toast.success(
+      `${row.product_name}${row.variant ? ` — ${row.variant}` : ""} is now ${next.available ? "available" : "temporarily unavailable"}`
+    );
+  };
+
   const saveAll = async () => {
     setBusy(true);
-    const { error } = await supabase.from("product_inventory").upsert(
-      rows.map((r) => ({
-        product_id: r.product_id,
-        product_name: r.product_name,
-        variant: r.variant,
-        quantity: Math.max(0, Math.floor(r.quantity || 0)),
-        low_stock_threshold: Math.max(0, Math.floor(r.low_stock_threshold || 0)),
-      })),
-      { onConflict: "product_id,variant" }
-    );
+    const { error } = await supabase
+      .from("product_inventory")
+      .upsert(rows.map(payload), { onConflict: "product_id,variant" });
     setBusy(false);
     if (error) {
       toast.error(error.message);
@@ -133,7 +149,8 @@ const AdminInventory = () => {
     const units = rows.reduce((s, r) => s + (r.quantity || 0), 0);
     const low = rows.filter((r) => r.quantity <= r.low_stock_threshold).length;
     const out = rows.filter((r) => r.quantity === 0).length;
-    return { units, low, out, skus: rows.length };
+    const unavailable = rows.filter((r) => r.available === false).length;
+    return { units, low, out, unavailable, skus: rows.length };
   }, [rows]);
 
   if (loading || isAdmin === null) {
@@ -167,12 +184,13 @@ const AdminInventory = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
           {[
             { label: "SKUs tracked", value: totals.skus },
             { label: "Total units", value: totals.units },
             { label: "Low stock", value: totals.low },
             { label: "Out of stock", value: totals.out },
+            { label: "Unavailable", value: totals.unavailable },
           ].map((s) => (
             <div key={s.label} className="rounded-lg border border-border bg-card p-4">
               <div className="text-xs uppercase tracking-wide text-muted-foreground">{s.label}</div>
@@ -240,20 +258,33 @@ const AdminInventory = () => {
                       />
                     </td>
                     <td className="p-3">
-                      <span
-                        className={
-                          status === "Out"
-                            ? "text-destructive font-semibold"
-                            : status === "Low"
-                            ? "text-primary font-semibold"
-                            : "text-muted-foreground"
-                        }
-                      >
-                        {status}
-                      </span>
+                      {r.available === false ? (
+                        <span className="text-destructive font-semibold">Unavailable</span>
+                      ) : (
+                        <span
+                          className={
+                            status === "Out"
+                              ? "text-destructive font-semibold"
+                              : status === "Low"
+                              ? "text-primary font-semibold"
+                              : "text-muted-foreground"
+                          }
+                        >
+                          {status}
+                        </span>
+                      )}
                     </td>
                     <td className="p-3 text-right">
-                      <Button size="sm" variant="outline" onClick={() => saveRow(r)}>Save</Button>
+                      <div className="flex gap-2 justify-end">
+                        <Button
+                          size="sm"
+                          variant={r.available === false ? "hero" : "outline"}
+                          onClick={() => toggleAvailable(r)}
+                        >
+                          {r.available === false ? "Make available" : "Mark unavailable"}
+                        </Button>
+                        <Button size="sm" variant="outline" onClick={() => saveRow(r)}>Save</Button>
+                      </div>
                     </td>
                   </tr>
                 );
