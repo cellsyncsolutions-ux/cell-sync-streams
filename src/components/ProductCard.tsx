@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
-const ProductCard = ({ p }: { p: Product }) => {
+const ProductCard = ({ p, available = true }: { p: Product; available?: boolean }) => {
   const { t } = useLanguage();
   const { addItem } = useCart();
   const catLabel =
@@ -15,6 +15,7 @@ const ProductCard = ({ p }: { p: Product }) => {
     p.category === "Blends" ? t("cat_blends") :
     p.category === "Capsules" ? t("cat_capsules") : p.category;
   const handleAdd = () => {
+    if (!available) return;
     if (p.variants && p.variants.length > 0) return;
     addItem(p);
     toast.success(`${p.name} added to cart`);
@@ -22,9 +23,14 @@ const ProductCard = ({ p }: { p: Product }) => {
   return (
   <article className="group rounded-lg border border-border bg-card overflow-hidden shadow-card transition-smooth hover:-translate-y-1 hover:shadow-glow">
     <Link to={`/product/${p.id}`} className="relative aspect-square bg-secondary overflow-hidden block">
-      {p.sale && (
+      {p.sale && available && (
         <span className="absolute top-3 left-3 z-10 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded">
           {t("product_sale")}
+        </span>
+      )}
+      {!available && (
+        <span className="absolute top-3 right-3 z-10 bg-navy text-navy-foreground text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded">
+          {t("product_coming_soon")}
         </span>
       )}
       <img
@@ -33,9 +39,10 @@ const ProductCard = ({ p }: { p: Product }) => {
         loading="lazy"
         width={768}
         height={768}
-        className="h-full w-full object-cover transition-smooth group-hover:scale-105"
+        className={`h-full w-full object-cover transition-smooth group-hover:scale-105 ${available ? "" : "opacity-50 grayscale"}`}
       />
     </Link>
+
     <div className="p-5 text-center">
       <p className="text-xs uppercase tracking-wider text-muted-foreground mb-1">{catLabel}</p>
       <Link to={`/product/${p.id}`} className="block hover:text-primary transition-smooth">
@@ -73,7 +80,11 @@ const ProductCard = ({ p }: { p: Product }) => {
           <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
         )}
       </div>
-      {p.variants && p.variants.length > 0 ? (
+      {!available ? (
+        <Button variant="outline" size="sm" className="w-full" disabled>
+          {t("product_coming_soon")}
+        </Button>
+      ) : p.variants && p.variants.length > 0 ? (
         <Button asChild variant="outline" size="sm" className="w-full">
           <Link to={`/product/${p.id}`}>{t("product_select")}</Link>
         </Button>
@@ -82,6 +93,7 @@ const ProductCard = ({ p }: { p: Product }) => {
           {t("product_add")}
         </Button>
       )}
+
     </div>
   </article>
   );
