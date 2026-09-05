@@ -11,6 +11,8 @@ import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import ProductDocuments from "@/components/ProductDocuments";
+import { supabase } from "@/integrations/supabase/client";
+
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
@@ -24,11 +26,40 @@ const Product = () => {
   const [variantLabel, setVariantLabel] = useState<string | undefined>(
     product?.variants?.[0]?.label
   );
+  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [checkingAvailability, setCheckingAvailability] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setVariantLabel(product?.variants?.[0]?.label);
   }, [id, product]);
+
+  useEffect(() => {
+    if (!product) return;
+    const variant = product.variants?.find((v) => v.label === variantLabel);
+    const variantName = variant?.label ?? "";
+
+    const checkAvailability = async () => {
+      setCheckingAvailability(true);
+      const { data, error } = await supabase
+        .from("product_inventory")
+        .select("available")
+        .eq("product_id", product.id)
+        .eq("variant", variantName)
+        .maybeSingle();
+
+      if (error) {
+        console.error("Failed to load inventory availability", error);
+        setIsAvailable(true);
+      } else {
+        setIsAvailable(data?.available ?? true);
+      }
+      setCheckingAvailability(false);
+    };
+
+    checkAvailability();
+  }, [product, variantLabel]);
+
 
   if (!product) {
     return (
@@ -51,10 +82,11 @@ const Product = () => {
 
   const handleAdd = () => {
     const variant = product.variants?.find((v) => v.label === variantLabel);
-    if (variant?.outOfStock) return;
+    if (variant?.outOfStock || !isAvailable) return;
     addItem(product, variant);
     toast.success(`${product.name}${variant ? ` – ${variant.label}` : ""} added to cart`);
   };
+
 
   const selectedVariant = product.variants?.find((v) => v.label === variantLabel);
   const displayPrice = selectedVariant ? selectedVariant.price : product.price;
@@ -78,6 +110,11 @@ const Product = () => {
                 {t("product_sale")}
               </span>
             )}
+            {!isAvailable && (
+              <span className="absolute top-4 right-4 z-10 bg-navy text-navy-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded">
+                {t("product_coming_soon")}
+              </span>
+            )}
             <img
               src={product.image}
               alt={product.name}
@@ -86,6 +123,7 @@ const Product = () => {
               className="h-full w-full object-cover"
             />
           </div>
+
 
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-3">{catLabel}</p>
@@ -138,9 +176,10 @@ const Product = () => {
               </ul>
             </div>
 
-            <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock}>
-              {selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
+            <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock || !isAvailable || checkingAvailability}>
+              {!isAvailable ? t("product_coming_soon") : selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
             </Button>
+
 
             <ProductDocuments productId={product.id} />
 
