@@ -73,14 +73,11 @@ const Product = () => {
     product.category === "Capsules" ? t("cat_capsules") : product.category;
 
   const handleAdd = () => {
-    const variant = product.variants?.find((v) => v.label === variantLabel);
-    if (variant?.outOfStock || !isAvailable) return;
-    addItem(product, variant);
-    toast.success(`${product.name}${variant ? ` – ${variant.label}` : ""} added to cart`);
+    if (selectedVariant?.outOfStock || !isAvailable) return;
+    addItem(product, selectedVariant);
+    toast.success(`${product.name}${selectedVariant ? ` – ${selectedVariant.label}` : ""} added to cart`);
   };
 
-
-  const selectedVariant = product.variants?.find((v) => v.label === variantLabel);
   const displayPrice = selectedVariant ? selectedVariant.price : product.price;
   const displayOriginal = selectedVariant?.originalPrice ?? product.originalPrice;
 
