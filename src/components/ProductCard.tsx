@@ -80,7 +80,11 @@ const ProductCard = ({ p, available = true }: { p: Product; available?: boolean 
           <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
         )}
       </div>
-      {p.variants && p.variants.length > 0 ? (
+      {!available ? (
+        <Button variant="outline" size="sm" className="w-full" disabled>
+          {t("product_coming_soon")}
+        </Button>
+      ) : p.variants && p.variants.length > 0 ? (
         <Button asChild variant="outline" size="sm" className="w-full">
           <Link to={`/product/${p.id}`}>{t("product_select")}</Link>
         </Button>
@@ -89,6 +93,7 @@ const ProductCard = ({ p, available = true }: { p: Product; available?: boolean 
           {t("product_add")}
         </Button>
       )}
+
     </div>
   </article>
   );
