@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
@@ -19,6 +19,7 @@ const Checkout = () => {
   const { user, loading } = useAuth();
   const { items, total, updateQty, removeItem, clear } = useCart();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [submitting, setSubmitting] = useState(false);
   const [availablePoints, setAvailablePoints] = useState(0);
   const [pointsToRedeem, setPointsToRedeem] = useState(0);
@@ -51,6 +52,9 @@ const Checkout = () => {
     supabase.from("profiles").select("*").eq("id", user.id).maybeSingle().then(({ data }) => {
       if (data) {
         setAvailablePoints(data.points || 0);
+        // Rewards page can pre-select a redemption amount via ?points=
+        const requested = parseInt(searchParams.get("points") || "0", 10);
+        if (requested > 0) setPointsToRedeem(Math.min(requested, data.points || 0));
         setShipping({
           name: data.full_name || "",
           address_line1: data.address_line1 || "",
