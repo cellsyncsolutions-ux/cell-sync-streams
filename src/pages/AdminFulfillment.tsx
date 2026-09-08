@@ -94,29 +94,16 @@ const AdminFulfillment = () => {
     }
     setOrders((prev) => prev.map((o) => (o.id === order.id ? { ...o, status: "fulfilled" } : o)));
 
-    const email = emails[order.user_id];
-    if (email) {
-      const { error: mailError } = await supabase.functions.invoke("send-transactional-email", {
-        body: {
-          templateName: "order-fulfilled",
-          recipientEmail: email,
-          idempotencyKey: `order-fulfilled-${order.id}`,
-          templateData: {
-            orderNumber: order.id.slice(0, 8).toUpperCase(),
-            customerName: order.shipping_name ?? "",
-            total: money(order.total),
-            shippingMethod: order.shipping_method ?? "",
-            items: (order.order_items ?? []).map((it) => ({
-              name: `${it.product_name}${it.variant ? ` — ${it.variant}` : ""}`,
-              quantity: it.quantity,
-            })),
-          },
-        },
-      });
-      if (mailError) toast.warning("Marked fulfilled, but the email couldn't be sent.");
-      else toast.success(`Marked fulfilled — email sent to ${email}`);
+    const { data: mail, error: mailError } = await supabase.functions.invoke(
+      "send-order-fulfilled-email",
+      { body: { orderId: order.id } }
+    );
+    if (mailError || mail?.error) {
+      toast.warning("Marked fulfilled, but the email couldn't be sent.");
+    } else if (mail?.sent === false) {
+      toast.success("Marked fulfilled (no email sent to this customer)");
     } else {
-      toast.success("Marked fulfilled (no email on file for this customer)");
+      toast.success(`Marked fulfilled — email sent to ${mail?.recipient ?? emails[order.user_id]}`);
     }
     setSaving(null);
   };

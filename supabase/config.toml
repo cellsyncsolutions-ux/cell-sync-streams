@@ -1,16 +1,19 @@
 project_id = "uohqdfnoptuwtzzswnyj"
 
-[functions.sms-subscribe]
-verify_jwt = false
-
-[functions.sms-monthly-blast]
-verify_jwt = false
-
-[functions.sms-webhook]
-verify_jwt = false
-
-[functions.sms-unsubscribe]
-verify_jwt = false
-
-[functions.admin-customers]
-verify_jwt = true
+[functions]
+  [functions.admin-customers]
+    verify_jwt = true
+  [functions.auth-email-hook]
+    verify_jwt = false
+  [functions.sms-monthly-blast]
+    verify_jwt = false
+  [functions.sms-subscribe]
+    verify_jwt = false
+  [functions.sms-unsubscribe]
+    verify_jwt = false
+  [functions.sms-webhook]
+    verify_jwt = false
+  [functions.preview-transactional-email]
+    verify_jwt = false
+  [functions.send-order-fulfilled-email]
+    verify_jwt = true
