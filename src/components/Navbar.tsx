@@ -65,8 +65,10 @@ const Navbar = () => {
                 <Link to="/compliance" onClick={() => setOpen(false)}>{t("nav_compliance")}</Link>
                 <a href="#contact" onClick={() => setOpen(false)}>{t("nav_contact")}</a>
                 {user ? (
-                  <Link to="/account" onClick={() => setOpen(false)}>Account</Link>
-                  <Link to="/rewards" onClick={() => setOpen(false)}>Rewards</Link>
+                  <>
+                    <Link to="/account" onClick={() => setOpen(false)}>Account</Link>
+                    <Link to="/rewards" onClick={() => setOpen(false)}>Rewards</Link>
+                  </>
                 ) : (
                   <Link to="/auth" onClick={() => setOpen(false)}>{t("nav_login")}</Link>
                 )}
