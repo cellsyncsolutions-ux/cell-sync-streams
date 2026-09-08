@@ -20,6 +20,7 @@ import AdminInventory from "./pages/AdminInventory.tsx";
 import AdminAffiliates from "./pages/AdminAffiliates.tsx";
 import AdminAnalytics from "./pages/AdminAnalytics.tsx";
 import AdminOrders from "./pages/AdminOrders.tsx";
+import AdminFulfillment from "./pages/AdminFulfillment.tsx";
 import Product from "./pages/Product.tsx";
 import ResearchLibrary from "./pages/ResearchLibrary.tsx";
 import Compliance from "./pages/Compliance.tsx";
@@ -58,6 +59,7 @@ const App = () => (
                 <Route path="/admin/affiliates" element={<AdminAffiliates />} />
                 <Route path="/admin/analytics" element={<AdminAnalytics />} />
                 <Route path="/admin/orders" element={<AdminOrders />} />
+                <Route path="/admin/fulfillment" element={<AdminFulfillment />} />
                 <Route path="/research-library" element={<ResearchLibrary />} />
                 <Route path="/compliance" element={<Compliance />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
