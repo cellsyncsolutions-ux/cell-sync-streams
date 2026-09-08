@@ -7,9 +7,18 @@ import { Link } from "react-router-dom";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
-const ProductCard = ({ p, available = true }: { p: Product; available?: boolean }) => {
+const ProductCard = ({
+  p,
+  available = true,
+  status = available ? "available" : "coming_soon",
+}: {
+  p: Product;
+  available?: boolean;
+  status?: "available" | "out_of_stock" | "coming_soon";
+}) => {
   const { t } = useLanguage();
   const { addItem } = useCart();
+  const unavailableLabel = status === "out_of_stock" ? t("product_out_of_stock") : t("product_coming_soon");
   const catLabel =
     p.category === "Peptides" ? t("cat_peptides") :
     p.category === "Blends" ? t("cat_blends") :
@@ -30,7 +39,7 @@ const ProductCard = ({ p, available = true }: { p: Product; available?: boolean 
       )}
       {!available && (
         <span className="absolute top-3 right-3 z-10 bg-navy text-navy-foreground text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded">
-          {t("product_coming_soon")}
+          {unavailableLabel}
         </span>
       )}
       <img
@@ -82,7 +91,7 @@ const ProductCard = ({ p, available = true }: { p: Product; available?: boolean 
       </div>
       {!available ? (
         <Button variant="outline" size="sm" className="w-full" disabled>
-          {t("product_coming_soon")}
+          {unavailableLabel}
         </Button>
       ) : p.variants && p.variants.length > 0 ? (
         <Button asChild variant="outline" size="sm" className="w-full">

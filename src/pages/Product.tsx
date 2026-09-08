@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import ProductDocuments from "@/components/ProductDocuments";
-import { useAvailability, isVariantAvailable } from "@/hooks/useAvailability";
+import { useAvailability, isVariantAvailable, variantStatus } from "@/hooks/useAvailability";
 
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
@@ -21,7 +21,7 @@ const Product = () => {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const { t } = useLanguage();
-  const { map: availabilityMap, loading: checkingAvailability } = useAvailability();
+  const { map: availabilityMap, status: availabilityStatus, loading: checkingAvailability } = useAvailability();
   const product = products.find((p) => p.id === id);
 
   const variantLabels = useMemo(
@@ -61,6 +61,9 @@ const Product = () => {
       : variantInStock("")
     : true;
 
+
+  const currentStatus = variantStatus(availabilityStatus, product?.id ?? "", selectedVariant?.label ?? "");
+  const unavailableLabel = currentStatus === "out_of_stock" ? t("product_out_of_stock") : t("product_coming_soon");
 
   if (!product) {
     return (
@@ -110,7 +113,7 @@ const Product = () => {
             )}
             {!isAvailable && (
               <span className="absolute top-4 right-4 z-10 bg-navy text-navy-foreground text-xs font-bold uppercase tracking-wider px-3 py-1 rounded">
-                {t("product_coming_soon")}
+                {unavailableLabel}
               </span>
             )}
             <img
@@ -159,7 +162,9 @@ const Product = () => {
                 {!isAvailable && (
                   <p className="mt-3 inline-flex items-center gap-2 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm font-medium text-destructive">
                     <span className="h-2 w-2 rounded-full bg-destructive" aria-hidden="true" />
-                    Out of stock — this dosage is currently unavailable
+                    {currentStatus === "coming_soon"
+                      ? "Coming soon — this dosage is temporarily unavailable"
+                      : "Out of stock — this dosage is currently unavailable"}
                   </p>
                 )}
               </div>
@@ -178,7 +183,7 @@ const Product = () => {
             </div>
 
             <Button onClick={handleAdd} variant="hero" size="lg" className="w-full md:w-auto" disabled={selectedVariant?.outOfStock || !isAvailable || checkingAvailability}>
-              {!isAvailable ? t("product_coming_soon") : selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
+              {!isAvailable ? unavailableLabel : selectedVariant?.outOfStock ? "Out of Stock" : t("product_add")}
             </Button>
 
 

@@ -4,13 +4,13 @@ import ProductCard from "./ProductCard";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useLanguage } from "@/i18n/LanguageContext";
-import { useAvailability, isProductAvailable } from "@/hooks/useAvailability";
+import { useAvailability, isProductAvailable, productStatus } from "@/hooks/useAvailability";
 
 const categories = ["All", "Peptides", "Blends"] as const;
 
 const Shop = () => {
   const { t } = useLanguage();
-  const { map } = useAvailability();
+  const { map, status } = useAvailability();
   const catLabel = (c: string) =>
     c === "All" ? t("cat_all") : c === "Peptides" ? t("cat_peptides") : t("cat_blends");
   const [cat, setCat] = useState("All");
@@ -19,6 +19,9 @@ const Shop = () => {
 
   const availableOf = (id: string, variants?: { label: string }[]) =>
     isProductAvailable(map, id, (variants ?? []).map((v) => v.label));
+
+  const statusOf = (id: string, variants?: { label: string }[]) =>
+    productStatus(status, id, (variants ?? []).map((v) => v.label));
 
   let list = products.filter((p) => (cat === "All" || p.category === cat) && p.name.toLowerCase().includes(q.toLowerCase()));
   if (sort === "low") list = [...list].sort((a, b) => a.price - b.price);
@@ -91,7 +94,7 @@ const Shop = () => {
               </select>
             </div>
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {list.map((p) => <ProductCard key={p.id} p={p} available={availableOf(p.id, p.variants)} />)}
+              {list.map((p) => <ProductCard key={p.id} p={p} available={availableOf(p.id, p.variants)} status={statusOf(p.id, p.variants)} />)}
             </div>
           </div>
         </div>

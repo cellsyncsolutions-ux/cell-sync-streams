@@ -58,7 +58,9 @@ const Checkout = () => {
           city: data.city || "",
           state: data.state || "",
           postal_code: data.postal_code || "",
-          country: data.country || "United States",
+          // We only ship domestically; any stored non-US country is normalized
+          // so the country selector and shipping quotes stay usable.
+          country: "United States",
         });
       }
     });
