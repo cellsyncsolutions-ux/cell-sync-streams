@@ -7,9 +7,18 @@ import { Link } from "react-router-dom";
 
 const fmt = (n: number) => `$${n.toFixed(n % 1 ? 2 : 0)}`;
 
-const ProductCard = ({ p, available = true }: { p: Product; available?: boolean }) => {
+const ProductCard = ({
+  p,
+  available = true,
+  status = available ? "available" : "coming_soon",
+}: {
+  p: Product;
+  available?: boolean;
+  status?: "available" | "out_of_stock" | "coming_soon";
+}) => {
   const { t } = useLanguage();
   const { addItem } = useCart();
+  const unavailableLabel = status === "out_of_stock" ? t("product_out_of_stock") : t("product_coming_soon");
   const catLabel =
     p.category === "Peptides" ? t("cat_peptides") :
     p.category === "Blends" ? t("cat_blends") :
