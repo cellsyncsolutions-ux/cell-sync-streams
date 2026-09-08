@@ -84,6 +84,12 @@ const Admin = () => {
     <main className="min-h-screen bg-background py-12">
       <div className="container max-w-3xl">
         <Link to="/" className="text-sm text-muted-foreground hover:text-primary">← Home</Link>
+        <div className="mt-3 flex flex-wrap gap-3 text-sm">
+          <Link to="/admin/orders" className="text-primary hover:underline">Order history</Link>
+          <Link to="/admin/customers" className="text-primary hover:underline">Customers</Link>
+          <Link to="/admin/inventory" className="text-primary hover:underline">Inventory</Link>
+          <Link to="/admin/analytics" className="text-primary hover:underline">Analytics</Link>
+        </div>
         <h1 className="text-3xl font-extrabold mt-4 mb-1">SMS Settings</h1>
         <p className="text-muted-foreground mb-8">
           Configure the discount code and message templates. Use <code className="px-1 bg-muted rounded">{`{CODE}`}</code> as a placeholder where the code should appear.
