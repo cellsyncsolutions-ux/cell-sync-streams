@@ -39,7 +39,7 @@ const ProductCard = ({
       )}
       {!available && (
         <span className="absolute top-3 right-3 z-10 bg-navy text-navy-foreground text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded">
-          {t("product_coming_soon")}
+          {unavailableLabel}
         </span>
       )}
       <img
@@ -91,7 +91,7 @@ const ProductCard = ({
       </div>
       {!available ? (
         <Button variant="outline" size="sm" className="w-full" disabled>
-          {t("product_coming_soon")}
+          {unavailableLabel}
         </Button>
       ) : p.variants && p.variants.length > 0 ? (
         <Button asChild variant="outline" size="sm" className="w-full">
