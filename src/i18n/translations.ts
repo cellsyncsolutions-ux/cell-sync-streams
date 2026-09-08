@@ -71,6 +71,7 @@ export const translations = {
     product_select: "Select Options",
     product_add: "Add to Cart",
     product_coming_soon: "Coming Soon",
+    product_out_of_stock: "Out of Stock",
 
 
     // Features
@@ -199,6 +200,7 @@ export const translations = {
     product_select: "Elegir opciones",
     product_add: "Agregar al carrito",
     product_coming_soon: "Próximamente",
+    product_out_of_stock: "Agotado",
 
 
     features_kicker: "Por qué los investigadores nos eligen",
