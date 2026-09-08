@@ -51,6 +51,7 @@ const STATUS_STYLE: Record<string, string> = {
   pending: "bg-amber-500/15 text-amber-600 border-amber-500/30",
   paid: "bg-emerald-500/15 text-emerald-600 border-emerald-500/30",
   shipped: "bg-primary/15 text-primary border-primary/30",
+  fulfilled: "bg-emerald-500/15 text-emerald-600 border-emerald-500/30",
   delivered: "bg-emerald-500/15 text-emerald-600 border-emerald-500/30",
   completed: "bg-emerald-500/15 text-emerald-600 border-emerald-500/30",
   canceled: "bg-destructive/10 text-destructive border-destructive/30",
