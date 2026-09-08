@@ -20,6 +20,7 @@ import AdminInventory from "./pages/AdminInventory.tsx";
 import AdminAffiliates from "./pages/AdminAffiliates.tsx";
 import AdminAnalytics from "./pages/AdminAnalytics.tsx";
 import AdminOrders from "./pages/AdminOrders.tsx";
+import AdminFulfillment from "./pages/AdminFulfillment.tsx";
 import Product from "./pages/Product.tsx";
 import ResearchLibrary from "./pages/ResearchLibrary.tsx";
 import Compliance from "./pages/Compliance.tsx";
