@@ -85,6 +85,7 @@ const Admin = () => {
       <div className="container max-w-3xl">
         <Link to="/" className="text-sm text-muted-foreground hover:text-primary">← Home</Link>
         <div className="mt-3 flex flex-wrap gap-3 text-sm">
+          <Link to="/admin/fulfillment" className="text-primary hover:underline">Packing &amp; fulfillment</Link>
           <Link to="/admin/orders" className="text-primary hover:underline">Order history</Link>
           <Link to="/admin/customers" className="text-primary hover:underline">Customers</Link>
           <Link to="/admin/inventory" className="text-primary hover:underline">Inventory</Link>
