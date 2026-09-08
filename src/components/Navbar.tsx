@@ -33,9 +33,12 @@ const Navbar = () => {
           <Link to="/compliance" className="hidden lg:block hover:text-primary transition-smooth">{t("nav_compliance")}</Link>
           <a href="#contact" className="hidden md:block hover:text-primary transition-smooth">{t("nav_contact")}</a>
           {user ? (
-            <Link to="/account" className="hidden md:flex items-center gap-1.5 hover:text-primary transition-smooth">
-              <User className="h-4 w-4" /> Account
-            </Link>
+            <>
+              <Link to="/rewards" className="hidden lg:block hover:text-primary transition-smooth">Rewards</Link>
+              <Link to="/account" className="hidden md:flex items-center gap-1.5 hover:text-primary transition-smooth">
+                <User className="h-4 w-4" /> Account
+              </Link>
+            </>
           ) : (
             <Link to="/auth" className="hidden md:block hover:text-primary transition-smooth">{t("nav_login")}</Link>
           )}
