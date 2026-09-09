@@ -19,13 +19,13 @@ const Navbar = () => {
   <header className="sticky top-0 inset-x-0 z-50">
     <div className="bg-navy text-navy-foreground">
       <nav className="container flex h-20 md:h-24 items-center justify-between gap-2">
-        <a href="#" className="flex items-center gap-2 md:gap-3 min-w-0">
+        <Link to="/" className="flex items-center gap-2 md:gap-3 min-w-0">
           <img src={logo} alt="Cell Sync Solutions" width={64} height={64} className="h-10 w-10 md:h-14 md:w-14 shrink-0 object-contain drop-shadow-[0_0_8px_hsl(var(--primary)/0.45)]" />
           <span className="font-extrabold text-sm md:text-xl tracking-tight text-primary leading-none min-w-0">
             CELL SYNC SOLUTIONS<br/>
             <span className="text-[9px] md:text-[10px] font-semibold tracking-[0.18em] md:tracking-[0.25em] text-navy-foreground/70">{t("nav_tagline")}</span>
           </span>
-        </a>
+        </Link>
         <div className="flex items-center gap-4 lg:gap-8 text-sm font-bold uppercase tracking-wider shrink-0">
           <a href="#about" className="hidden md:block hover:text-primary transition-smooth">{t("nav_about")}</a>
           <a href="#shop" className="hidden md:block hover:text-primary transition-smooth">{t("nav_shop")}</a>
