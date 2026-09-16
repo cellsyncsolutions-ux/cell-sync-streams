@@ -130,7 +130,7 @@ const Product = () => {
             <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mb-3">{catLabel}</p>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-5">{product.name}</h1>
 
-            <div className="mb-6">
+            {currentStatus !== "coming_soon" && <div className="mb-6">
               {displayOriginal ? (
                 <>
                   <span className="text-muted-foreground line-through mr-3 text-xl">{fmt(displayOriginal)}</span>
@@ -139,7 +139,7 @@ const Product = () => {
               ) : (
                 <span className="text-primary font-extrabold text-3xl">{fmt(displayPrice)}</span>
               )}
-            </div>
+            </div>}
 
             {product.variants && product.variants.length > 0 && (
               <div className="mb-6">
@@ -151,9 +151,10 @@ const Product = () => {
                   <SelectContent>
                     {product.variants.map((v) => {
                       const inStock = variantInStock(v.label);
+                      const status = variantStatus(availabilityStatus, product.id, v.label);
                       return (
                         <SelectItem key={v.label} value={v.label} disabled={!inStock}>
-                          {v.label} — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}{!inStock ? " (Out of stock)" : ""}
+                          {v.label}{status !== "coming_soon" ? <> — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}</> : null}{!inStock ? ` (${status === "coming_soon" ? "Coming soon" : "Out of stock"})` : ""}
                         </SelectItem>
                       );
                     })}
