@@ -488,7 +488,11 @@ const Checkout = () => {
                     <span>Total</span>
                     <span>${finalTotal.toFixed(2)}</span>
                   </div>
-                  <p className="text-xs text-primary pt-1">You'll earn {Math.floor(merchandiseTotal)} points</p>
+                  <p className="text-xs text-primary pt-1">
+                    You'll earn {(Math.floor(merchandiseTotal) * 20 + Math.floor(merchandiseTotal / 100) * 1000).toLocaleString()} points
+                    {Math.floor(merchandiseTotal / 100) > 0 &&
+                      ` (includes a $${Math.floor(merchandiseTotal / 100) * 10} bonus reward)`}
+                  </p>
                 </div>
               </div>
 
