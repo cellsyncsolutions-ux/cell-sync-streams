@@ -23,9 +23,18 @@ interface Props {
   customerName?: string
   shippingMethod?: string
   items?: Item[]
+  pointsEarned?: number
+  pointsBalance?: number
 }
 
-const Email = ({ orderNumber, customerName, shippingMethod, items = [] }: Props) => (
+const Email = ({
+  orderNumber,
+  customerName,
+  shippingMethod,
+  items = [],
+  pointsEarned = 0,
+  pointsBalance = 0,
+}: Props) => (
   <Html lang="en" dir="ltr">
     <Head />
     <Preview>Your Cell Sync Solutions order is packed and on its way</Preview>
@@ -49,6 +58,17 @@ const Email = ({ orderNumber, customerName, shippingMethod, items = [] }: Props)
             ))}
           </Section>
         )}
+
+        <Section style={card}>
+          <Text style={cardTitle}>Reward points</Text>
+          <Text style={itemLine}>
+            Earned on this order: <strong>+{pointsEarned.toLocaleString()} pts</strong>
+          </Text>
+          <Text style={itemLine}>
+            Your points balance: <strong>{pointsBalance.toLocaleString()} pts</strong> (worth $
+            {(pointsBalance / 100).toFixed(2)} off your next order)
+          </Text>
+        </Section>
 
         <Hr style={hr} />
         <Text style={fine}>
