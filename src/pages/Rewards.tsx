@@ -103,8 +103,8 @@ const Rewards = () => {
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">Loyalty Program</p>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">Rewards</h1>
           <p className="text-muted-foreground mt-3 max-w-2xl">
-            Earn 20 points for every $1 spent on products, plus a bonus worth $10 off for every $100 you spend
-            in a single order. Every {POINTS_PER_DOLLAR} points is worth $1 off your next order.
+            Earn 20 points per $1 spent—so every $5 earns you $1 off your next order. Spend $100 in one order
+            and earn an extra $10 off.
           </p>
         </header>
 
