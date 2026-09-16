@@ -93,6 +93,8 @@ export const template = {
       { name: 'GLP-3 RT — 5mg', quantity: 2 },
       { name: 'BPC-157 — 10mg', quantity: 1 },
     ],
+    pointsEarned: 3200,
+    pointsBalance: 5400,
   },
 } satisfies TemplateEntry
 
