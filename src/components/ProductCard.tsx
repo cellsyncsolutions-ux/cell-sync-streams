@@ -57,7 +57,7 @@ const ProductCard = ({
       <Link to={`/product/${p.id}`} className="block hover:text-primary transition-smooth">
         <h3 className="font-semibold text-base mb-2 min-h-[3rem] leading-snug">{p.name}</h3>
       </Link>
-      <div className="mb-4">
+      {status !== "coming_soon" && <div className="mb-4">
         {p.variants && p.variants.length > 1 ? (() => {
           const prices = p.variants.map((v) => v.price);
           const originals = p.variants.map((v) => v.originalPrice).filter((o): o is number => o !== undefined);
@@ -88,7 +88,7 @@ const ProductCard = ({
         ) : (
           <span className="text-primary font-bold text-lg">{fmt(p.price)}</span>
         )}
-      </div>
+      </div>}
       {!available ? (
         <Button variant="outline" size="sm" className="w-full" disabled>
           {unavailableLabel}
