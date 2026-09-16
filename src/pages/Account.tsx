@@ -256,6 +256,16 @@ const Account = () => {
                         </li>
                       ))}
                     </ul>
+                    <div className="mt-3 pt-3 border-t border-border flex flex-wrap items-center justify-between gap-2 text-sm">
+                      <span className="text-muted-foreground">
+                        {o.points_reversed
+                          ? "Points from this order were reversed"
+                          : `You earned ${o.points_earned.toLocaleString()} points on this order`}
+                      </span>
+                      <Link to="/rewards" className="font-semibold text-primary hover:underline">
+                        Points balance: {profile.points.toLocaleString()} (${(profile.points / 100).toFixed(2)} off)
+                      </Link>
+                    </div>
                     {Number(o.points_redeemed) > 0 && (
                       <div className="mt-3 pt-3 border-t border-border text-sm flex justify-between text-primary">
                         <span className={o.points_reversed ? "line-through text-muted-foreground" : ""}>

@@ -36,7 +36,7 @@ Deno.serve(async (req) => {
 
     const { data: order, error } = await admin
       .from('orders')
-      .select('id, user_id, shipping_name, shipping_method, order_items(product_name, variant, quantity)')
+      .select('id, user_id, shipping_name, shipping_method, points_earned, points_reversed, order_items(product_name, variant, quantity)')
       .eq('id', orderId)
       .maybeSingle()
     if (error) return json({ error: error.message }, 500)
@@ -44,7 +44,7 @@ Deno.serve(async (req) => {
 
     const { data: profile } = await admin
       .from('profiles')
-      .select('email, full_name')
+      .select('email, full_name, points')
       .eq('id', order.user_id)
       .maybeSingle()
 
@@ -56,6 +56,8 @@ Deno.serve(async (req) => {
         orderNumber: order.id.slice(0, 8).toUpperCase(),
         customerName: order.shipping_name || profile?.full_name || '',
         shippingMethod: order.shipping_method || '',
+        pointsEarned: order.points_reversed ? 0 : Number(order.points_earned ?? 0),
+        pointsBalance: Number(profile?.points ?? 0),
         items: (order.order_items ?? []).map((it: Record<string, unknown>) => ({
           name: `${it.product_name}${it.variant ? ` — ${it.variant}` : ''}`,
           quantity: it.quantity,
