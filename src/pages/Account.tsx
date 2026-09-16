@@ -191,7 +191,7 @@ const Account = () => {
             <div>
               <p className="text-xs uppercase tracking-wider opacity-80">Reward points</p>
               <p className="text-3xl font-extrabold">{profile.points}</p>
-              <p className="text-xs opacity-80">1 pt per $1 spent</p>
+              <p className="text-xs opacity-80">20 pts per $1 spent</p>
             </div>
           </div>
         </div>
