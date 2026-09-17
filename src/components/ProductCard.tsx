@@ -59,8 +59,9 @@ const ProductCard = ({
       </Link>
       {status !== "coming_soon" && <div className="mb-4">
         {p.variants && p.variants.length > 1 ? (() => {
-          const prices = p.variants.map((v) => v.price);
-          const originals = p.variants.map((v) => v.originalPrice).filter((o): o is number => o !== undefined);
+           const visibleVariants = p.variants.filter((v) => !v.outOfStock);
+           const prices = visibleVariants.map((v) => v.price);
+           const originals = visibleVariants.map((v) => v.originalPrice).filter((o): o is number => o !== undefined);
           const min = Math.min(...prices);
           const max = Math.max(...prices);
           const origMin = originals.length > 0 ? Math.min(...originals) : null;
