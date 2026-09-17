@@ -19,6 +19,8 @@ import mt1Asset from "@/assets/mt-1-vial.jpg.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
+import kpvAsset from "@/assets/kpv-vial.png.asset.json";
+const kpvVial = kpvAsset.url;
 const nadVial = nadAsset.url;
 const ghkCuVial = ghkCuAsset.url;
 const vial = vialAsset.url;
@@ -114,4 +116,7 @@ export const products: Product[] = [
   { id: "ipa", name: "IPA (Ipamorelin)", category: "Peptides", price: 45, image: ipaVial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 80, originalPrice: 89, outOfStock: true }] },
+  { id: "kpv", name: "KPV", category: "Peptides", price: 45, priceRange: [45, 75], image: kpvVial,
+    sale: true,
+    variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 75, originalPrice: 84 }] },
 ];
