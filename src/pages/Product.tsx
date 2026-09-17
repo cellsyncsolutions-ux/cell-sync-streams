@@ -152,9 +152,10 @@ const Product = () => {
                     {product.variants.map((v) => {
                       const inStock = variantInStock(v.label);
                       const status = variantStatus(availabilityStatus, product.id, v.label);
+                      const showPrice = inStock && status !== "coming_soon";
                       return (
                         <SelectItem key={v.label} value={v.label} disabled={!inStock}>
-                          {v.label}{status !== "coming_soon" ? <> — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}</> : null}{!inStock ? ` (${status === "coming_soon" ? "Coming soon" : "Out of stock"})` : ""}
+                          {v.label}{showPrice ? <> — {v.originalPrice ? <span className="text-muted-foreground line-through mr-1">{fmt(v.originalPrice)}</span> : null}{fmt(v.price)}</> : null}{!inStock ? ` (${status === "coming_soon" ? "Coming soon" : "Out of stock"})` : ""}
                         </SelectItem>
                       );
                     })}
