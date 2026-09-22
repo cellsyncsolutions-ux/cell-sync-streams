@@ -58,7 +58,7 @@ export type Product = {
 };
 
 export const products: Product[] = [
-  { id: "glp-3", name: "CSS-RT", category: "Peptides", price: 25, priceRange: [25, 295], image: glp3RtVial,
+  { id: "glp-3", name: "CSS-3 RT", category: "Peptides", price: 25, priceRange: [25, 295], image: glp3RtVial,
     sale: true,
     variants: [{ label: "5mg", price: 25, originalPrice: 28 }, { label: "10mg", price: 45, originalPrice: 50 }, { label: "20mg", price: 85, originalPrice: 95 }, { label: "30mg", price: 125, originalPrice: 139 }, { label: "60mg", price: 295, originalPrice: 328, outOfStock: true }] },
   { id: "glow-70", name: "GLOW (GHK-Cu/BPC157/TB500)", category: "Blends", price: 120, image: glowVial,
