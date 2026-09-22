@@ -20,7 +20,9 @@ import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
 import ipaAsset from "@/assets/ipa-vial.jpg.asset.json";
 import kpvAsset from "@/assets/kpv-vial.png.asset.json";
+import lGluAsset from "@/assets/l-glutathione-vial.png.asset.json";
 const kpvVial = kpvAsset.url;
+const lGluVial = lGluAsset.url;
 const nadVial = nadAsset.url;
 const ghkCuVial = ghkCuAsset.url;
 const vial = vialAsset.url;
@@ -119,4 +121,6 @@ export const products: Product[] = [
   { id: "kpv", name: "KPV", category: "Peptides", price: 45, priceRange: [45, 75], image: kpvVial,
     sale: true,
     variants: [{ label: "5mg", price: 45, originalPrice: 50 }, { label: "10mg", price: 75, originalPrice: 84 }] },
+  { id: "l-glutathione", name: "L-Glutathione", category: "Peptides", price: 0, image: lGluVial,
+    variants: [{ label: "300mg", price: 0 }, { label: "600mg", price: 0 }, { label: "1200mg", price: 0 }] },
 ];
