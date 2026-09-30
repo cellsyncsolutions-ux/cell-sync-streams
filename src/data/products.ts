@@ -14,7 +14,7 @@ import wBlendAsset from "@/assets/w-blend-vial.png.asset.json";
 import selankAsset from "@/assets/selank-vial.png.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 import ss31Asset from "@/assets/ss-31-vial.png.asset.json";
-import mt2Asset from "@/assets/mt-2-vial.jpg.asset.json";
+import mt2Asset from "@/assets/mt-2-vial.png.asset.json";
 import mt1Asset from "@/assets/mt-1-vial.png.asset.json";
 import semaxAsset from "@/assets/semax-vial.jpg.asset.json";
 import tb500Asset from "@/assets/tb-500-vial.jpg.asset.json";
