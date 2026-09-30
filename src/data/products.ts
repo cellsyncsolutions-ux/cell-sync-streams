@@ -10,7 +10,7 @@ import klowAsset from "@/assets/klow-80mg-vial.jpg.asset.json";
 import igf1Lr3Asset from "@/assets/igf1-lr3-vial.jpg.asset.json";
 import motsCAsset from "@/assets/mots-c-vial.png.asset.json";
 import cjcIpaAsset from "@/assets/cjc-ipa-vial.jpg.asset.json";
-import wBlendAsset from "@/assets/w-blend-vial.jpg.asset.json";
+import wBlendAsset from "@/assets/w-blend-vial.png.asset.json";
 import selankAsset from "@/assets/selank-vial.png.asset.json";
 import tesamorelinAsset from "@/assets/tesamorelin-vial.jpg.asset.json";
 import ss31Asset from "@/assets/ss-31-vial.jpg.asset.json";
