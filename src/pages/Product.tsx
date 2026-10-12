@@ -180,7 +180,7 @@ const Product = () => {
               <ul className="list-disc list-inside space-y-1">
                 <li>≥99% verified purity</li>
                 <li>Third-party COA available</li>
-                <li>Cold-chain shipping in 24 hours</li>
+                <li>Ships within 24 hours or next business day</li>
               </ul>
             </div>
 
