@@ -4,7 +4,7 @@ import { ShoppingCart, User, Menu } from "lucide-react";
 import logo from "@/assets/logo-mark.png";
 import { useLanguage } from "@/i18n/LanguageContext";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { useCart } from "@/contexts/CartContext";
 import CartSheet from "./CartSheet";
@@ -15,6 +15,16 @@ const Navbar = () => {
   const { user } = useAuth();
   const { count } = useCart();
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const goShop = () => {
+    setOpen(false);
+    if (pathname === "/") {
+      document.getElementById("shop")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      navigate("/#shop");
+    }
+  };
   return (
   <header className="sticky top-0 inset-x-0 z-50">
     <div className="bg-navy text-navy-foreground">
@@ -28,7 +38,7 @@ const Navbar = () => {
         </Link>
         <div className="flex items-center gap-4 lg:gap-8 text-sm font-bold uppercase tracking-wider shrink-0">
           <a href="#about" className="hidden md:block hover:text-primary transition-smooth">{t("nav_about")}</a>
-          <a href="#shop" className="hidden md:block hover:text-primary transition-smooth">{t("nav_shop")}</a>
+          <a href="/#shop" onClick={(e) => { e.preventDefault(); goShop(); }} className="hidden md:block hover:text-primary transition-smooth">{t("nav_shop")}</a>
           <Link to="/research-library" className="hidden lg:block hover:text-primary transition-smooth">Research Library</Link>
           <Link to="/compliance" className="hidden lg:block hover:text-primary transition-smooth">{t("nav_compliance")}</Link>
           <a href="#contact" className="hidden md:block hover:text-primary transition-smooth">{t("nav_contact")}</a>
@@ -60,7 +70,7 @@ const Navbar = () => {
             <SheetContent side="right" className="w-[80vw] max-w-xs bg-navy text-navy-foreground border-navy-foreground/20">
               <div className="mt-10 flex flex-col gap-5 text-base font-bold uppercase tracking-wider">
                 <a href="#about" onClick={() => setOpen(false)}>{t("nav_about")}</a>
-                <a href="#shop" onClick={() => setOpen(false)}>{t("nav_shop")}</a>
+                <a href="/#shop" onClick={(e) => { e.preventDefault(); goShop(); }}>{t("nav_shop")}</a>
                 <Link to="/research-library" onClick={() => setOpen(false)}>Research Library</Link>
                 <Link to="/compliance" onClick={() => setOpen(false)}>{t("nav_compliance")}</Link>
                 <a href="#contact" onClick={() => setOpen(false)}>{t("nav_contact")}</a>

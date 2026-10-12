@@ -33,7 +33,7 @@ const Shop = () => {
 
 
   return (
-    <section id="shop" className="py-16 bg-secondary/40">
+    <section id="shop" className="py-16 bg-secondary/40 scroll-mt-32">
       <div className="container">
         <div className="mb-10">
           <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground mb-2">{t("shop_breadcrumb")}</p>
