@@ -32,6 +32,10 @@ const AdminQRCodes = () => {
 
   const urlFor = (id: string) => `${SITE}/product/${id}`;
 
+  const HOME_ID = "home";
+  const homeUrl = SITE;
+
+
   const downloadOne = (id: string, name: string) => {
     const canvas = canvasRefs.current[id];
     if (!canvas) return;
