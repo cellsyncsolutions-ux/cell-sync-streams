@@ -158,6 +158,40 @@ const AdminQRCodes = () => {
           </div>
         </div>
 
+        <section className="mb-10 rounded-xl border border-border bg-card p-6">
+          <div className="flex flex-col sm:flex-row items-center gap-6">
+            <div className="bg-white p-4 rounded-lg shrink-0">
+              <QRCodeCanvas
+                value={homeUrl}
+                size={200}
+                level="M"
+                includeMargin={false}
+                ref={(el) => {
+                  canvasRefs.current[HOME_ID] = el;
+                }}
+              />
+            </div>
+            <div className="text-center sm:text-left">
+              <h2 className="text-lg font-bold">Home Page QR Code</h2>
+              <p className="text-sm text-muted-foreground mt-1 max-w-md">
+                Scans straight to the home page. Use it on business cards, packaging, flyers, or signage.
+              </p>
+              <p className="text-xs text-muted-foreground break-all mt-2">{homeUrl}</p>
+              <div className="flex flex-wrap gap-2 mt-4 print:hidden">
+                <Button size="sm" variant="outline" onClick={() => copyOne(HOME_ID)}>
+                  Copy
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => downloadOne(HOME_ID, "Home")}>
+                  Download PNG
+                </Button>
+                <Button size="sm" variant="outline" onClick={() => window.print()}>
+                  Print
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 print:grid-cols-3 print:gap-4">
           {products.map((p) => (
             <div
