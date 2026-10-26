@@ -165,7 +165,7 @@ const AdminQRCodes = () => {
                 value={homeUrl}
                 size={200}
                 level="M"
-                includeMargin={false}
+                includeMargin={true}
                 ref={(el) => {
                   canvasRefs.current[HOME_ID] = el;
                 }}
