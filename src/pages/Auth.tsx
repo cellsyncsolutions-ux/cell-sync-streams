@@ -56,7 +56,7 @@ const Auth = () => {
     const form = new FormData(e.currentTarget);
     const parsed = signInSchema.safeParse({ email: form.get("email"), password: form.get("password") });
     if (!parsed.success) {
-      toast.error(parsed.error.errors[0].message);
+      toast.error(parsed.error.issues[0].message);
       return;
     }
     setSubmitting(true);
@@ -82,7 +82,7 @@ const Auth = () => {
       fullName: form.get("fullName"),
     });
     if (!parsed.success) {
-      toast.error(parsed.error.errors[0].message);
+      toast.error(parsed.error.issues[0].message);
       return;
     }
     setSubmitting(true);
