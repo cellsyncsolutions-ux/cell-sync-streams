@@ -181,12 +181,16 @@ const AdminInventory = () => {
         <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
           <div>
             <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">Inventory</h1>
-            <p className="text-muted-foreground text-sm mt-1">
+            <p className="text-muted-foreground text-sm mt-1 print:hidden">
               Exact unit counts per product and dosage. Update the number when new stock arrives.
             </p>
+            <p className="hidden print:block text-xs text-muted-foreground mt-1">
+              Printed {new Date().toLocaleString()}
+            </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 print:hidden">
             <Button variant="outline" onClick={load} disabled={busy}>Refresh</Button>
+            <Button variant="outline" onClick={() => window.print()}>Print</Button>
             <Button variant="hero" onClick={saveAll} disabled={busy}>Save all</Button>
           </div>
         </div>
