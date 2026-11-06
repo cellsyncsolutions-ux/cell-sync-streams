@@ -195,7 +195,7 @@ const AdminInventory = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6 print:hidden">
           {[
             { label: "SKUs tracked", value: totals.skus },
             { label: "Total units", value: totals.units },
@@ -210,7 +210,7 @@ const AdminInventory = () => {
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-3 items-center mb-4">
+        <div className="flex flex-wrap gap-3 items-center mb-4 print:hidden">
           <Input
             placeholder="Search product or dosage…"
             value={query}
@@ -232,7 +232,7 @@ const AdminInventory = () => {
                 <th className="p-3 font-semibold">On hand</th>
                 <th className="p-3 font-semibold">Low at</th>
                 <th className="p-3 font-semibold">Status</th>
-                <th className="p-3" />
+                <th className="p-3 print:hidden" />
               </tr>
             </thead>
             <tbody>
@@ -244,7 +244,7 @@ const AdminInventory = () => {
                     <td className="p-3 font-medium">{r.product_name}</td>
                     <td className="p-3 text-muted-foreground">{r.variant || "—"}</td>
                     <td className="p-3">
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 print:hidden">
                         <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", Math.max(0, r.quantity - 10))}>−10</Button>
                         <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", Math.max(0, r.quantity - 1))}>−</Button>
                         <Input
@@ -257,6 +257,7 @@ const AdminInventory = () => {
                         <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", r.quantity + 1)}>+</Button>
                         <Button size="sm" variant="outline" className="px-2" onClick={() => setField(key, "quantity", r.quantity + 10)}>+10</Button>
                       </div>
+                      <span className="hidden print:inline font-medium">{r.quantity}</span>
 
                     </td>
                     <td className="p-3">
@@ -265,8 +266,9 @@ const AdminInventory = () => {
                         min={0}
                         value={r.low_stock_threshold}
                         onChange={(e) => setField(key, "low_stock_threshold", Number(e.target.value))}
-                        className="w-16 text-center"
+                        className="w-16 text-center print:hidden"
                       />
+                      <span className="hidden print:inline">{r.low_stock_threshold}</span>
                     </td>
                     <td className="p-3">
                       {r.available === false ? (
@@ -285,7 +287,7 @@ const AdminInventory = () => {
                         </span>
                       )}
                     </td>
-                    <td className="p-3 text-right">
+                    <td className="p-3 text-right print:hidden">
                       <div className="flex gap-2 justify-end">
                         <Button
                           size="sm"
