@@ -137,6 +137,14 @@ All colors MUST be HSL.
   }
 }
 
+@media print {
+  @page { margin: 12mm; }
+  body { background: white; }
+  table { font-size: 11px; }
+  th, td { padding: 4px 8px !important; }
+  tr { page-break-inside: avoid; }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
