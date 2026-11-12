@@ -15,6 +15,20 @@
       "when": 1793672574782,
       "tag": "0001_tighten_permissive_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794442720477,
+      "tag": "0002_inventory_unit_cost",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794442732815,
+      "tag": "0003_product_costs",
+      "breakpoints": true
     }
   ]
 }

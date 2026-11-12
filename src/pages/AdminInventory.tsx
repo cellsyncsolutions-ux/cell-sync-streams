@@ -15,6 +15,8 @@ type Row = {
   quantity: number;
   low_stock_threshold: number;
   available: boolean;
+  price: number;
+  unit_cost: number | null;
 };
 
 const buildSkus = (): Row[] => {
@@ -22,10 +24,10 @@ const buildSkus = (): Row[] => {
   products.forEach((p) => {
     if (p.variants?.length) {
       p.variants.forEach((v) =>
-        rows.push({ product_id: p.id, product_name: p.name, variant: v.label, quantity: 0, low_stock_threshold: 5, available: true })
+        rows.push({ product_id: p.id, product_name: p.name, variant: v.label, quantity: 0, low_stock_threshold: 5, available: true, price: v.price, unit_cost: null })
       );
     } else {
-      rows.push({ product_id: p.id, product_name: p.name, variant: "", quantity: 0, low_stock_threshold: 5, available: true });
+      rows.push({ product_id: p.id, product_name: p.name, variant: "", quantity: 0, low_stock_threshold: 5, available: true, price: p.price, unit_cost: null });
     }
   });
   return rows;
@@ -62,10 +64,14 @@ const AdminInventory = () => {
       toast.error(error.message);
       return;
     }
+    const { data: costs } = await supabase.from("product_costs").select("product_id, variant, unit_cost");
+    const costMap = new Map((costs ?? []).map((c) => [`${c.product_id}::${c.variant}`, Number(c.unit_cost)]));
     const saved = new Map((data ?? []).map((r) => [`${r.product_id}::${r.variant}`, r]));
     const merged = buildSkus().map((sku) => {
       const hit = saved.get(`${sku.product_id}::${sku.variant}`);
-      return hit ? { ...sku, ...hit } : sku;
+      const k = `${sku.product_id}::${sku.variant}`;
+      const base = hit ? { ...sku, ...hit, price: sku.price } : sku;
+      return { ...base, unit_cost: costMap.has(k) ? costMap.get(k)! : null };
     });
     setRows(merged);
   };
@@ -75,7 +81,7 @@ const AdminInventory = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAdmin]);
 
-  const setField = (key: string, field: "quantity" | "low_stock_threshold", value: number) => {
+  const setField = (key: string, field: "quantity" | "low_stock_threshold" | "unit_cost", value: number | null) => {
     setRows((prev) =>
       prev.map((r) => (`${r.product_id}::${r.variant}` === key ? { ...r, [field]: value } : r))
     );
@@ -90,10 +96,19 @@ const AdminInventory = () => {
     available: r.available !== false,
   });
 
+  const costPayload = (r: Row) => ({ product_id: r.product_id, variant: r.variant, unit_cost: Math.max(0, Number(r.unit_cost) || 0), updated_at: new Date().toISOString() });
+  const saveCosts = async (list: Row[]) => {
+    const withCost = list.filter((r) => r.unit_cost !== null && !Number.isNaN(r.unit_cost));
+    if (!withCost.length) return null;
+    const { error } = await supabase.from("product_costs").upsert(withCost.map(costPayload), { onConflict: "product_id,variant" });
+    return error;
+  };
+
   const saveRow = async (row: Row) => {
-    const { error } = await supabase
+    const { error: e1 } = await supabase
       .from("product_inventory")
       .upsert(payload(row), { onConflict: "product_id,variant" });
+    const error = e1 ?? (await saveCosts([row]));
     if (error) {
       toast.error(error.message);
       return;
@@ -124,9 +139,10 @@ const AdminInventory = () => {
 
   const saveAll = async () => {
     setBusy(true);
-    const { error } = await supabase
+    const { error: e1 } = await supabase
       .from("product_inventory")
       .upsert(rows.map(payload), { onConflict: "product_id,variant" });
+    const error = e1 ?? (await saveCosts(rows));
     setBusy(false);
     if (error) {
       toast.error(error.message);
@@ -231,6 +247,9 @@ const AdminInventory = () => {
                 <th className="p-3 font-semibold">Dosage</th>
                 <th className="p-3 font-semibold">On hand</th>
                 <th className="p-3 font-semibold">Low at</th>
+                <th className="p-3 font-semibold">Price</th>
+                <th className="p-3 font-semibold">Cost</th>
+                <th className="p-3 font-semibold">Profit / margin</th>
                 <th className="p-3 font-semibold">Status</th>
                 <th className="p-3 print:hidden" />
               </tr>
@@ -269,6 +288,30 @@ const AdminInventory = () => {
                         className="w-16 text-center print:hidden"
                       />
                       <span className="hidden print:inline">{r.low_stock_threshold}</span>
+                    </td>
+                    <td className="p-3">{r.price > 0 ? `$${r.price.toFixed(2)}` : "—"}</td>
+                    <td className="p-3">
+                      <Input
+                        type="number"
+                        min={0}
+                        step="0.01"
+                        placeholder="0.00"
+                        value={r.unit_cost ?? ""}
+                        onChange={(e) => setField(key, "unit_cost", e.target.value === "" ? null : Number(e.target.value))}
+                        className="w-24 text-center print:hidden"
+                      />
+                      <span className="hidden print:inline">{r.unit_cost != null ? `$${r.unit_cost.toFixed(2)}` : "—"}</span>
+                    </td>
+                    <td className="p-3 whitespace-nowrap">
+                      {r.unit_cost != null && r.price > 0 ? (() => {
+                        const profit = r.price - r.unit_cost;
+                        const margin = (profit / r.price) * 100;
+                        return (
+                          <span className={profit < 0 ? "text-destructive font-semibold" : "font-medium"}>
+                            ${profit.toFixed(2)} <span className="text-muted-foreground">({margin.toFixed(1)}%)</span>
+                          </span>
+                        );
+                      })() : <span className="text-muted-foreground">—</span>}
                     </td>
                     <td className="p-3">
                       {r.available === false ? (

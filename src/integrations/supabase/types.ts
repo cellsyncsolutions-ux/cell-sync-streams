@@ -340,6 +340,27 @@ export type Database = {
           },
         ]
       }
+      product_costs: {
+        Row: {
+          product_id: string
+          unit_cost: number
+          updated_at: string
+          variant: string
+        }
+        Insert: {
+          product_id: string
+          unit_cost?: number
+          updated_at?: string
+          variant?: string
+        }
+        Update: {
+          product_id?: string
+          unit_cost?: number
+          updated_at?: string
+          variant?: string
+        }
+        Relationships: []
+      }
       product_documents: {
         Row: {
           created_at: string
@@ -382,6 +403,7 @@ export type Database = {
           product_id: string
           product_name: string
           quantity: number
+          unit_cost: number | null
           updated_at: string
           variant: string
         }
@@ -393,6 +415,7 @@ export type Database = {
           product_id: string
           product_name: string
           quantity?: number
+          unit_cost?: number | null
           updated_at?: string
           variant?: string
         }
@@ -404,6 +427,7 @@ export type Database = {
           product_id?: string
           product_name?: string
           quantity?: number
+          unit_cost?: number | null
           updated_at?: string
           variant?: string
         }

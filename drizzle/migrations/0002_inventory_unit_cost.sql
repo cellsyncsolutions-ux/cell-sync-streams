@@ -1,0 +1,1 @@
+ALTER TABLE public.product_inventory ADD COLUMN IF NOT EXISTS unit_cost numeric;
